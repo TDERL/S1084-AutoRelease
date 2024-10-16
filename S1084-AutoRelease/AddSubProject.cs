@@ -14,6 +14,7 @@ namespace S1084_AutoRelease
 {
     public partial class AddSubProject : Form
     {
+        public string number = "";
         public string name = "";
         public string outputType = "";
         public string outputPath = "";
@@ -34,18 +35,20 @@ namespace S1084_AutoRelease
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            name = ProjectNameTextBox.Text;
+            number = SoftwareNumberTextBox.Text;
+            name = SoftwareNameTextBox.Text;
             outputType = OutputTypeTextBox.Text;
             outputPath = OutputPathTextBox.Text;
             versionPath = VersionPathTextBox.Text;
             releasesPath = ReleasesPathTextBox.Text;
             archivePath = ArchivePathTextBox.Text;
 
-            if (name == "Please enter name")
+            if (number == "Please enter number")
             {
-                MessageBox.Show("Please enter the Sxxxx name for the sub-project");
+                MessageBox.Show("Please enter the Sxxxx number for the sub-project (and ONLY the Sxxxx number)");
                 return;
             }
+
             //Please enter a.extension
             if (outputType == "Please enter a.extension")
             {

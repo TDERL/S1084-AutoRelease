@@ -9,34 +9,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using static System.Windows.Forms.AxHost;
+using System.Xml.Linq;
 
 
 namespace S1084_AutoRelease
 {
     public partial class NewProject : Form
     {
+        private XmlDocument projects = new XmlDocument();
         private List<AddSubProject> addSubProjects = new List<AddSubProject>();
-        public NewProject()
+        public NewProject(XmlDocument projects)
         {
             InitializeComponent();
+            this.projects = projects;
         }
 
 
         private bool SaveProject()
         {
             string projectName = ProjectNameTextBox.Text;
-            string projectPath = ProjectPathTextBox.Text;
             string repoPath = RepoPathTextBox.Text;
 
             if (projectName == "Please enter name")
             {
                 MessageBox.Show("Please enter name for the project");
-                return false;
-            }
-
-            if (projectPath == "Please enter path")
-            {
-                MessageBox.Show("Please enter a valid directory path for the project [C:\\...]");
                 return false;
             }
 
@@ -52,34 +49,29 @@ namespace S1084_AutoRelease
                 return false;
             }
 
-            if (projectPath.Last() != '\\')
-                projectPath += '\\';
+            if (repoPath.Last() != '\\')
+                repoPath += '\\';
 
-            XmlTextWriter writer = new XmlTextWriter(projectPath + projectName + ".xml", null);
-            writer.Formatting = Formatting.Indented;
-            writer.WriteStartDocument();
-            String PItext = "type='text/xsl' href='book.xsl'";
-            writer.WriteProcessingInstruction("xml-stylesheet", PItext);
-            writer.WriteDocType("book", null, null, "<!ENTITY h 'hardcover'>");
-            writer.WriteComment("sample XML");
-            writer.WriteStartElement(projectName);
-            writer.WriteAttributeString("path", projectPath);
-            writer.WriteAttributeString("repo", repoPath);
+            XmlElement newProject = projects.CreateElement(projectName);
+            newProject.SetAttribute("repoPath", repoPath);
 
             foreach (AddSubProject project in addSubProjects)
             {
-                writer.WriteStartElement(project.name);
-                writer.WriteAttributeString("type", project.outputType);
-                writer.WriteAttributeString("type", project.outputPath);
-                writer.WriteAttributeString("type", project.versionPath);
-                writer.WriteAttributeString("type", project.releasesPath);
-                writer.WriteAttributeString("type", project.archivePath);
-                writer.WriteEndElement();
+                XmlElement subProject = projects.CreateElement(project.number);
+                subProject.InnerText = project.name;
+                subProject.SetAttribute("outputType", project.outputType);
+                subProject.SetAttribute("outputPath", project.outputPath);
+                subProject.SetAttribute("versionPath", project.versionPath);
+                subProject.SetAttribute("releasesPath", project.releasesPath);
+                subProject.SetAttribute("archivePath", project.archivePath);
+                newProject.AppendChild(subProject);
             }
 
-            writer.WriteEndElement();   // projectName
-            writer.WriteEndDocument();
-            writer.Close();
+            XmlElement root = projects.DocumentElement;
+            root.AppendChild(newProject);
+
+            string xmlPath = root.GetAttribute("path");
+            projects.Save(xmlPath);
 
             return true;
         }
@@ -104,11 +96,11 @@ namespace S1084_AutoRelease
         {
             AddSubProject Sxxxx = new AddSubProject();
 
-            addSubProjects.Add(Sxxxx);
-
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)
             {
+                addSubProjects.Add(Sxxxx);
+
                 if (SubProjectsLabel.Text == "None")
                     SubProjectsLabel.Text = Sxxxx.name;
                 else

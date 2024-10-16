@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             ReleasesPathTextBox = new TextBox();
             label3 = new Label();
-            ProjectNameTextBox = new TextBox();
+            SoftwareNumberTextBox = new TextBox();
             label2 = new Label();
             CancelButton = new Button();
             AddButton = new Button();
@@ -44,13 +44,15 @@
             OutputTypeTextBox = new TextBox();
             label6 = new Label();
             AddSubProjectToolTip = new ToolTip(components);
+            SoftwareNameTextBox = new TextBox();
+            label7 = new Label();
             SuspendLayout();
             // 
             // ReleasesPathTextBox
             // 
             ReleasesPathTextBox.Font = new Font("Segoe UI", 9.75F);
             ReleasesPathTextBox.ForeColor = SystemColors.WindowFrame;
-            ReleasesPathTextBox.Location = new Point(199, 215);
+            ReleasesPathTextBox.Location = new Point(199, 259);
             ReleasesPathTextBox.Name = "ReleasesPathTextBox";
             ReleasesPathTextBox.Size = new Size(552, 25);
             ReleasesPathTextBox.TabIndex = 5;
@@ -61,22 +63,23 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(20, 215);
+            label3.Location = new Point(20, 259);
             label3.Name = "label3";
-            label3.Size = new Size(148, 21);
+            label3.Size = new Size(107, 21);
             label3.TabIndex = 10;
-            label3.Text = "Sxxxx Releases Path:";
+            label3.Text = "Releases Path:";
+            AddSubProjectToolTip.SetToolTip(label3, "Directory path where new release of the executable/build output is stored and renamed to Srr version");
             // 
-            // ProjectNameTextBox
+            // SoftwareNumberTextBox
             // 
-            ProjectNameTextBox.Font = new Font("Segoe UI", 9.75F);
-            ProjectNameTextBox.ForeColor = SystemColors.WindowFrame;
-            ProjectNameTextBox.Location = new Point(199, 35);
-            ProjectNameTextBox.Name = "ProjectNameTextBox";
-            ProjectNameTextBox.Size = new Size(552, 25);
-            ProjectNameTextBox.TabIndex = 1;
-            ProjectNameTextBox.Text = "Please enter name";
-            AddSubProjectToolTip.SetToolTip(ProjectNameTextBox, "Sxxxx numbers are allocated in the ERL Catalogue. Enter a name like, EG, \"S1070-Control\"");
+            SoftwareNumberTextBox.Font = new Font("Segoe UI", 9.75F);
+            SoftwareNumberTextBox.ForeColor = SystemColors.WindowFrame;
+            SoftwareNumberTextBox.Location = new Point(199, 35);
+            SoftwareNumberTextBox.Name = "SoftwareNumberTextBox";
+            SoftwareNumberTextBox.Size = new Size(552, 25);
+            SoftwareNumberTextBox.TabIndex = 1;
+            SoftwareNumberTextBox.Text = "Please enter number";
+            AddSubProjectToolTip.SetToolTip(SoftwareNumberTextBox, "Enter ONLY the 'S' numner allocated to this software project");
             // 
             // label2
             // 
@@ -84,9 +87,10 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(20, 35);
             label2.Name = "label2";
-            label2.Size = new Size(152, 21);
+            label2.Size = new Size(116, 21);
             label2.TabIndex = 9;
-            label2.Text = "Sxxxx Project Name: ";
+            label2.Text = "Sxxxx Number: ";
+            AddSubProjectToolTip.SetToolTip(label2, "Enter ONLY the 'S' numner allocated to this software project");
             // 
             // CancelButton
             // 
@@ -116,7 +120,7 @@
             // 
             OutputPathTextBox.Font = new Font("Segoe UI", 9.75F);
             OutputPathTextBox.ForeColor = SystemColors.WindowFrame;
-            OutputPathTextBox.Location = new Point(199, 125);
+            OutputPathTextBox.Location = new Point(199, 169);
             OutputPathTextBox.Name = "OutputPathTextBox";
             OutputPathTextBox.Size = new Size(552, 25);
             OutputPathTextBox.TabIndex = 3;
@@ -127,17 +131,18 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(20, 125);
+            label1.Location = new Point(20, 169);
             label1.Name = "label1";
-            label1.Size = new Size(137, 21);
+            label1.Size = new Size(96, 21);
             label1.TabIndex = 14;
-            label1.Text = "Sxxxx Output Path:";
+            label1.Text = "Output Path:";
+            AddSubProjectToolTip.SetToolTip(label1, "Directory path where executable/build output is located (after being built)");
             // 
             // VersionPathTextBox
             // 
             VersionPathTextBox.Font = new Font("Segoe UI", 9.75F);
             VersionPathTextBox.ForeColor = SystemColors.WindowFrame;
-            VersionPathTextBox.Location = new Point(199, 170);
+            VersionPathTextBox.Location = new Point(199, 214);
             VersionPathTextBox.Name = "VersionPathTextBox";
             VersionPathTextBox.Size = new Size(552, 25);
             VersionPathTextBox.TabIndex = 4;
@@ -148,17 +153,18 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(20, 170);
+            label4.Location = new Point(20, 214);
             label4.Name = "label4";
-            label4.Size = new Size(140, 21);
+            label4.Size = new Size(99, 21);
             label4.TabIndex = 16;
-            label4.Text = "Sxxxx Version Path:";
+            label4.Text = "Version Path:";
+            AddSubProjectToolTip.SetToolTip(label4, "Directory path where the version define string (usually in \"GitVersion.h\") is saved");
             // 
             // ArchivePathTextBox
             // 
             ArchivePathTextBox.Font = new Font("Segoe UI", 9.75F);
             ArchivePathTextBox.ForeColor = SystemColors.WindowFrame;
-            ArchivePathTextBox.Location = new Point(199, 260);
+            ArchivePathTextBox.Location = new Point(199, 304);
             ArchivePathTextBox.Name = "ArchivePathTextBox";
             ArchivePathTextBox.Size = new Size(552, 25);
             ArchivePathTextBox.TabIndex = 6;
@@ -169,17 +175,18 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(20, 260);
+            label5.Location = new Point(20, 304);
             label5.Name = "label5";
-            label5.Size = new Size(140, 21);
+            label5.Size = new Size(99, 21);
             label5.TabIndex = 18;
-            label5.Text = "Sxxxx Archive Path:";
+            label5.Text = "Archive Path:";
+            AddSubProjectToolTip.SetToolTip(label5, "Directory path where previous release of executable/build output is moved to");
             // 
             // OutputTypeTextBox
             // 
             OutputTypeTextBox.Font = new Font("Segoe UI", 9.75F);
             OutputTypeTextBox.ForeColor = SystemColors.WindowFrame;
-            OutputTypeTextBox.Location = new Point(199, 80);
+            OutputTypeTextBox.Location = new Point(199, 124);
             OutputTypeTextBox.Name = "OutputTypeTextBox";
             OutputTypeTextBox.Size = new Size(552, 25);
             OutputTypeTextBox.TabIndex = 2;
@@ -190,11 +197,12 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(20, 80);
+            label6.Location = new Point(20, 124);
             label6.Name = "label6";
-            label6.Size = new Size(139, 21);
+            label6.Size = new Size(126, 21);
             label6.TabIndex = 20;
-            label6.Text = "Sxxxx Output Type:";
+            label6.Text = "Output File Type:";
+            AddSubProjectToolTip.SetToolTip(label6, "File extension of the executable/build output, like, EG, \".bin\" or \".hex\", etc");
             // 
             // AddSubProjectToolTip
             // 
@@ -204,11 +212,35 @@
             AddSubProjectToolTip.ReshowDelay = 20;
             AddSubProjectToolTip.ShowAlways = true;
             // 
+            // SoftwareNameTextBox
+            // 
+            SoftwareNameTextBox.Font = new Font("Segoe UI", 9.75F);
+            SoftwareNameTextBox.ForeColor = SystemColors.WindowFrame;
+            SoftwareNameTextBox.Location = new Point(199, 79);
+            SoftwareNameTextBox.Name = "SoftwareNameTextBox";
+            SoftwareNameTextBox.Size = new Size(552, 25);
+            SoftwareNameTextBox.TabIndex = 21;
+            SoftwareNameTextBox.Text = "Please enter name";
+            AddSubProjectToolTip.SetToolTip(SoftwareNameTextBox, "Short decription name such as 'Control' or 'BITE'");
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(20, 79);
+            label7.Name = "label7";
+            label7.Size = new Size(144, 21);
+            label7.TabIndex = 22;
+            label7.Text = "Sub-Project Name: ";
+            AddSubProjectToolTip.SetToolTip(label7, "Short decription name such as 'Control' or 'BITE'");
+            // 
             // AddSubProject
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SoftwareNameTextBox);
+            Controls.Add(label7);
             Controls.Add(OutputTypeTextBox);
             Controls.Add(label6);
             Controls.Add(ArchivePathTextBox);
@@ -221,7 +253,7 @@
             Controls.Add(AddButton);
             Controls.Add(ReleasesPathTextBox);
             Controls.Add(label3);
-            Controls.Add(ProjectNameTextBox);
+            Controls.Add(SoftwareNumberTextBox);
             Controls.Add(label2);
             Name = "AddSubProject";
             Text = "AddSubProject";
@@ -233,7 +265,7 @@
 
         private TextBox ReleasesPathTextBox;
         private Label label3;
-        private TextBox ProjectNameTextBox;
+        private TextBox SoftwareNumberTextBox;
         private Label label2;
         private Button CancelButton;
         private Button AddButton;
@@ -246,5 +278,7 @@
         private TextBox OutputTypeTextBox;
         private Label label6;
         private ToolTip AddSubProjectToolTip;
+        private TextBox SoftwareNameTextBox;
+        private Label label7;
     }
 }

@@ -35,8 +35,6 @@
             label2 = new Label();
             CloseButton = new Button();
             SaveButton = new Button();
-            ProjectPathTextBox = new TextBox();
-            label3 = new Label();
             AddSubProjectButton = new Button();
             label4 = new Label();
             SubProjectsLabel = new Label();
@@ -46,7 +44,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(24, 139);
+            label1.Location = new Point(24, 91);
             label1.Name = "label1";
             label1.Size = new Size(173, 21);
             label1.TabIndex = 0;
@@ -56,7 +54,7 @@
             // 
             RepoPathTextBox.Font = new Font("Segoe UI", 9.75F);
             RepoPathTextBox.ForeColor = SystemColors.WindowFrame;
-            RepoPathTextBox.Location = new Point(203, 139);
+            RepoPathTextBox.Location = new Point(203, 91);
             RepoPathTextBox.Name = "RepoPathTextBox";
             RepoPathTextBox.Size = new Size(552, 25);
             RepoPathTextBox.TabIndex = 3;
@@ -66,7 +64,7 @@
             // 
             SaveAndCloseButton.BackColor = Color.FromArgb(255, 255, 192);
             SaveAndCloseButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveAndCloseButton.Location = new Point(483, 357);
+            SaveAndCloseButton.Location = new Point(483, 309);
             SaveAndCloseButton.Name = "SaveAndCloseButton";
             SaveAndCloseButton.Size = new Size(127, 66);
             SaveAndCloseButton.TabIndex = 4;
@@ -98,7 +96,7 @@
             // 
             CloseButton.BackColor = Color.FromArgb(255, 224, 192);
             CloseButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CloseButton.Location = new Point(628, 357);
+            CloseButton.Location = new Point(628, 309);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(127, 66);
             CloseButton.TabIndex = 1;
@@ -110,7 +108,7 @@
             // 
             SaveButton.BackColor = Color.FromArgb(192, 255, 192);
             SaveButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(337, 357);
+            SaveButton.Location = new Point(337, 309);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(127, 66);
             SaveButton.TabIndex = 5;
@@ -118,31 +116,11 @@
             SaveButton.UseVisualStyleBackColor = false;
             SaveButton.Click += SaveButton_Click;
             // 
-            // ProjectPathTextBox
-            // 
-            ProjectPathTextBox.Font = new Font("Segoe UI", 9.75F);
-            ProjectPathTextBox.ForeColor = SystemColors.WindowFrame;
-            ProjectPathTextBox.Location = new Point(203, 91);
-            ProjectPathTextBox.Name = "ProjectPathTextBox";
-            ProjectPathTextBox.Size = new Size(552, 25);
-            ProjectPathTextBox.TabIndex = 7;
-            ProjectPathTextBox.Text = "Please enter path";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(24, 91);
-            label3.Name = "label3";
-            label3.Size = new Size(95, 21);
-            label3.TabIndex = 6;
-            label3.Text = "Project Path:";
-            // 
             // AddSubProjectButton
             // 
             AddSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
             AddSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            AddSubProjectButton.Location = new Point(628, 212);
+            AddSubProjectButton.Location = new Point(628, 164);
             AddSubProjectButton.Name = "AddSubProjectButton";
             AddSubProjectButton.Size = new Size(127, 66);
             AddSubProjectButton.TabIndex = 8;
@@ -154,7 +132,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(24, 212);
+            label4.Location = new Point(24, 164);
             label4.Name = "label4";
             label4.Size = new Size(142, 21);
             label4.TabIndex = 9;
@@ -164,7 +142,7 @@
             // 
             SubProjectsLabel.AutoSize = true;
             SubProjectsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SubProjectsLabel.Location = new Point(203, 212);
+            SubProjectsLabel.Location = new Point(203, 164);
             SubProjectsLabel.Name = "SubProjectsLabel";
             SubProjectsLabel.Size = new Size(48, 21);
             SubProjectsLabel.TabIndex = 10;
@@ -174,12 +152,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 397);
             Controls.Add(SubProjectsLabel);
             Controls.Add(label4);
             Controls.Add(AddSubProjectButton);
-            Controls.Add(ProjectPathTextBox);
-            Controls.Add(label3);
             Controls.Add(SaveButton);
             Controls.Add(CloseButton);
             Controls.Add(ProjectNameTextBox);
@@ -202,8 +178,6 @@
         private Label label2;
         private Button CloseButton;
         private Button SaveButton;
-        private TextBox ProjectPathTextBox;
-        private Label label3;
         private Button AddSubProjectButton;
         private Label label4;
         private Label SubProjectsLabel;
