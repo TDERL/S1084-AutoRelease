@@ -95,8 +95,17 @@ namespace S1084_AutoRelease
                 return false;
             }
 
+            XmlElement newProject;
+            if (projects.GetElementsByTagName(projectName).Count == 0)
+            {
+                newProject = projects.CreateElement(projectName);
+            }
+            else
+            {
+                newProject = (XmlElement)projects.GetElementsByTagName(projectName)[0];
+            }
 
-            XmlElement newProject = projects.CreateElement(projectName);
+           // XmlElement newProject = projects.CreateElement(projectName);
             newProject.SetAttribute("repoPath", repoPath);
 
             foreach (AddSubProject project in addSubProjects)
