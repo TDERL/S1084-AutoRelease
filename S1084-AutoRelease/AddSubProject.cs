@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,11 +15,23 @@ namespace S1084_AutoRelease
     public partial class AddSubProject : Form
     {
         public string name = "";
-        public string subProjectPath = "";
+        public string outputType = "";
+        public string outputPath = "";
+        public string versionPath = "";
+        public string releasesPath = "";
+        public string archivePath = "";
 
         public AddSubProject()
         {
             InitializeComponent();
+
+            AddSubProjectToolTip.SetToolTip(ProjectNameTextBox, "Sxxxx numbers are allocated in the ERL Catalogue. Enter a name like, EG, \"S1070-Control\"");
+            AddSubProjectToolTip.SetToolTip(OutputTypeTextBox, "File extension of the executable/build output, like, EG, \".bin\" or \".hex\", etc");
+            AddSubProjectToolTip.SetToolTip(OutputPathTextBox, "Directory path where executable/build output is located (after being built)");
+            AddSubProjectToolTip.SetToolTip(VersionPathTextBox, "Directory path where the version define string (usually in \"GitVersion.h\") is saved");
+            AddSubProjectToolTip.SetToolTip(ReleasesPathTextBox, "Directory path where new release of the executable/build output is stored and renamed to Srr version");
+            AddSubProjectToolTip.SetToolTip(ArchivePathTextBox, "Directory path where previous release of executable/build output is moved to");
+            
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -29,17 +43,30 @@ namespace S1084_AutoRelease
         private void AddButton_Click(object sender, EventArgs e)
         {
             name = ProjectNameTextBox.Text;
-            subProjectPath = ProjectPathTextBox.Text;
+            outputType = OutputTypeTextBox.Text;
+            outputPath = OutputPathTextBox.Text;
+            versionPath = VersionPathTextBox.Text;
+            releasesPath = ReleasesPathTextBox.Text;
+            archivePath = ArchivePathTextBox.Text;
 
             if (name == "Please enter name")
             {
                 MessageBox.Show("Please enter the Sxxxx name for the sub-project");
                 return;
             }
-
-            if (subProjectPath == "Please enter path")
+            //Please enter a.extension
+            if (outputType == "Please enter a.extension")
             {
-                MessageBox.Show("Please enter a valid directory path for the Sxxxx sub-project [C:\\...]");
+                MessageBox.Show("Please enter a valid file extension, including the dot [EG .bin]");
+                return;
+            }
+
+            if ((outputPath == "Please enter path") ||
+                (versionPath == "Please enter path") ||
+                (releasesPath == "Please enter path") ||
+                (archivePath == "Please enter path"))
+            {
+                MessageBox.Show("Please enter a valid directory path [C:\\...]");
                 return;
             }
 
