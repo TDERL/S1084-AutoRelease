@@ -9,8 +9,9 @@ namespace S1084_AutoRelease
         public Main()
         {
             InitializeComponent();
+            EditProjectButton.Visible = false;
 
-            string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML";
+            string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\Projects.xml";
             if (File.Exists(xmlPath) == false)
             {
                 XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
@@ -25,15 +26,38 @@ namespace S1084_AutoRelease
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
                 writer.Close();
+
+                ProjectListComboBox.Items.Clear();
             }
 
             projects.Load(xmlPath);
+
+            foreach (XmlNode node in projects.DocumentElement.ChildNodes)
+            {
+                ProjectListComboBox.Items.Add(node.Name);
+            }
         }
 
         private void CreateProjectButton_Click(object sender, EventArgs e)
         {
-           NewProject newProject = new NewProject(projects);
-           newProject.Show();
+            ProjectInfo newProject = new ProjectInfo(projects, "");
+            newProject.Show();
         }
+
+        private void EditProjectButton_Click(object sender, EventArgs e)
+        {
+            ProjectInfo newProject = new ProjectInfo(projects, ProjectListComboBox.Text);
+            newProject.Show();
+        }
+
+        private void ProjectListComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ProjectListComboBox.Text != "")
+            {
+                EditProjectButton.Visible = true;
+            }
+        }
+
+        
     }
 }

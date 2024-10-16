@@ -1,6 +1,6 @@
 ﻿namespace S1084_AutoRelease
 {
-    partial class NewProject
+    partial class ProjectInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -148,7 +148,7 @@
             SubProjectsLabel.TabIndex = 10;
             SubProjectsLabel.Text = "None";
             // 
-            // NewProject
+            // ProjectInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -163,8 +163,8 @@
             Controls.Add(SaveAndCloseButton);
             Controls.Add(RepoPathTextBox);
             Controls.Add(label1);
-            Name = "NewProject";
-            Text = "NewProject";
+            Name = "ProjectInfo";
+            Text = "Project Info";
             ResumeLayout(false);
             PerformLayout();
         }

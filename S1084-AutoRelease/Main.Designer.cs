@@ -29,25 +29,51 @@
         private void InitializeComponent()
         {
             CreateProjectButton = new Button();
+            EditProjectButton = new Button();
+            ProjectListComboBox = new ComboBox();
             SuspendLayout();
             // 
             // CreateProjectButton
             // 
             CreateProjectButton.BackColor = Color.FromArgb(255, 224, 192);
             CreateProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CreateProjectButton.Location = new Point(30, 38);
+            CreateProjectButton.Location = new Point(72, 146);
             CreateProjectButton.Name = "CreateProjectButton";
             CreateProjectButton.Size = new Size(127, 66);
             CreateProjectButton.TabIndex = 0;
-            CreateProjectButton.Text = "Create Project";
+            CreateProjectButton.Text = "Add New Project";
             CreateProjectButton.UseVisualStyleBackColor = false;
-            CreateProjectButton.Click += this.CreateProjectButton_Click;
+            CreateProjectButton.Click += CreateProjectButton_Click;
+            // 
+            // EditProjectButton
+            // 
+            EditProjectButton.BackColor = Color.FromArgb(255, 224, 192);
+            EditProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            EditProjectButton.Location = new Point(218, 146);
+            EditProjectButton.Name = "EditProjectButton";
+            EditProjectButton.Size = new Size(127, 66);
+            EditProjectButton.TabIndex = 1;
+            EditProjectButton.Text = "Edit Project";
+            EditProjectButton.UseVisualStyleBackColor = false;
+            EditProjectButton.Click += this.EditProjectButton_Click;
+            // 
+            // ProjectListComboBox
+            // 
+            ProjectListComboBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ProjectListComboBox.FormattingEnabled = true;
+            ProjectListComboBox.Location = new Point(72, 38);
+            ProjectListComboBox.Name = "ProjectListComboBox";
+            ProjectListComboBox.Size = new Size(127, 29);
+            ProjectListComboBox.TabIndex = 2;
+            ProjectListComboBox.SelectedIndexChanged += ProjectListComboBox_SelectedIndexChanged;
             // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ProjectListComboBox);
+            Controls.Add(EditProjectButton);
             Controls.Add(CreateProjectButton);
             Name = "Main";
             Text = "S1084 - Auto Release";
@@ -57,5 +83,7 @@
         #endregion
 
         private Button CreateProjectButton;
+        private Button EditProjectButton;
+        private ComboBox ProjectListComboBox;
     }
 }

@@ -15,14 +15,39 @@ using System.Xml.Linq;
 
 namespace S1084_AutoRelease
 {
-    public partial class NewProject : Form
+    public partial class ProjectInfo : Form
     {
         private XmlDocument projects = new XmlDocument();
         private List<AddSubProject> addSubProjects = new List<AddSubProject>();
-        public NewProject(XmlDocument projects)
+        public ProjectInfo(XmlDocument projects, string name)
         {
             InitializeComponent();
             this.projects = projects;
+
+            if (name != "")
+            {
+                XmlNode project = projects.GetElementsByTagName(name)[0];
+                ProjectNameTextBox.Text = name; //  project.Name;
+                RepoPathTextBox.Text = project.Attributes["repoPath"].Value;
+
+                foreach (XmlNode node in project)
+                {
+                    if (SubProjectsLabel.Text == "None")
+                        SubProjectsLabel.Text = node.Name;
+                    else
+                        SubProjectsLabel.Text += "\n" + node.Name;
+
+                    AddSubProject Sxxxx = new AddSubProject();
+                    Sxxxx.number = node.Name;
+                    Sxxxx.name = node.InnerText;
+                    Sxxxx.outputType = node.Attributes["outputType"].Value;
+                    Sxxxx.outputPath = node.Attributes["outputPath"].Value;
+                    Sxxxx.versionPath = node.Attributes["versionPath"].Value;
+                    Sxxxx.releasesPath = node.Attributes["releasesPath"].Value;
+                    Sxxxx.archivePath = node.Attributes["archivePath"].Value;
+                    addSubProjects.Add(Sxxxx);
+                }
+            }
         }
 
 
