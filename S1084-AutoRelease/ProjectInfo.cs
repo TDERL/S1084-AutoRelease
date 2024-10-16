@@ -17,6 +17,8 @@ namespace S1084_AutoRelease
 {
     public partial class ProjectInfo : Form
     {
+        private int subProjectButton_x = 20;
+        private int subProjectButton_y = 120;
         private XmlDocument projects = new XmlDocument();
         private List<AddSubProject> addSubProjects = new List<AddSubProject>();
         public ProjectInfo(XmlDocument projects, string name)
@@ -32,11 +34,6 @@ namespace S1084_AutoRelease
 
                 foreach (XmlNode node in project)
                 {
-                    if (SubProjectsLabel.Text == "None")
-                        SubProjectsLabel.Text = node.Name;
-                    else
-                        SubProjectsLabel.Text += "\n" + node.Name;
-
                     AddSubProject Sxxxx = new AddSubProject();
                     Sxxxx.number = node.Name;
                     Sxxxx.name = node.InnerText;
@@ -48,31 +45,32 @@ namespace S1084_AutoRelease
                     Sxxxx.Refresh();
                     addSubProjects.Add(Sxxxx);
 
-                    Button subProjectButton = new Button();
-
-                    int x = 200;
-                    int y = 164;
-                    subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
-                    subProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                    subProjectButton.Location = new Point(x, y);
-                    subProjectButton.Name = "subProjectButton";
-                    subProjectButton.Size = new Size(80, 50);
-                    subProjectButton.TabIndex = 0;
-                    subProjectButton.Text = node.Name;
-                    subProjectButton.UseVisualStyleBackColor = false;
-                    subProjectButton.Click += OpenSubProjectButton_Click;
-                    Controls.Add(subProjectButton);
-
-                    x = x + 100;
-                    if (x > 699)
-                    {
-                        x = 200;
-                        y = y + 70;
-                    }
+                    AddSubProjectButtonToGroup(node.Name);
                 }
             }
         }
 
+        private void AddSubProjectButtonToGroup(string name)
+        {
+            Button subProjectButton = new Button();
+            subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
+            subProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            subProjectButton.Location = new Point(subProjectButton_x, subProjectButton_y);
+            subProjectButton.Name = "subProjectButton";
+            subProjectButton.Size = new Size(80, 50);
+            subProjectButton.TabIndex = 0;
+            subProjectButton.Text = name;
+            subProjectButton.UseVisualStyleBackColor = false;
+            subProjectButton.Click += OpenSubProjectButton_Click;
+            SubProjectsGroupBox.Controls.Add(subProjectButton);
+
+            subProjectButton_x = subProjectButton_x + 100;
+            if (subProjectButton_x > 621)
+            {
+                subProjectButton_x = 20;
+                subProjectButton_y = subProjectButton_y + 70;
+            }
+        }
 
         private bool SaveProject()
         {
@@ -146,11 +144,7 @@ namespace S1084_AutoRelease
             if (result == DialogResult.OK)
             {
                 addSubProjects.Add(Sxxxx);
-
-                if (SubProjectsLabel.Text == "None")
-                    SubProjectsLabel.Text = Sxxxx.name;
-                else
-                    SubProjectsLabel.Text += "\n" + Sxxxx.name;
+                AddSubProjectButtonToGroup(Sxxxx.number);
             }
         }
 
