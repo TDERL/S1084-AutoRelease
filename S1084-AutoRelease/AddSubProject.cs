@@ -14,17 +14,27 @@ namespace S1084_AutoRelease
 {
     public partial class AddSubProject : Form
     {
-        public string number = "";
-        public string name = "";
-        public string outputType = "";
-        public string outputPath = "";
-        public string versionPath = "";
-        public string releasesPath = "";
-        public string archivePath = "";
+        public string number = "Please enter number";
+        public string name = "Please enter name";
+        public string outputType = "Please enter a .extension";
+        public string outputPath = "Please enter path";
+        public string versionPath = "Please enter path";
+        public string releasesPath = "Please enter path";
+        public string archivePath = "Please enter path";
 
         public AddSubProject()
         {
             InitializeComponent();
+        }
+        public void Refresh()
+        {
+            SoftwareNumberTextBox.Text = number;
+            SoftwareNameTextBox.Text = name;
+            OutputTypeTextBox.Text = outputType;
+            OutputPathTextBox.Text = outputPath;
+            VersionPathTextBox.Text = versionPath;
+            ReleasesPathTextBox.Text = releasesPath;
+            ArchivePathTextBox.Text = archivePath;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -50,7 +60,7 @@ namespace S1084_AutoRelease
             }
 
             //Please enter a.extension
-            if (outputType == "Please enter a.extension")
+            if (outputType == "Please enter a .extension")
             {
                 MessageBox.Show("Please enter a valid file extension, including the dot [EG .bin]");
                 return;

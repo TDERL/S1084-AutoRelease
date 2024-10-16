@@ -45,7 +45,21 @@ namespace S1084_AutoRelease
                     Sxxxx.versionPath = node.Attributes["versionPath"].Value;
                     Sxxxx.releasesPath = node.Attributes["releasesPath"].Value;
                     Sxxxx.archivePath = node.Attributes["archivePath"].Value;
+                    Sxxxx.Refresh();
                     addSubProjects.Add(Sxxxx);
+
+                    Button subProjectButton = new Button();
+
+                    subProjectButton.BackColor = Color.FromArgb(255, 224, 192);
+                    subProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+                    subProjectButton.Location = new Point(300, 164);
+                    subProjectButton.Name = "subProjectButton";
+                    subProjectButton.Size = new Size(127, 66);
+                    subProjectButton.TabIndex = 0;
+                    subProjectButton.Text = node.Name;
+                    subProjectButton.UseVisualStyleBackColor = false;
+                    subProjectButton.Click += OpenSubProjectButton_Click;
+                    Controls.Add(subProjectButton);
                 }
             }
         }
@@ -128,6 +142,17 @@ namespace S1084_AutoRelease
                     SubProjectsLabel.Text = Sxxxx.name;
                 else
                     SubProjectsLabel.Text += "\n" + Sxxxx.name;
+            }
+        }
+
+        private void OpenSubProjectButton_Click(object sender, EventArgs e)
+        {
+            Button subProjectButton = (Button)sender;
+
+            foreach (AddSubProject subProject in addSubProjects)
+            {
+                if (subProject.number == subProjectButton.Text)
+                    subProject.Show();
             }
         }
     }
