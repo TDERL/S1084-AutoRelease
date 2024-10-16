@@ -50,16 +50,25 @@ namespace S1084_AutoRelease
 
                     Button subProjectButton = new Button();
 
-                    subProjectButton.BackColor = Color.FromArgb(255, 224, 192);
+                    int x = 200;
+                    int y = 164;
+                    subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
                     subProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                    subProjectButton.Location = new Point(300, 164);
+                    subProjectButton.Location = new Point(x, y);
                     subProjectButton.Name = "subProjectButton";
-                    subProjectButton.Size = new Size(127, 66);
+                    subProjectButton.Size = new Size(80, 50);
                     subProjectButton.TabIndex = 0;
                     subProjectButton.Text = node.Name;
                     subProjectButton.UseVisualStyleBackColor = false;
                     subProjectButton.Click += OpenSubProjectButton_Click;
                     Controls.Add(subProjectButton);
+
+                    x = x + 100;
+                    if (x > 699)
+                    {
+                        x = 200;
+                        y = y + 70;
+                    }
                 }
             }
         }
