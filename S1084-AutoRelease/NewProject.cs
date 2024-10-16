@@ -77,5 +77,18 @@ namespace S1084_AutoRelease
             SaveProject();
             this.Close();
         }
+
+        private void AddSubProjectButton_Click(object sender, EventArgs e)
+        {
+            AddSubProject Sxxxx = new AddSubProject();
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                if (SubProjectsLabel.Text == "None")
+                    SubProjectsLabel.Text = Sxxxx.name;
+                else
+                    SubProjectsLabel.Text += "\n" + Sxxxx.name;
+            }
+        }
     }
 }

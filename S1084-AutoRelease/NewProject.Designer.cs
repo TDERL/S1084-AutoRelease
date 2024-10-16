@@ -37,6 +37,9 @@
             SaveButton = new Button();
             ProjectPathTextBox = new TextBox();
             label3 = new Label();
+            AddSubProjectButton = new Button();
+            label4 = new Label();
+            SubProjectsLabel = new Label();
             SuspendLayout();
             // 
             // label1
@@ -135,11 +138,46 @@
             label3.TabIndex = 6;
             label3.Text = "Project Path:";
             // 
+            // AddSubProjectButton
+            // 
+            AddSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
+            AddSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            AddSubProjectButton.Location = new Point(628, 212);
+            AddSubProjectButton.Name = "AddSubProjectButton";
+            AddSubProjectButton.Size = new Size(127, 66);
+            AddSubProjectButton.TabIndex = 8;
+            AddSubProjectButton.Text = "Add Sxxxx Sub-Project";
+            AddSubProjectButton.UseVisualStyleBackColor = false;
+            AddSubProjectButton.Click += AddSubProjectButton_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(24, 212);
+            label4.Name = "label4";
+            label4.Size = new Size(142, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Sxxxx Sub-Projects:";
+            // 
+            // SubProjectsLabel
+            // 
+            SubProjectsLabel.AutoSize = true;
+            SubProjectsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SubProjectsLabel.Location = new Point(203, 212);
+            SubProjectsLabel.Name = "SubProjectsLabel";
+            SubProjectsLabel.Size = new Size(48, 21);
+            SubProjectsLabel.TabIndex = 10;
+            SubProjectsLabel.Text = "None";
+            // 
             // NewProject
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SubProjectsLabel);
+            Controls.Add(label4);
+            Controls.Add(AddSubProjectButton);
             Controls.Add(ProjectPathTextBox);
             Controls.Add(label3);
             Controls.Add(SaveButton);
@@ -166,5 +204,8 @@
         private Button SaveButton;
         private TextBox ProjectPathTextBox;
         private Label label3;
+        private Button AddSubProjectButton;
+        private Label label4;
+        private Label SubProjectsLabel;
     }
 }
