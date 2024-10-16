@@ -10,7 +10,7 @@ namespace S1084_AutoRelease
         {
             InitializeComponent();
 
-            string xmlPath = "C:\\Projects\\Windows Apps\\S1053 - PWM Configurator\\S1019B PWM Configurator\\XML\\Projects.xml";
+            string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML";
             if (File.Exists(xmlPath) == false)
             {
                 XmlTextWriter writer = new XmlTextWriter(xmlPath, null);

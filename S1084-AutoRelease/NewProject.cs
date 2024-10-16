@@ -49,8 +49,6 @@ namespace S1084_AutoRelease
                 return false;
             }
 
-            if (repoPath.Last() != '\\')
-                repoPath += '\\';
 
             XmlElement newProject = projects.CreateElement(projectName);
             newProject.SetAttribute("repoPath", repoPath);
