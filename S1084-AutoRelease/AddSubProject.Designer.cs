@@ -53,8 +53,9 @@
             ReleasesPathTextBox.Location = new Point(199, 215);
             ReleasesPathTextBox.Name = "ReleasesPathTextBox";
             ReleasesPathTextBox.Size = new Size(552, 25);
-            ReleasesPathTextBox.TabIndex = 11;
+            ReleasesPathTextBox.TabIndex = 5;
             ReleasesPathTextBox.Text = "Please enter path";
+            AddSubProjectToolTip.SetToolTip(ReleasesPathTextBox, "Directory path where new release of the executable/build output is stored and renamed to Srr version");
             // 
             // label3
             // 
@@ -73,8 +74,9 @@
             ProjectNameTextBox.Location = new Point(199, 35);
             ProjectNameTextBox.Name = "ProjectNameTextBox";
             ProjectNameTextBox.Size = new Size(552, 25);
-            ProjectNameTextBox.TabIndex = 8;
+            ProjectNameTextBox.TabIndex = 1;
             ProjectNameTextBox.Text = "Please enter name";
+            AddSubProjectToolTip.SetToolTip(ProjectNameTextBox, "Sxxxx numbers are allocated in the ERL Catalogue. Enter a name like, EG, \"S1070-Control\"");
             // 
             // label2
             // 
@@ -93,7 +95,7 @@
             CancelButton.Location = new Point(628, 357);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(127, 66);
-            CancelButton.TabIndex = 12;
+            CancelButton.TabIndex = 8;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = false;
             CancelButton.Click += CancelButton_Click;
@@ -105,7 +107,7 @@
             AddButton.Location = new Point(483, 357);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(127, 66);
-            AddButton.TabIndex = 13;
+            AddButton.TabIndex = 7;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = false;
             AddButton.Click += AddButton_Click;
@@ -117,8 +119,9 @@
             OutputPathTextBox.Location = new Point(199, 125);
             OutputPathTextBox.Name = "OutputPathTextBox";
             OutputPathTextBox.Size = new Size(552, 25);
-            OutputPathTextBox.TabIndex = 15;
+            OutputPathTextBox.TabIndex = 3;
             OutputPathTextBox.Text = "Please enter path";
+            AddSubProjectToolTip.SetToolTip(OutputPathTextBox, "Directory path where executable/build output is located (after being built)");
             // 
             // label1
             // 
@@ -137,8 +140,9 @@
             VersionPathTextBox.Location = new Point(199, 170);
             VersionPathTextBox.Name = "VersionPathTextBox";
             VersionPathTextBox.Size = new Size(552, 25);
-            VersionPathTextBox.TabIndex = 17;
+            VersionPathTextBox.TabIndex = 4;
             VersionPathTextBox.Text = "Please enter path";
+            AddSubProjectToolTip.SetToolTip(VersionPathTextBox, "Directory path where the version define string (usually in \"GitVersion.h\") is saved");
             // 
             // label4
             // 
@@ -157,8 +161,9 @@
             ArchivePathTextBox.Location = new Point(199, 260);
             ArchivePathTextBox.Name = "ArchivePathTextBox";
             ArchivePathTextBox.Size = new Size(552, 25);
-            ArchivePathTextBox.TabIndex = 19;
+            ArchivePathTextBox.TabIndex = 6;
             ArchivePathTextBox.Text = "Please enter path";
+            AddSubProjectToolTip.SetToolTip(ArchivePathTextBox, "Directory path where previous release of executable/build output is moved to");
             // 
             // label5
             // 
@@ -177,8 +182,9 @@
             OutputTypeTextBox.Location = new Point(199, 80);
             OutputTypeTextBox.Name = "OutputTypeTextBox";
             OutputTypeTextBox.Size = new Size(552, 25);
-            OutputTypeTextBox.TabIndex = 21;
+            OutputTypeTextBox.TabIndex = 2;
             OutputTypeTextBox.Text = "Please enter a .extension";
+            AddSubProjectToolTip.SetToolTip(OutputTypeTextBox, "File extension of the executable/build output, like, EG, \".bin\" or \".hex\", etc");
             // 
             // label6
             // 
@@ -189,6 +195,14 @@
             label6.Size = new Size(139, 21);
             label6.TabIndex = 20;
             label6.Text = "Sxxxx Output Type:";
+            // 
+            // AddSubProjectToolTip
+            // 
+            AddSubProjectToolTip.AutomaticDelay = 100;
+            AddSubProjectToolTip.AutoPopDelay = 3000;
+            AddSubProjectToolTip.InitialDelay = 100;
+            AddSubProjectToolTip.ReshowDelay = 20;
+            AddSubProjectToolTip.ShowAlways = true;
             // 
             // AddSubProject
             // 

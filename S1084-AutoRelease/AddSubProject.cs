@@ -24,14 +24,6 @@ namespace S1084_AutoRelease
         public AddSubProject()
         {
             InitializeComponent();
-
-            AddSubProjectToolTip.SetToolTip(ProjectNameTextBox, "Sxxxx numbers are allocated in the ERL Catalogue. Enter a name like, EG, \"S1070-Control\"");
-            AddSubProjectToolTip.SetToolTip(OutputTypeTextBox, "File extension of the executable/build output, like, EG, \".bin\" or \".hex\", etc");
-            AddSubProjectToolTip.SetToolTip(OutputPathTextBox, "Directory path where executable/build output is located (after being built)");
-            AddSubProjectToolTip.SetToolTip(VersionPathTextBox, "Directory path where the version define string (usually in \"GitVersion.h\") is saved");
-            AddSubProjectToolTip.SetToolTip(ReleasesPathTextBox, "Directory path where new release of the executable/build output is stored and renamed to Srr version");
-            AddSubProjectToolTip.SetToolTip(ArchivePathTextBox, "Directory path where previous release of executable/build output is moved to");
-            
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
