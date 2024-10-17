@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             ReleasesPathTextBox = new TextBox();
             label3 = new Label();
-            SoftwareNumberTextBox = new TextBox();
             label2 = new Label();
             CancelButton = new Button();
             AddButton = new Button();
@@ -50,6 +49,12 @@
             label8 = new Label();
             PlaftormTextBox = new TextBox();
             label9 = new Label();
+            label10 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
+            label15 = new Label();
+            SoftwareNumberLabel = new Label();
             SuspendLayout();
             // 
             // ReleasesPathTextBox
@@ -73,17 +78,6 @@
             label3.TabIndex = 10;
             label3.Text = "Releases Path:";
             AddSubProjectToolTip.SetToolTip(label3, "Directory path where new release of the executable/build output is stored and renamed to Srr version");
-            // 
-            // SoftwareNumberTextBox
-            // 
-            SoftwareNumberTextBox.Font = new Font("Segoe UI", 9.75F);
-            SoftwareNumberTextBox.ForeColor = SystemColors.WindowFrame;
-            SoftwareNumberTextBox.Location = new Point(201, 23);
-            SoftwareNumberTextBox.Name = "SoftwareNumberTextBox";
-            SoftwareNumberTextBox.Size = new Size(244, 25);
-            SoftwareNumberTextBox.TabIndex = 1;
-            SoftwareNumberTextBox.Text = "Please enter number";
-            AddSubProjectToolTip.SetToolTip(SoftwareNumberTextBox, "Enter ONLY the 'S' numner allocated to this software project");
             // 
             // label2
             // 
@@ -279,11 +273,88 @@
             label9.Text = "Platform:";
             AddSubProjectToolTip.SetToolTip(label9, "Short decription name such as 'Control' or 'BITE'");
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.Red;
+            label10.Location = new Point(180, 382);
+            label10.Name = "label10";
+            label10.Size = new Size(17, 21);
+            label10.TabIndex = 27;
+            label10.Text = "*";
+            AddSubProjectToolTip.SetToolTip(label10, "Enter ONLY the 'S' numner allocated to this software project");
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.Red;
+            label12.Location = new Point(180, 202);
+            label12.Name = "label12";
+            label12.Size = new Size(17, 21);
+            label12.TabIndex = 29;
+            label12.Text = "*";
+            AddSubProjectToolTip.SetToolTip(label12, "Enter ONLY the 'S' numner allocated to this software project");
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label13.ForeColor = Color.Red;
+            label13.Location = new Point(180, 247);
+            label13.Name = "label13";
+            label13.Size = new Size(17, 21);
+            label13.TabIndex = 30;
+            label13.Text = "*";
+            AddSubProjectToolTip.SetToolTip(label13, "Enter ONLY the 'S' numner allocated to this software project");
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label14.ForeColor = Color.Red;
+            label14.Location = new Point(180, 292);
+            label14.Name = "label14";
+            label14.Size = new Size(17, 21);
+            label14.TabIndex = 31;
+            label14.Text = "*";
+            AddSubProjectToolTip.SetToolTip(label14, "Enter ONLY the 'S' numner allocated to this software project");
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label15.ForeColor = Color.Red;
+            label15.Location = new Point(180, 337);
+            label15.Name = "label15";
+            label15.Size = new Size(17, 21);
+            label15.TabIndex = 32;
+            label15.Text = "*";
+            AddSubProjectToolTip.SetToolTip(label15, "Enter ONLY the 'S' numner allocated to this software project");
+            // 
+            // SoftwareNumberLabel
+            // 
+            SoftwareNumberLabel.AutoSize = true;
+            SoftwareNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SoftwareNumberLabel.Location = new Point(201, 23);
+            SoftwareNumberLabel.Name = "SoftwareNumberLabel";
+            SoftwareNumberLabel.Size = new Size(113, 21);
+            SoftwareNumberLabel.TabIndex = 33;
+            SoftwareNumberLabel.Text = "Sxxxx Number ";
+            AddSubProjectToolTip.SetToolTip(SoftwareNumberLabel, "Enter ONLY the 'S' numner allocated to this software project");
+            // 
             // AddSubProject
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SoftwareNumberLabel);
+            Controls.Add(label15);
+            Controls.Add(label14);
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(PlaftormTextBox);
             Controls.Add(DescriptionTextBox);
@@ -302,7 +373,6 @@
             Controls.Add(AddButton);
             Controls.Add(ReleasesPathTextBox);
             Controls.Add(label3);
-            Controls.Add(SoftwareNumberTextBox);
             Controls.Add(label2);
             Name = "AddSubProject";
             Text = "AddSubProject";
@@ -314,7 +384,6 @@
 
         private TextBox ReleasesPathTextBox;
         private Label label3;
-        private TextBox SoftwareNumberTextBox;
         private Label label2;
         private Button CancelButton;
         private Button AddButton;
@@ -333,5 +402,11 @@
         private Label label8;
         private TextBox PlaftormTextBox;
         private Label label9;
+        private Label label10;
+        private Label label12;
+        private Label label13;
+        private Label label14;
+        private Label label15;
+        private Label SoftwareNumberLabel;
     }
 }

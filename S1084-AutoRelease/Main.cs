@@ -10,6 +10,7 @@ namespace S1084_AutoRelease
         {
             InitializeComponent();
             EditProjectButton.Visible = false;
+            EditSubProjectButton.Visible = false;
 
             string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\ERL_SW_Projects_DB.xml";
             if (File.Exists(xmlPath) == false)
@@ -34,13 +35,17 @@ namespace S1084_AutoRelease
 
             db.Load(xmlPath);
             RefreshProjectListComboBox();
+            RefreshSubProjectListComboBox();
         }
 
+        //*********************************************************
+        //
+        //  Sub-Project Additions and Editing
         private void RefreshProjectListComboBox()
         {
             ProjectListComboBox.Items.Clear();
 
-            foreach (XmlNode node in db.DocumentElement.ChildNodes)
+            foreach (XmlNode node in db.GetElementsByTagName("Projects")[0])
                 ProjectListComboBox.Items.Add(node.Name);
         }
 
@@ -68,10 +73,75 @@ namespace S1084_AutoRelease
                 EditProjectButton.Visible = true;
         }
 
+        //*********************************************************
+        //
+        //  Sub-Project Additions and Editing
+        private void RefreshSubProjectListComboBox()
+        {
+            SubProjectListComboBox.Items.Clear();
+
+            foreach (XmlNode node in db.GetElementsByTagName("SubProjects")[0])
+                SubProjectListComboBox.Items.Add(node.Name);
+        }
+
+        private void EditSubProjectButton_Click(object sender, EventArgs e)
+        {
+            if (db.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
+            {
+                AddSubProject Sxxxx = new AddSubProject(SubProjectListComboBox.Text);
+                XmlNode node = db.GetElementsByTagName(SubProjectListComboBox.Text)[0];
+                Sxxxx.number = node.Name;
+                Sxxxx.shortName = node.Attributes["shortName"].Value;
+                Sxxxx.outputType = node.Attributes["outputType"].Value;
+                Sxxxx.outputPath = node.Attributes["outputPath"].Value;
+                Sxxxx.versionPath = node.Attributes["versionPath"].Value;
+                Sxxxx.releasesPath = node.Attributes["releasesPath"].Value;
+                Sxxxx.archivePath = node.Attributes["archivePath"].Value;
+                Sxxxx.description = node.InnerText;
+                Sxxxx.Refresh();
+
+                var result = Sxxxx.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //XmlNode node = db.CreateElement(Sxxxx.number);
+                    //node.Attributes["shortName"].Value = Sxxxx.shortName;
+                    //node.Attributes["outputType"].Value = Sxxxx.outputType;
+                    //node.Attributes["outputPath"].Value = Sxxxx.outputPath;
+                    //node.Attributes["versionPath"].Value = Sxxxx.versionPath;
+                    //node.Attributes["releasesPath"].Value = Sxxxx.releasesPath;
+                    //node.Attributes["archivePath"].Value = Sxxxx.archivePath;
+                    //node.InnerText = Sxxxx.description;
+                    //db.GetElementsByTagName("SubProjects")[0].AppendChild(node);
+
+                    RefreshSubProjectListComboBox();
+                }
+            }
+        }
+
+        private void SubProjectListComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SubProjectListComboBox.Text != "")
+                EditSubProjectButton.Visible = true;
+        }
+
+        private string CalculateNewSubProjectNumber()
+        {
+            var noOfSubProjects = SubProjectListComboBox.Items.Count;
+
+            if (noOfSubProjects == 0)
+                return "S1049";
+
+            string last = SubProjectListComboBox.Items[noOfSubProjects - 1].ToString();
+            last = last.Substring(1); // Remove 1st char (IE remove the 'S')
+            int x = Int32.Parse(last);
+            x += 1;
+            last = "S" + x.ToString();
+            return last;
+        }
+
         private void CreateSubProjectButton_Click(object sender, EventArgs e)
         {
-            AddSubProject Sxxxx = new AddSubProject();
-
+            AddSubProject Sxxxx = new AddSubProject(CalculateNewSubProjectNumber());
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -88,10 +158,16 @@ namespace S1084_AutoRelease
                     xmlSubProject.InnerText = Sxxxx.description;
                     db.GetElementsByTagName("SubProjects")[0].AppendChild(xmlSubProject);
                     db.Save(db.DocumentElement.GetAttribute("path"));
+
+                    RefreshSubProjectListComboBox();
                 }
                 else
                     MessageBox.Show("Sub-Project '" + Sxxxx.number + "' already exists");
             }
         }
+
+
+
+
     }
 }

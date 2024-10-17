@@ -35,7 +35,7 @@ namespace S1084_AutoRelease
 
                 foreach (XmlNode node in project)
                 {
-                    AddSubProject Sxxxx = new AddSubProject();
+                    AddSubProject Sxxxx = new AddSubProject(node.Name);
                     Sxxxx.number = node.Name;
                     Sxxxx.shortName = node.InnerText;
                     Sxxxx.outputType = node.Attributes["outputType"].Value;
@@ -171,7 +171,7 @@ namespace S1084_AutoRelease
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
-            AddSubProject Sxxxx = new AddSubProject();
+            AddSubProject Sxxxx = new AddSubProject("TBD");
 
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)

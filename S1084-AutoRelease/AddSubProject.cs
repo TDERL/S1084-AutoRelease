@@ -14,7 +14,7 @@ namespace S1084_AutoRelease
 {
     public partial class AddSubProject : Form
     {
-        public string number = "Please enter number";
+        public string number = "";
         public string shortName = "";
         public string platform = "";
         public string description = "";
@@ -24,13 +24,15 @@ namespace S1084_AutoRelease
         public string releasesPath = "Please enter path";
         public string archivePath = "Please enter path";
 
-        public AddSubProject()
+        public AddSubProject(string number)
         {
             InitializeComponent();
+            SoftwareNumberLabel.Text = number;
+            this.number = number;
         }
         public void Refresh()
         {
-            SoftwareNumberTextBox.Text = number;
+            SoftwareNumberLabel.Text = number;
             SoftwareNameTextBox.Text = shortName;
             PlaftormTextBox.Text = platform;
             DescriptionTextBox.Text = description;
@@ -49,7 +51,7 @@ namespace S1084_AutoRelease
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            number = SoftwareNumberTextBox.Text;
+            number = SoftwareNumberLabel.Text;
             shortName = SoftwareNameTextBox.Text;
             platform = PlaftormTextBox.Text;
             description = DescriptionTextBox.Text;
