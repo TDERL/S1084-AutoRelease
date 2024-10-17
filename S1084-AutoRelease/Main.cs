@@ -40,13 +40,14 @@ namespace S1084_AutoRelease
 
         //*********************************************************
         //
-        //  Sub-Project Additions and Editing
+        //  [main] Project Additions and Editing
         private void RefreshProjectListComboBox()
         {
             ProjectListComboBox.Items.Clear();
+            XmlNode projects = db.GetElementsByTagName("Projects")[0];
 
-            foreach (XmlNode node in db.GetElementsByTagName("Projects")[0])
-                ProjectListComboBox.Items.Add(node.Name);
+            foreach (XmlNode project in projects)
+                ProjectListComboBox.Items.Add(project.Name);
         }
 
         private void CreateProjectButton_Click(object sender, EventArgs e)
@@ -86,12 +87,15 @@ namespace S1084_AutoRelease
 
         private void EditSubProjectButton_Click(object sender, EventArgs e)
         {
-            if (db.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
+            XmlElement subProjects = (XmlElement)db.GetElementsByTagName("SubProjects")[0];
+
+            if (subProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
             {
                 AddSubProject Sxxxx = new AddSubProject(SubProjectListComboBox.Text);
-                XmlNode node = db.GetElementsByTagName(SubProjectListComboBox.Text)[0];
+                XmlNode node = subProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0];
                 Sxxxx.number = node.Name;
                 Sxxxx.shortName = node.Attributes["shortName"].Value;
+                Sxxxx.platform = node.Attributes["platform"].Value;
                 Sxxxx.outputType = node.Attributes["outputType"].Value;
                 Sxxxx.outputPath = node.Attributes["outputPath"].Value;
                 Sxxxx.versionPath = node.Attributes["versionPath"].Value;
@@ -142,29 +146,21 @@ namespace S1084_AutoRelease
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)
             {
-                if (db.GetElementsByTagName(Sxxxx.number).Count == 0)
-                {
-                    XmlElement xmlSubProject = db.CreateElement(Sxxxx.number);
-                    xmlSubProject.SetAttribute("shortName", Sxxxx.shortName);
-                    xmlSubProject.SetAttribute("platform", Sxxxx.platform);
-                    xmlSubProject.SetAttribute("outputType", Sxxxx.outputType);
-                    xmlSubProject.SetAttribute("outputPath", Sxxxx.outputPath);
-                    xmlSubProject.SetAttribute("versionPath", Sxxxx.versionPath);
-                    xmlSubProject.SetAttribute("releasesPath", Sxxxx.releasesPath);
-                    xmlSubProject.SetAttribute("archivePath", Sxxxx.archivePath);
-                    xmlSubProject.InnerText = Sxxxx.description;
-                    db.GetElementsByTagName("SubProjects")[0].AppendChild(xmlSubProject);
-                    db.Save(db.DocumentElement.GetAttribute("path"));
+                XmlElement xmlSubProject = db.CreateElement(Sxxxx.number);
+                xmlSubProject.SetAttribute("shortName", Sxxxx.shortName);
+                xmlSubProject.SetAttribute("platform", Sxxxx.platform);
+                xmlSubProject.SetAttribute("outputType", Sxxxx.outputType);
+                xmlSubProject.SetAttribute("outputPath", Sxxxx.outputPath);
+                xmlSubProject.SetAttribute("versionPath", Sxxxx.versionPath);
+                xmlSubProject.SetAttribute("releasesPath", Sxxxx.releasesPath);
+                xmlSubProject.SetAttribute("archivePath", Sxxxx.archivePath);
+                xmlSubProject.InnerText = Sxxxx.description;
+                db.GetElementsByTagName("SubProjects")[0].AppendChild(xmlSubProject);
+                db.Save(db.DocumentElement.GetAttribute("path"));
 
-                    RefreshSubProjectListComboBox();
-                }
-                else
-                    MessageBox.Show("Sub-Project '" + Sxxxx.number + "' already exists");
+                RefreshSubProjectListComboBox();
             }
         }
-
-
-
 
     }
 }

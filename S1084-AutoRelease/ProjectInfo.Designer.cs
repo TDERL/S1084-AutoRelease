@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectInfo));
             label1 = new Label();
             RepoPathTextBox = new TextBox();
             SaveAndCloseButton = new Button();
@@ -37,6 +38,7 @@
             SaveButton = new Button();
             AddSubProjectButton = new Button();
             SubProjectsGroupBox = new GroupBox();
+            RemoveSubProjectButton = new Button();
             SubProjectsGroupBox.SuspendLayout();
             SuspendLayout();
             // 
@@ -120,16 +122,17 @@
             // 
             AddSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
             AddSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            AddSubProjectButton.Image = (Image)resources.GetObject("AddSubProjectButton.Image");
             AddSubProjectButton.Location = new Point(20, 37);
             AddSubProjectButton.Name = "AddSubProjectButton";
-            AddSubProjectButton.Size = new Size(127, 66);
+            AddSubProjectButton.Size = new Size(75, 75);
             AddSubProjectButton.TabIndex = 3;
-            AddSubProjectButton.Text = "Add Sxxxx Sub-Project";
             AddSubProjectButton.UseVisualStyleBackColor = false;
             AddSubProjectButton.Click += AddSubProjectButton_Click;
             // 
             // SubProjectsGroupBox
             // 
+            SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
             SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
             SubProjectsGroupBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SubProjectsGroupBox.Location = new Point(34, 216);
@@ -138,6 +141,17 @@
             SubProjectsGroupBox.TabIndex = 11;
             SubProjectsGroupBox.TabStop = false;
             SubProjectsGroupBox.Text = "Sxxxx Sub-Projects";
+            // 
+            // RemoveSubProjectButton
+            // 
+            RemoveSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
+            RemoveSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RemoveSubProjectButton.Image = (Image)resources.GetObject("RemoveSubProjectButton.Image");
+            RemoveSubProjectButton.Location = new Point(101, 37);
+            RemoveSubProjectButton.Name = "RemoveSubProjectButton";
+            RemoveSubProjectButton.Size = new Size(75, 75);
+            RemoveSubProjectButton.TabIndex = 4;
+            RemoveSubProjectButton.UseVisualStyleBackColor = false;
             // 
             // ProjectInfo
             // 
@@ -170,5 +184,6 @@
         private Button SaveButton;
         private Button AddSubProjectButton;
         private GroupBox SubProjectsGroupBox;
+        private Button RemoveSubProjectButton;
     }
 }
