@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xsl'?>
+<!--S1084, Projects DB and Auto Release-->
+<S1084 path="C:\Projects\Windows Apps\S1084-AutoRelease\XML\ERL_SW_Projects_DB.xml">
+  <Projects />
+  <SubProjects>
+    <S1070 shortName="Control" platform="STM32G0B1RC" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" versionPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\App\Version" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases" archivePath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases\Archive">Control Micro for DCB1. PWM generation, user control, current control loop</S1070>
+  </SubProjects>
+</S1084>

@@ -5,30 +5,34 @@ namespace S1084_AutoRelease
 {
     public partial class Main : Form
     {
-        private XmlDocument projects = new XmlDocument();
+        private XmlDocument db = new XmlDocument();
         public Main()
         {
             InitializeComponent();
             EditProjectButton.Visible = false;
 
-            string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\Projects.xml";
+            string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\ERL_SW_Projects_DB.xml";
             if (File.Exists(xmlPath) == false)
             {
                 XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
                 writer.Formatting = Formatting.Indented;
                 writer.WriteStartDocument();
-                String PItext = "type='text/xsl' href='Projects.xsl'";
+                String PItext = "type='text/xsl'";
                 writer.WriteProcessingInstruction("xml-stylesheet", PItext);
-                writer.WriteDocType("Projects", null, null, null);
-                writer.WriteComment("S1084, Projects for Auto Release");
-                writer.WriteStartElement("Projects");
+                //writer.WriteDocType("Projects", null, null, null);
+                writer.WriteComment("S1084, Projects DB and Auto Release");
+                writer.WriteStartElement("S1084");
                 writer.WriteAttributeString("path", xmlPath);
-                writer.WriteEndElement();
+                writer.WriteStartElement("Projects");
+                writer.WriteEndElement();   // Projects
+                writer.WriteStartElement("SubProjects");
+                writer.WriteEndElement();   // SubProjects
+                writer.WriteEndElement();   // S1084
                 writer.WriteEndDocument();
                 writer.Close();
             }
 
-            projects.Load(xmlPath);
+            db.Load(xmlPath);
             RefreshProjectListComboBox();
         }
 
@@ -36,13 +40,13 @@ namespace S1084_AutoRelease
         {
             ProjectListComboBox.Items.Clear();
 
-            foreach (XmlNode node in projects.DocumentElement.ChildNodes)
+            foreach (XmlNode node in db.DocumentElement.ChildNodes)
                 ProjectListComboBox.Items.Add(node.Name);
         }
 
         private void CreateProjectButton_Click(object sender, EventArgs e)
         {
-            ProjectInfo newProject = new ProjectInfo(projects, "");
+            ProjectInfo newProject = new ProjectInfo(db, "");
 
             var result = newProject.ShowDialog();
             if (result == DialogResult.OK)
@@ -51,7 +55,7 @@ namespace S1084_AutoRelease
 
         private void EditProjectButton_Click(object sender, EventArgs e)
         {
-            ProjectInfo newProject = new ProjectInfo(projects, ProjectListComboBox.Text);
+            ProjectInfo newProject = new ProjectInfo(db, ProjectListComboBox.Text);
 
             var result = newProject.ShowDialog();
             if (result == DialogResult.OK)
@@ -66,7 +70,28 @@ namespace S1084_AutoRelease
 
         private void CreateSubProjectButton_Click(object sender, EventArgs e)
         {
+            AddSubProject Sxxxx = new AddSubProject();
 
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                if (db.GetElementsByTagName(Sxxxx.number).Count == 0)
+                {
+                    XmlElement xmlSubProject = db.CreateElement(Sxxxx.number);
+                    xmlSubProject.SetAttribute("shortName", Sxxxx.shortName);
+                    xmlSubProject.SetAttribute("platform", Sxxxx.platform);
+                    xmlSubProject.SetAttribute("outputType", Sxxxx.outputType);
+                    xmlSubProject.SetAttribute("outputPath", Sxxxx.outputPath);
+                    xmlSubProject.SetAttribute("versionPath", Sxxxx.versionPath);
+                    xmlSubProject.SetAttribute("releasesPath", Sxxxx.releasesPath);
+                    xmlSubProject.SetAttribute("archivePath", Sxxxx.archivePath);
+                    xmlSubProject.InnerText = Sxxxx.description;
+                    db.GetElementsByTagName("SubProjects")[0].AppendChild(xmlSubProject);
+                    db.Save(db.DocumentElement.GetAttribute("path"));
+                }
+                else
+                    MessageBox.Show("Sub-Project '" + Sxxxx.number + "' already exists");
+            }
         }
     }
 }

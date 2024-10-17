@@ -37,7 +37,7 @@ namespace S1084_AutoRelease
                 {
                     AddSubProject Sxxxx = new AddSubProject();
                     Sxxxx.number = node.Name;
-                    Sxxxx.name = node.InnerText;
+                    Sxxxx.shortName = node.InnerText;
                     Sxxxx.outputType = node.Attributes["outputType"].Value;
                     Sxxxx.outputPath = node.Attributes["outputPath"].Value;
                     Sxxxx.versionPath = node.Attributes["versionPath"].Value;
@@ -107,7 +107,7 @@ namespace S1084_AutoRelease
                 foreach (AddSubProject project in addSubProjects)
                 {
                     XmlElement subProject = projects.CreateElement(project.number);
-                    subProject.InnerText = project.name;
+                    subProject.InnerText = project.shortName;
                     subProject.SetAttribute("outputType", project.outputType);
                     subProject.SetAttribute("outputPath", project.outputPath);
                     subProject.SetAttribute("versionPath", project.versionPath);
@@ -131,7 +131,7 @@ namespace S1084_AutoRelease
                     else
                         xmlSubProject = (XmlElement)projects.GetElementsByTagName(subProject.number)[0];
                     
-                    xmlSubProject.InnerText = subProject.name;
+                    xmlSubProject.InnerText = subProject.shortName;
                     xmlSubProject.SetAttribute("outputType", subProject.outputType);
                     xmlSubProject.SetAttribute("outputPath", subProject.outputPath);
                     xmlSubProject.SetAttribute("versionPath", subProject.versionPath);

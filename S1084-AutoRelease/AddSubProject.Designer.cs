@@ -46,13 +46,17 @@
             AddSubProjectToolTip = new ToolTip(components);
             SoftwareNameTextBox = new TextBox();
             label7 = new Label();
+            DescriptionTextBox = new TextBox();
+            label8 = new Label();
+            PlaftormTextBox = new TextBox();
+            label9 = new Label();
             SuspendLayout();
             // 
             // ReleasesPathTextBox
             // 
             ReleasesPathTextBox.Font = new Font("Segoe UI", 9.75F);
             ReleasesPathTextBox.ForeColor = SystemColors.WindowFrame;
-            ReleasesPathTextBox.Location = new Point(201, 349);
+            ReleasesPathTextBox.Location = new Point(201, 337);
             ReleasesPathTextBox.Name = "ReleasesPathTextBox";
             ReleasesPathTextBox.Size = new Size(552, 25);
             ReleasesPathTextBox.TabIndex = 6;
@@ -63,7 +67,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(22, 349);
+            label3.Location = new Point(22, 337);
             label3.Name = "label3";
             label3.Size = new Size(107, 21);
             label3.TabIndex = 10;
@@ -74,9 +78,9 @@
             // 
             SoftwareNumberTextBox.Font = new Font("Segoe UI", 9.75F);
             SoftwareNumberTextBox.ForeColor = SystemColors.WindowFrame;
-            SoftwareNumberTextBox.Location = new Point(201, 125);
+            SoftwareNumberTextBox.Location = new Point(201, 23);
             SoftwareNumberTextBox.Name = "SoftwareNumberTextBox";
-            SoftwareNumberTextBox.Size = new Size(552, 25);
+            SoftwareNumberTextBox.Size = new Size(244, 25);
             SoftwareNumberTextBox.TabIndex = 1;
             SoftwareNumberTextBox.Text = "Please enter number";
             AddSubProjectToolTip.SetToolTip(SoftwareNumberTextBox, "Enter ONLY the 'S' numner allocated to this software project");
@@ -85,7 +89,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(22, 125);
+            label2.Location = new Point(22, 23);
             label2.Name = "label2";
             label2.Size = new Size(116, 21);
             label2.TabIndex = 9;
@@ -120,7 +124,7 @@
             // 
             OutputPathTextBox.Font = new Font("Segoe UI", 9.75F);
             OutputPathTextBox.ForeColor = SystemColors.WindowFrame;
-            OutputPathTextBox.Location = new Point(201, 259);
+            OutputPathTextBox.Location = new Point(201, 247);
             OutputPathTextBox.Name = "OutputPathTextBox";
             OutputPathTextBox.Size = new Size(552, 25);
             OutputPathTextBox.TabIndex = 4;
@@ -131,7 +135,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(22, 259);
+            label1.Location = new Point(22, 247);
             label1.Name = "label1";
             label1.Size = new Size(96, 21);
             label1.TabIndex = 14;
@@ -142,7 +146,7 @@
             // 
             VersionPathTextBox.Font = new Font("Segoe UI", 9.75F);
             VersionPathTextBox.ForeColor = SystemColors.WindowFrame;
-            VersionPathTextBox.Location = new Point(201, 304);
+            VersionPathTextBox.Location = new Point(201, 292);
             VersionPathTextBox.Name = "VersionPathTextBox";
             VersionPathTextBox.Size = new Size(552, 25);
             VersionPathTextBox.TabIndex = 5;
@@ -153,7 +157,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(22, 304);
+            label4.Location = new Point(22, 292);
             label4.Name = "label4";
             label4.Size = new Size(99, 21);
             label4.TabIndex = 16;
@@ -164,7 +168,7 @@
             // 
             ArchivePathTextBox.Font = new Font("Segoe UI", 9.75F);
             ArchivePathTextBox.ForeColor = SystemColors.WindowFrame;
-            ArchivePathTextBox.Location = new Point(201, 394);
+            ArchivePathTextBox.Location = new Point(201, 382);
             ArchivePathTextBox.Name = "ArchivePathTextBox";
             ArchivePathTextBox.Size = new Size(552, 25);
             ArchivePathTextBox.TabIndex = 7;
@@ -175,7 +179,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(22, 394);
+            label5.Location = new Point(22, 382);
             label5.Name = "label5";
             label5.Size = new Size(99, 21);
             label5.TabIndex = 18;
@@ -186,7 +190,7 @@
             // 
             OutputTypeTextBox.Font = new Font("Segoe UI", 9.75F);
             OutputTypeTextBox.ForeColor = SystemColors.WindowFrame;
-            OutputTypeTextBox.Location = new Point(201, 214);
+            OutputTypeTextBox.Location = new Point(201, 202);
             OutputTypeTextBox.Name = "OutputTypeTextBox";
             OutputTypeTextBox.Size = new Size(552, 25);
             OutputTypeTextBox.TabIndex = 3;
@@ -197,7 +201,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(22, 214);
+            label6.Location = new Point(22, 202);
             label6.Name = "label6";
             label6.Size = new Size(126, 21);
             label6.TabIndex = 20;
@@ -216,29 +220,74 @@
             // 
             SoftwareNameTextBox.Font = new Font("Segoe UI", 9.75F);
             SoftwareNameTextBox.ForeColor = SystemColors.WindowFrame;
-            SoftwareNameTextBox.Location = new Point(201, 169);
+            SoftwareNameTextBox.Location = new Point(201, 67);
             SoftwareNameTextBox.Name = "SoftwareNameTextBox";
-            SoftwareNameTextBox.Size = new Size(552, 25);
+            SoftwareNameTextBox.Size = new Size(244, 25);
             SoftwareNameTextBox.TabIndex = 2;
-            SoftwareNameTextBox.Text = "Please enter name";
             AddSubProjectToolTip.SetToolTip(SoftwareNameTextBox, "Short decription name such as 'Control' or 'BITE'");
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(22, 169);
+            label7.Location = new Point(22, 67);
             label7.Name = "label7";
-            label7.Size = new Size(144, 21);
+            label7.Size = new Size(101, 21);
             label7.TabIndex = 22;
-            label7.Text = "Sub-Project Name: ";
+            label7.Text = "Short Name: ";
             AddSubProjectToolTip.SetToolTip(label7, "Short decription name such as 'Control' or 'BITE'");
+            // 
+            // DescriptionTextBox
+            // 
+            DescriptionTextBox.Font = new Font("Segoe UI", 9.75F);
+            DescriptionTextBox.ForeColor = SystemColors.WindowFrame;
+            DescriptionTextBox.Location = new Point(201, 158);
+            DescriptionTextBox.Name = "DescriptionTextBox";
+            DescriptionTextBox.Size = new Size(552, 25);
+            DescriptionTextBox.TabIndex = 23;
+            AddSubProjectToolTip.SetToolTip(DescriptionTextBox, "Please enter a short description");
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Location = new Point(22, 158);
+            label8.Name = "label8";
+            label8.Size = new Size(92, 21);
+            label8.TabIndex = 24;
+            label8.Text = "Description:";
+            AddSubProjectToolTip.SetToolTip(label8, "Please enter a short description");
+            // 
+            // PlaftormTextBox
+            // 
+            PlaftormTextBox.Font = new Font("Segoe UI", 9.75F);
+            PlaftormTextBox.ForeColor = SystemColors.WindowFrame;
+            PlaftormTextBox.Location = new Point(201, 111);
+            PlaftormTextBox.Name = "PlaftormTextBox";
+            PlaftormTextBox.Size = new Size(244, 25);
+            PlaftormTextBox.TabIndex = 25;
+            AddSubProjectToolTip.SetToolTip(PlaftormTextBox, "Short decription name such as 'Control' or 'BITE'");
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(22, 111);
+            label9.Name = "label9";
+            label9.Size = new Size(73, 21);
+            label9.TabIndex = 26;
+            label9.Text = "Platform:";
+            AddSubProjectToolTip.SetToolTip(label9, "Short decription name such as 'Control' or 'BITE'");
             // 
             // AddSubProject
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label9);
+            Controls.Add(PlaftormTextBox);
+            Controls.Add(DescriptionTextBox);
+            Controls.Add(label8);
             Controls.Add(SoftwareNameTextBox);
             Controls.Add(label7);
             Controls.Add(OutputTypeTextBox);
@@ -280,5 +329,9 @@
         private ToolTip AddSubProjectToolTip;
         private TextBox SoftwareNameTextBox;
         private Label label7;
+        private TextBox DescriptionTextBox;
+        private Label label8;
+        private TextBox PlaftormTextBox;
+        private Label label9;
     }
 }
