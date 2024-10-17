@@ -20,7 +20,8 @@ namespace S1084_AutoRelease
         private int subProjectButton_x = 20;
         private int subProjectButton_y = 120;
         private XmlDocument db = new XmlDocument();
-        private List<AddSubProject> addSubProjects = new List<AddSubProject>();
+       // private List<AddSubProject> addSubProjects = new List<AddSubProject>();
+       private List<string> subProjectNames = new List<string>();
 
         public ProjectInfo(XmlDocument db, string name)
         {
@@ -30,24 +31,19 @@ namespace S1084_AutoRelease
 
             if (name != "") // If editing an existing project then:
             {
-                XmlNode project = db.GetElementsByTagName(name)[0];
-                ProjectNameTextBox.Text = name; //  project.Name; For example, "DCB1 - Distributed Current Bus 1"
+                XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
+                XmlNode project = projects.GetElementsByTagName(name)[0];
+                ProjectNameTextBox.Text = name; //  For example, "DCB1"
+                DescriptiveNameTextBox.Text = project.Attributes["desName"].Value; //  For example, "Distributed Current Bus"
+                DescriptionTextBox.Text = project.Attributes["description"].Value;
                 RepoPathTextBox.Text = project.Attributes["repoPath"].Value;
+                StageComboBox.Text = project.Attributes["stage"].Value;
+                StatusComboBox.Text = project.Attributes["status"].Value;
 
                 foreach (XmlNode node in project)
                 {
-                    AddSubProject Sxxxx = new AddSubProject(node.Name);
-                    Sxxxx.number = node.Name;
-                    Sxxxx.shortName = node.InnerText;
-                    Sxxxx.outputType = node.Attributes["outputType"].Value;
-                    Sxxxx.outputPath = node.Attributes["outputPath"].Value;
-                    Sxxxx.versionPath = node.Attributes["versionPath"].Value;
-                    Sxxxx.releasesPath = node.Attributes["releasesPath"].Value;
-                    Sxxxx.archivePath = node.Attributes["archivePath"].Value;
-                    Sxxxx.Refresh();
-                    addSubProjects.Add(Sxxxx);
-
                     AddSubProjectButtonToGroup(node.Name);
+                    subProjectNames.Add(node.Name);
                 }
             }
         }
@@ -77,7 +73,6 @@ namespace S1084_AutoRelease
         private bool SaveProject()
         {
             string projectName = ProjectNameTextBox.Text;
-            string repoPath = RepoPathTextBox.Text;
 
             if (projectName == "Please enter name")
             {
@@ -85,66 +80,80 @@ namespace S1084_AutoRelease
                 return false;
             }
 
-            if (repoPath == "Please enter path")
+            if (RepoPathTextBox.Text == "Please enter path")
             {
                 MessageBox.Show("Please enter a valid [local] directory path for the GIT repository [C:\\...]");
                 return false;
             }
 
-            if (addSubProjects.Count == 0)
-            {
-                MessageBox.Show("There must be at least one Sxxxx sub-project added");
-                return false;
-            }
-
-
+            XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
             XmlElement xmlProject;
 
-            if (db.GetElementsByTagName(projectName).Count == 0)
-            {
+            if (projects.GetElementsByTagName(projectName).Count == 0) // Checking is project doesn't already exist
                 xmlProject = db.CreateElement(projectName);
-                xmlProject.SetAttribute("repoPath", repoPath);
-
-                foreach (AddSubProject project in addSubProjects)
-                {
-                    XmlElement subProject = db.CreateElement(project.number);
-                    subProject.InnerText = project.shortName;
-                    subProject.SetAttribute("outputType", project.outputType);
-                    subProject.SetAttribute("outputPath", project.outputPath);
-                    subProject.SetAttribute("versionPath", project.versionPath);
-                    subProject.SetAttribute("releasesPath", project.releasesPath);
-                    subProject.SetAttribute("archivePath", project.archivePath);
-                    xmlProject.AppendChild(subProject);
-                }
-
-             }
             else
-            {
                 xmlProject = (XmlElement)db.GetElementsByTagName(projectName)[0];
-                xmlProject.SetAttribute("repoPath", repoPath);
 
-                foreach (AddSubProject subProject in addSubProjects)
+            xmlProject.SetAttribute("desName", DescriptiveNameTextBox.Text);
+            xmlProject.SetAttribute("description", DescriptionTextBox.Text);
+            xmlProject.SetAttribute("repoPath", RepoPathTextBox.Text);
+            xmlProject.SetAttribute("stage", StageComboBox.Text);
+            xmlProject.SetAttribute("status", StatusComboBox.Text);
+
+
+            if (projects.GetElementsByTagName(projectName).Count == 0) // Checking if project doesn't already exist
+            {
+                if (subProjectNames.Count > 0)
                 {
-                    XmlElement xmlSubProject;
+                    XmlElement subProjectElement = db.CreateElement(projectName);
 
-                    if (xmlProject.GetElementsByTagName(subProject.number).Count == 0) 
-                        xmlSubProject = db.CreateElement(subProject.number);
+                    foreach (string subProjectName in subProjectNames)
+                    {
+                        XmlElement newSub = db.CreateElement(subProjectName);
+                        subProjectElement.AppendChild(newSub);
+                    }
+
+                    xmlProject.AppendChild(subProjectElement);
+                }
+            }
+            else // Else project does exists
+            {
+                if (subProjectNames.Count > 0)
+                {
+                    if (projects.GetElementsByTagName("SubProjects").Count == 0)
+                    {
+                        XmlElement subProjectElement = db.CreateElement(projectName);
+
+                        foreach (string subProjectName in subProjectNames)
+                        {
+                            XmlElement newSub = db.CreateElement(subProjectName);
+                            subProjectElement.AppendChild(newSub);
+                        }
+
+                        xmlProject.AppendChild(subProjectElement);
+                    }
                     else
-                        xmlSubProject = (XmlElement)db.GetElementsByTagName(subProject.number)[0];
-                    
-                    xmlSubProject.InnerText = subProject.shortName;
-                    xmlSubProject.SetAttribute("outputType", subProject.outputType);
-                    xmlSubProject.SetAttribute("outputPath", subProject.outputPath);
-                    xmlSubProject.SetAttribute("versionPath", subProject.versionPath);
-                    xmlSubProject.SetAttribute("releasesPath", subProject.releasesPath);
-                    xmlSubProject.SetAttribute("archivePath", subProject.archivePath);
-                    xmlProject.AppendChild(xmlSubProject);
+                    {
+                        XmlElement subProjectElement = (XmlElement)projects.GetElementsByTagName("SubProjects")[0];
+
+                        foreach (string subProjectName in subProjectNames)
+                        {
+                            if (subProjectElement.GetElementsByTagName(subProjectName).Count == 0)
+                            {
+                                XmlElement newSub = db.CreateElement(subProjectName);
+                                subProjectElement.AppendChild(newSub);
+                            }
+                        }
+                    }
                 }
             }
 
-            XmlElement root = db.DocumentElement;
-            root.AppendChild(xmlProject);
-            string xmlPath = root.GetAttribute("path");
+            if (projects.GetElementsByTagName(projectName).Count == 0)
+                projects.AppendChild(xmlProject);
+
+            //XmlElement root = db.DocumentElement;
+            //root.AppendChild(xmlProject);
+            string xmlPath = db.DocumentElement.GetAttribute("path");
             db.Save(xmlPath);
 
             return true;
@@ -172,25 +181,29 @@ namespace S1084_AutoRelease
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
-            AddSubProject Sxxxx = new AddSubProject("TBD");
+            //AddSubProject Sxxxx = new AddSubProject("TBD");
 
-            var result = Sxxxx.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                addSubProjects.Add(Sxxxx);
-                AddSubProjectButtonToGroup(Sxxxx.number);
-            }
+            //var result = Sxxxx.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    addSubProjects.Add(Sxxxx);
+            //    AddSubProjectButtonToGroup(Sxxxx.number);
+            //}
         }
 
         private void OpenSubProjectButton_Click(object sender, EventArgs e)
         {
-            Button subProjectButton = (Button)sender;
+            //Button subProjectButton = (Button)sender;
 
-            foreach (AddSubProject subProject in addSubProjects)
-            {
-                if (subProject.number == subProjectButton.Text)
-                    subProject.Show();
-            }
+            //foreach (AddSubProject subProject in addSubProjects)
+            //{
+            //    if (subProject.number == subProjectButton.Text)
+            //        subProject.Show();
+            //}
+        }
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = (e.KeyChar == (char)Keys.Space);
         }
     }
 }

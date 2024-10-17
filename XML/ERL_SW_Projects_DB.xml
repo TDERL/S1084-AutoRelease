@@ -3,6 +3,8 @@
 <!--S1084, Projects DB and Auto Release-->
 <S1084 path="C:\Projects\Windows Apps\S1084-AutoRelease\XML\ERL_SW_Projects_DB.xml">
   <Projects>
+    <DCB1 desName="Distributed Current Bus" description="Mains AC in, 360W + 50W HFAC outputs, 63KHz, 1.8A" repoPath="C:\Projects\DCB1-DistributedCurrentBus" stage="Red" status="Active" />
+    <FRED desName="Some words" description="Brief spec" repoPath="A Path to a repo" stage="Green" status="Abandoned" />
   </Projects>
   <SubProjects>
     <S1070 shortName="Control" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" versionPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\App\Version" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases" archivePath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases\Archive">Control Micro for DCB1. PWM generation, user control, current control loop</S1070>
