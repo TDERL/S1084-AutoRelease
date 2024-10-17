@@ -10,4 +10,8 @@
   <DCB1 repoPath="C:\Projects\DCB1-DistributedCurrentBus">
     <S1070 outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" versionPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\App\Version" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases" archivePath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases\Archive">Control</S1070>
   </DCB1>
+  <TEST1 repoPath="Bobby Brown">
+    <S2020 outputType=".hex" outputPath="my output" versionPath="oinoin" releasesPath="poimpom" archivePath="iubib">Test</S2020>
+    <S2021 outputType=".elf" outputPath="Out" versionPath="Version" releasesPath="Releases" archivePath="Archive">Control</S2021>
+  </TEST1>
 </Projects>

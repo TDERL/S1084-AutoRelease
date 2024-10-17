@@ -95,34 +95,53 @@ namespace S1084_AutoRelease
                 return false;
             }
 
-            XmlElement newProject;
+
+            XmlElement xmlProject;
+
             if (projects.GetElementsByTagName(projectName).Count == 0)
             {
-                newProject = projects.CreateElement(projectName);
-            }
+                xmlProject = projects.CreateElement(projectName);
+                xmlProject.SetAttribute("repoPath", repoPath);
+
+                foreach (AddSubProject project in addSubProjects)
+                {
+                    XmlElement subProject = projects.CreateElement(project.number);
+                    subProject.InnerText = project.name;
+                    subProject.SetAttribute("outputType", project.outputType);
+                    subProject.SetAttribute("outputPath", project.outputPath);
+                    subProject.SetAttribute("versionPath", project.versionPath);
+                    subProject.SetAttribute("releasesPath", project.releasesPath);
+                    subProject.SetAttribute("archivePath", project.archivePath);
+                    xmlProject.AppendChild(subProject);
+                }
+
+             }
             else
             {
-                newProject = (XmlElement)projects.GetElementsByTagName(projectName)[0];
-            }
+                xmlProject = (XmlElement)projects.GetElementsByTagName(projectName)[0];
+                xmlProject.SetAttribute("repoPath", repoPath);
 
-           // XmlElement newProject = projects.CreateElement(projectName);
-            newProject.SetAttribute("repoPath", repoPath);
+                foreach (AddSubProject subProject in addSubProjects)
+                {
+                    XmlElement xmlSubProject;
 
-            foreach (AddSubProject project in addSubProjects)
-            {
-                XmlElement subProject = projects.CreateElement(project.number);
-                subProject.InnerText = project.name;
-                subProject.SetAttribute("outputType", project.outputType);
-                subProject.SetAttribute("outputPath", project.outputPath);
-                subProject.SetAttribute("versionPath", project.versionPath);
-                subProject.SetAttribute("releasesPath", project.releasesPath);
-                subProject.SetAttribute("archivePath", project.archivePath);
-                newProject.AppendChild(subProject);
+                    if (xmlProject.GetElementsByTagName(subProject.number).Count == 0) 
+                        xmlSubProject = projects.CreateElement(subProject.number);
+                    else
+                        xmlSubProject = (XmlElement)projects.GetElementsByTagName(subProject.number)[0];
+                    
+                    xmlSubProject.InnerText = subProject.name;
+                    xmlSubProject.SetAttribute("outputType", subProject.outputType);
+                    xmlSubProject.SetAttribute("outputPath", subProject.outputPath);
+                    xmlSubProject.SetAttribute("versionPath", subProject.versionPath);
+                    xmlSubProject.SetAttribute("releasesPath", subProject.releasesPath);
+                    xmlSubProject.SetAttribute("archivePath", subProject.archivePath);
+                    xmlProject.AppendChild(xmlSubProject);
+                }
             }
 
             XmlElement root = projects.DocumentElement;
-            root.AppendChild(newProject);
-
+            root.AppendChild(xmlProject);
             string xmlPath = root.GetAttribute("path");
             projects.Save(xmlPath);
 
