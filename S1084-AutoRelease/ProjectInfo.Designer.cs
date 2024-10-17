@@ -165,6 +165,7 @@
             RemoveSubProjectButton.Size = new Size(75, 75);
             RemoveSubProjectButton.TabIndex = 4;
             RemoveSubProjectButton.UseVisualStyleBackColor = false;
+            RemoveSubProjectButton.Click += RemoveSubProjectButton_Click;
             // 
             // StageComboBox
             // 

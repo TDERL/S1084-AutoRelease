@@ -26,8 +26,8 @@ namespace S1084_AutoRelease
                 writer.WriteAttributeString("path", xmlPath);
                 writer.WriteStartElement("Projects");
                 writer.WriteEndElement();   // Projects
-                writer.WriteStartElement("SubProjects");
-                writer.WriteEndElement();   // SubProjects
+                writer.WriteStartElement("SoftwareProjects");
+                writer.WriteEndElement();   // SoftwareProjects
                 writer.WriteEndElement();   // S1084
                 writer.WriteEndDocument();
                 writer.Close();
@@ -81,18 +81,18 @@ namespace S1084_AutoRelease
         {
             SubProjectListComboBox.Items.Clear();
 
-            foreach (XmlNode node in db.GetElementsByTagName("SubProjects")[0])
+            foreach (XmlNode node in db.GetElementsByTagName("SoftwareProjects")[0])
                 SubProjectListComboBox.Items.Add(node.Name);
         }
 
         private void EditSubProjectButton_Click(object sender, EventArgs e)
         {
-            XmlElement subProjects = (XmlElement)db.GetElementsByTagName("SubProjects")[0];
+            XmlElement SoftwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
 
-            if (subProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
+            if (SoftwareProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
             {
                 AddSubProject Sxxxx = new AddSubProject(SubProjectListComboBox.Text);
-                XmlNode node = subProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0];
+                XmlNode node = SoftwareProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0];
                 Sxxxx.number = node.Name;
                 Sxxxx.shortName = node.Attributes["shortName"].Value;
                 Sxxxx.platform = node.Attributes["platform"].Value;
@@ -155,7 +155,7 @@ namespace S1084_AutoRelease
                 xmlSubProject.SetAttribute("releasesPath", Sxxxx.releasesPath);
                 xmlSubProject.SetAttribute("archivePath", Sxxxx.archivePath);
                 xmlSubProject.InnerText = Sxxxx.description;
-                db.GetElementsByTagName("SubProjects")[0].AppendChild(xmlSubProject);
+                db.GetElementsByTagName("SoftwareProjects")[0].AppendChild(xmlSubProject);
                 db.Save(db.DocumentElement.GetAttribute("path"));
 
                 RefreshSubProjectListComboBox();

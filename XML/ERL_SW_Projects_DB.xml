@@ -3,12 +3,18 @@
 <!--S1084, Projects DB and Auto Release-->
 <S1084 path="C:\Projects\Windows Apps\S1084-AutoRelease\XML\ERL_SW_Projects_DB.xml">
   <Projects>
-    <DCB1 desName="Distributed Current Bus" description="Mains AC in, 360W + 50W HFAC outputs, 63KHz, 1.8A" repoPath="C:\Projects\DCB1-DistributedCurrentBus" stage="Red" status="Active" />
-    <FRED desName="Some words" description="Brief spec" repoPath="A Path to a repo" stage="Green" status="Abandoned" />
+    <DCB1 desName="Distributed Current Bus" description="Mains AC in, 360W + 50W HFAC outputs, 63KHz, 1.8A" repoPath="C:\Projects\DCB1-DistributedCurrentBus" stage="Red" status="Active">
+      <Software>
+        <S1070 />
+        <S1071 />
+      </Software>
+    </DCB1>
+    <FRED desName="Some words" description="Brief spec" repoPath="A Path to a repo" stage="Green" status="Abandoned">
+    </FRED>
   </Projects>
-  <SubProjects>
+  <SoftwareProjects>
     <S1070 shortName="Control" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" versionPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\App\Version" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases" archivePath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases\Archive">Control Micro for DCB1. PWM generation, user control, current control loop</S1070>
     <S1071 shortName="BITE" platform="STM32G0B1RE" outputType="Still TBD" outputPath="TBD" versionPath="TBD" releasesPath="TBD" archivePath="TBD">BITE Micro for DCB1. Monitors that things working as expected</S1071>
     <S1072 shortName="DevBoard" platform="PCB" outputType="NA" outputPath="NA" versionPath="NA" releasesPath="NA" archivePath="NA">PCB design for generic dev board to support any 32 pin micro</S1072>
-  </SubProjects>
+  </SoftwareProjects>
 </S1084>

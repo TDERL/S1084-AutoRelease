@@ -18,10 +18,10 @@ namespace S1084_AutoRelease
     public partial class ProjectInfo : Form
     {
         private int subProjectButton_x = 20;
-        private int subProjectButton_y = 120;
+        private int subProjectButton_y = 140;
         private XmlDocument db = new XmlDocument();
-       // private List<AddSubProject> addSubProjects = new List<AddSubProject>();
-       private List<string> subProjectNames = new List<string>();
+        // private List<AddSubProject> addSubProjects = new List<AddSubProject>();
+        private List<string> subProjectNames = new List<string>();
 
         public ProjectInfo(XmlDocument db, string name)
         {
@@ -40,7 +40,8 @@ namespace S1084_AutoRelease
                 StageComboBox.Text = project.Attributes["stage"].Value;
                 StatusComboBox.Text = project.Attributes["status"].Value;
 
-                foreach (XmlNode node in project)
+                XmlElement Software = (XmlElement)projects.GetElementsByTagName("Software")[0];
+                foreach (XmlNode node in Software)
                 {
                     AddSubProjectButtonToGroup(node.Name);
                     subProjectNames.Add(node.Name);
@@ -105,7 +106,7 @@ namespace S1084_AutoRelease
             {
                 if (subProjectNames.Count > 0)
                 {
-                    XmlElement subProjectElement = db.CreateElement(projectName);
+                    XmlElement subProjectElement = db.CreateElement("Software");
 
                     foreach (string subProjectName in subProjectNames)
                     {
@@ -120,9 +121,9 @@ namespace S1084_AutoRelease
             {
                 if (subProjectNames.Count > 0)
                 {
-                    if (projects.GetElementsByTagName("SubProjects").Count == 0)
+                    if (projects.GetElementsByTagName("Software").Count == 0)
                     {
-                        XmlElement subProjectElement = db.CreateElement(projectName);
+                        XmlElement subProjectElement = db.CreateElement("Software");
 
                         foreach (string subProjectName in subProjectNames)
                         {
@@ -134,7 +135,7 @@ namespace S1084_AutoRelease
                     }
                     else
                     {
-                        XmlElement subProjectElement = (XmlElement)projects.GetElementsByTagName("SubProjects")[0];
+                        XmlElement subProjectElement = (XmlElement)projects.GetElementsByTagName("Software")[0];
 
                         foreach (string subProjectName in subProjectNames)
                         {
@@ -181,14 +182,17 @@ namespace S1084_AutoRelease
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
-            //AddSubProject Sxxxx = new AddSubProject("TBD");
+            SelectSubProject Sxxxx = new SelectSubProject(db);
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                AddSubProjectButtonToGroup(Sxxxx.selectedSubProject);
+                subProjectNames.Add(Sxxxx.selectedSubProject);
+            }
+        }
+        private void RemoveSubProjectButton_Click(object sender, EventArgs e)
+        {
 
-            //var result = Sxxxx.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    addSubProjects.Add(Sxxxx);
-            //    AddSubProjectButtonToGroup(Sxxxx.number);
-            //}
         }
 
         private void OpenSubProjectButton_Click(object sender, EventArgs e)
