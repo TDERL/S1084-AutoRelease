@@ -31,6 +31,7 @@
             CreateProjectButton = new Button();
             EditProjectButton = new Button();
             ProjectListComboBox = new ComboBox();
+            CreateSubProjectButton = new Button();
             SuspendLayout();
             // 
             // CreateProjectButton
@@ -55,7 +56,7 @@
             EditProjectButton.TabIndex = 1;
             EditProjectButton.Text = "Edit Project";
             EditProjectButton.UseVisualStyleBackColor = false;
-            EditProjectButton.Click += this.EditProjectButton_Click;
+            EditProjectButton.Click += EditProjectButton_Click;
             // 
             // ProjectListComboBox
             // 
@@ -67,11 +68,24 @@
             ProjectListComboBox.TabIndex = 2;
             ProjectListComboBox.SelectedIndexChanged += ProjectListComboBox_SelectedIndexChanged;
             // 
+            // CreateSubProjectButton
+            // 
+            CreateSubProjectButton.BackColor = Color.FromArgb(255, 224, 192);
+            CreateSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CreateSubProjectButton.Location = new Point(366, 146);
+            CreateSubProjectButton.Name = "CreateSubProjectButton";
+            CreateSubProjectButton.Size = new Size(127, 66);
+            CreateSubProjectButton.TabIndex = 3;
+            CreateSubProjectButton.Text = "Add New Sxxxx Sub-Project";
+            CreateSubProjectButton.UseVisualStyleBackColor = false;
+            CreateSubProjectButton.Click += CreateSubProjectButton_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(CreateSubProjectButton);
             Controls.Add(ProjectListComboBox);
             Controls.Add(EditProjectButton);
             Controls.Add(CreateProjectButton);
@@ -85,5 +99,6 @@
         private Button CreateProjectButton;
         private Button EditProjectButton;
         private ComboBox ProjectListComboBox;
+        private Button CreateSubProjectButton;
     }
 }

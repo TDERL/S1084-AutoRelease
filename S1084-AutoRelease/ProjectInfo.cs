@@ -24,6 +24,7 @@ namespace S1084_AutoRelease
         public ProjectInfo(XmlDocument projects, string name)
         {
             InitializeComponent();
+            this.DialogResult = DialogResult.Cancel;
             this.projects = projects;
 
             if (name != "")
@@ -155,13 +156,17 @@ namespace S1084_AutoRelease
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void SaveAndCloseButton_Click(object sender, EventArgs e)
         {
             if (SaveProject())
+            {
+                this.DialogResult = DialogResult.OK;
                 this.Close();
+            }
         }
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)

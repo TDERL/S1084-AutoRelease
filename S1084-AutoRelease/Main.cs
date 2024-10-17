@@ -26,38 +26,47 @@ namespace S1084_AutoRelease
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
                 writer.Close();
-
-                ProjectListComboBox.Items.Clear();
             }
 
             projects.Load(xmlPath);
+            RefreshProjectListComboBox();
+        }
+
+        private void RefreshProjectListComboBox()
+        {
+            ProjectListComboBox.Items.Clear();
 
             foreach (XmlNode node in projects.DocumentElement.ChildNodes)
-            {
                 ProjectListComboBox.Items.Add(node.Name);
-            }
         }
 
         private void CreateProjectButton_Click(object sender, EventArgs e)
         {
             ProjectInfo newProject = new ProjectInfo(projects, "");
-            newProject.Show();
+
+            var result = newProject.ShowDialog();
+            if (result == DialogResult.OK)
+                RefreshProjectListComboBox();
         }
 
         private void EditProjectButton_Click(object sender, EventArgs e)
         {
             ProjectInfo newProject = new ProjectInfo(projects, ProjectListComboBox.Text);
-            newProject.Show();
+
+            var result = newProject.ShowDialog();
+            if (result == DialogResult.OK)
+                RefreshProjectListComboBox();
         }
 
         private void ProjectListComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ProjectListComboBox.Text != "")
-            {
                 EditProjectButton.Visible = true;
-            }
         }
 
-        
+        private void CreateSubProjectButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
