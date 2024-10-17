@@ -103,17 +103,14 @@ namespace S1084_AutoRelease
                 var result = Sxxxx.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //XmlNode node = db.CreateElement(Sxxxx.number);
-                    //node.Attributes["shortName"].Value = Sxxxx.shortName;
-                    //node.Attributes["outputType"].Value = Sxxxx.outputType;
-                    //node.Attributes["outputPath"].Value = Sxxxx.outputPath;
-                    //node.Attributes["versionPath"].Value = Sxxxx.versionPath;
-                    //node.Attributes["releasesPath"].Value = Sxxxx.releasesPath;
-                    //node.Attributes["archivePath"].Value = Sxxxx.archivePath;
-                    //node.InnerText = Sxxxx.description;
-                    //db.GetElementsByTagName("SubProjects")[0].AppendChild(node);
-
-                    RefreshSubProjectListComboBox();
+                    node.Attributes["shortName"].Value = Sxxxx.shortName;
+                    node.Attributes["outputType"].Value = Sxxxx.outputType;
+                    node.Attributes["outputPath"].Value = Sxxxx.outputPath;
+                    node.Attributes["versionPath"].Value = Sxxxx.versionPath;
+                    node.Attributes["releasesPath"].Value = Sxxxx.releasesPath;
+                    node.Attributes["archivePath"].Value = Sxxxx.archivePath;
+                    node.InnerText = Sxxxx.description;
+                    db.Save(db.DocumentElement.GetAttribute("path"));
                 }
             }
         }

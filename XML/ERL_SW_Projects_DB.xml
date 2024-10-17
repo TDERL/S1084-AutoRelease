@@ -5,5 +5,6 @@
   <Projects />
   <SubProjects>
     <S1070 shortName="Control" platform="STM32G0B1RC" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" versionPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\App\Version" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases" archivePath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases\Archive">Control Micro for DCB1. PWM generation, user control, current control loop</S1070>
+    <S1071 shortName="BITE" platform="STM32G0B1RE" outputType="Still TBD" outputPath="TBD" versionPath="TBD" releasesPath="TBD" archivePath="TBD">BITE Micro for DCB1. Monitors that things working as expected</S1071>
   </SubProjects>
 </S1084>

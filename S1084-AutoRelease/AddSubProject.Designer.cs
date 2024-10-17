@@ -64,7 +64,7 @@
             ReleasesPathTextBox.Location = new Point(201, 337);
             ReleasesPathTextBox.Name = "ReleasesPathTextBox";
             ReleasesPathTextBox.Size = new Size(552, 25);
-            ReleasesPathTextBox.TabIndex = 6;
+            ReleasesPathTextBox.TabIndex = 7;
             ReleasesPathTextBox.Text = "Please enter path";
             AddSubProjectToolTip.SetToolTip(ReleasesPathTextBox, "Directory path where new release of the executable/build output is stored and renamed to Srr version");
             // 
@@ -97,7 +97,7 @@
             CancelButton.Location = new Point(626, 26);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(127, 66);
-            CancelButton.TabIndex = 9;
+            CancelButton.TabIndex = 10;
             CancelButton.Text = "Cancel";
             CancelButton.UseVisualStyleBackColor = false;
             CancelButton.Click += CancelButton_Click;
@@ -109,7 +109,7 @@
             AddButton.Location = new Point(482, 26);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(127, 66);
-            AddButton.TabIndex = 8;
+            AddButton.TabIndex = 9;
             AddButton.Text = "Save and Close";
             AddButton.UseVisualStyleBackColor = false;
             AddButton.Click += AddButton_Click;
@@ -121,7 +121,7 @@
             OutputPathTextBox.Location = new Point(201, 247);
             OutputPathTextBox.Name = "OutputPathTextBox";
             OutputPathTextBox.Size = new Size(552, 25);
-            OutputPathTextBox.TabIndex = 4;
+            OutputPathTextBox.TabIndex = 5;
             OutputPathTextBox.Text = "Please enter path";
             AddSubProjectToolTip.SetToolTip(OutputPathTextBox, "Directory path where executable/build output is located (after being built)");
             // 
@@ -143,7 +143,7 @@
             VersionPathTextBox.Location = new Point(201, 292);
             VersionPathTextBox.Name = "VersionPathTextBox";
             VersionPathTextBox.Size = new Size(552, 25);
-            VersionPathTextBox.TabIndex = 5;
+            VersionPathTextBox.TabIndex = 6;
             VersionPathTextBox.Text = "Please enter path";
             AddSubProjectToolTip.SetToolTip(VersionPathTextBox, "Directory path where the version define string (usually in \"GitVersion.h\") is saved");
             // 
@@ -165,7 +165,7 @@
             ArchivePathTextBox.Location = new Point(201, 382);
             ArchivePathTextBox.Name = "ArchivePathTextBox";
             ArchivePathTextBox.Size = new Size(552, 25);
-            ArchivePathTextBox.TabIndex = 7;
+            ArchivePathTextBox.TabIndex = 8;
             ArchivePathTextBox.Text = "Please enter path";
             AddSubProjectToolTip.SetToolTip(ArchivePathTextBox, "Directory path where previous release of executable/build output is moved to");
             // 
@@ -187,7 +187,7 @@
             OutputTypeTextBox.Location = new Point(201, 202);
             OutputTypeTextBox.Name = "OutputTypeTextBox";
             OutputTypeTextBox.Size = new Size(552, 25);
-            OutputTypeTextBox.TabIndex = 3;
+            OutputTypeTextBox.TabIndex = 4;
             OutputTypeTextBox.Text = "Please enter a .extension";
             AddSubProjectToolTip.SetToolTip(OutputTypeTextBox, "File extension of the executable/build output, like, EG, \".bin\" or \".hex\", etc");
             // 
@@ -217,7 +217,7 @@
             SoftwareNameTextBox.Location = new Point(201, 67);
             SoftwareNameTextBox.Name = "SoftwareNameTextBox";
             SoftwareNameTextBox.Size = new Size(244, 25);
-            SoftwareNameTextBox.TabIndex = 2;
+            SoftwareNameTextBox.TabIndex = 1;
             AddSubProjectToolTip.SetToolTip(SoftwareNameTextBox, "Short decription name such as 'Control' or 'BITE'");
             // 
             // label7
@@ -238,7 +238,7 @@
             DescriptionTextBox.Location = new Point(201, 158);
             DescriptionTextBox.Name = "DescriptionTextBox";
             DescriptionTextBox.Size = new Size(552, 25);
-            DescriptionTextBox.TabIndex = 23;
+            DescriptionTextBox.TabIndex = 3;
             AddSubProjectToolTip.SetToolTip(DescriptionTextBox, "Please enter a short description");
             // 
             // label8
@@ -259,7 +259,7 @@
             PlaftormTextBox.Location = new Point(201, 111);
             PlaftormTextBox.Name = "PlaftormTextBox";
             PlaftormTextBox.Size = new Size(244, 25);
-            PlaftormTextBox.TabIndex = 25;
+            PlaftormTextBox.TabIndex = 2;
             AddSubProjectToolTip.SetToolTip(PlaftormTextBox, "Short decription name such as 'Control' or 'BITE'");
             // 
             // label9

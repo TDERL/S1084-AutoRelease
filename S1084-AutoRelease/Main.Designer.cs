@@ -48,7 +48,7 @@
             CreateProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CreateProjectButton.Location = new Point(24, 44);
             CreateProjectButton.Name = "CreateProjectButton";
-            CreateProjectButton.Size = new Size(127, 66);
+            CreateProjectButton.Size = new Size(119, 66);
             CreateProjectButton.TabIndex = 0;
             CreateProjectButton.Text = "Add New Project";
             CreateProjectButton.UseVisualStyleBackColor = false;
@@ -60,7 +60,7 @@
             EditProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             EditProjectButton.Location = new Point(24, 192);
             EditProjectButton.Name = "EditProjectButton";
-            EditProjectButton.Size = new Size(127, 66);
+            EditProjectButton.Size = new Size(119, 66);
             EditProjectButton.TabIndex = 1;
             EditProjectButton.Text = "Edit Project";
             EditProjectButton.UseVisualStyleBackColor = false;
@@ -72,7 +72,7 @@
             ProjectListComboBox.FormattingEnabled = true;
             ProjectListComboBox.Location = new Point(24, 148);
             ProjectListComboBox.Name = "ProjectListComboBox";
-            ProjectListComboBox.Size = new Size(127, 29);
+            ProjectListComboBox.Size = new Size(119, 29);
             ProjectListComboBox.TabIndex = 2;
             ProjectListComboBox.SelectedIndexChanged += ProjectListComboBox_SelectedIndexChanged;
             // 
@@ -82,7 +82,7 @@
             CreateSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CreateSubProjectButton.Location = new Point(26, 44);
             CreateSubProjectButton.Name = "CreateSubProjectButton";
-            CreateSubProjectButton.Size = new Size(127, 66);
+            CreateSubProjectButton.Size = new Size(119, 66);
             CreateSubProjectButton.TabIndex = 3;
             CreateSubProjectButton.Text = "Add New Sub-Project";
             CreateSubProjectButton.UseVisualStyleBackColor = false;
@@ -96,7 +96,7 @@
             groupBox1.Controls.Add(ProjectListComboBox);
             groupBox1.Location = new Point(24, 26);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(185, 288);
+            groupBox1.Size = new Size(174, 288);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Projects";
@@ -118,7 +118,7 @@
             groupBox2.Controls.Add(CreateSubProjectButton);
             groupBox2.Location = new Point(232, 26);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(185, 288);
+            groupBox2.Size = new Size(174, 288);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sub-Projects (Sxxxx)";
@@ -138,7 +138,7 @@
             EditSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             EditSubProjectButton.Location = new Point(26, 192);
             EditSubProjectButton.Name = "EditSubProjectButton";
-            EditSubProjectButton.Size = new Size(127, 66);
+            EditSubProjectButton.Size = new Size(119, 66);
             EditSubProjectButton.TabIndex = 5;
             EditSubProjectButton.Text = "Edit Sub-Project";
             EditSubProjectButton.UseVisualStyleBackColor = false;
@@ -151,7 +151,7 @@
             SubProjectListComboBox.FormattingEnabled = true;
             SubProjectListComboBox.Location = new Point(26, 148);
             SubProjectListComboBox.Name = "SubProjectListComboBox";
-            SubProjectListComboBox.Size = new Size(127, 29);
+            SubProjectListComboBox.Size = new Size(119, 29);
             SubProjectListComboBox.TabIndex = 4;
             SubProjectListComboBox.SelectedIndexChanged += SubProjectListComboBox_SelectedIndexChanged;
             // 
