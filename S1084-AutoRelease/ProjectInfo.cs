@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using static System.Windows.Forms.AxHost;
 using System.Xml.Linq;
+using System.Collections;
 
 
 namespace S1084_AutoRelease
@@ -30,8 +31,8 @@ namespace S1084_AutoRelease
 
             if (name != "") // If editing an existing project then:
             {
-                XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
-                XmlNode project = projects.GetElementsByTagName(name)[0];
+                XmlElement project = (XmlElement)db.GetElementsByTagName(name)[0];
+                //XmlElement project = (XmlElement)projects.GetElementsByTagName(name)[0];
                 ProjectNameTextBox.Text = name; //  For example, "DCB1"
                 DescriptiveNameTextBox.Text = project.Attributes["desName"].Value; //  For example, "Distributed Current Bus"
                 DescriptionTextBox.Text = project.Attributes["description"].Value;
@@ -39,11 +40,16 @@ namespace S1084_AutoRelease
                 StageComboBox.Text = project.Attributes["stage"].Value;
                 StatusComboBox.Text = project.Attributes["status"].Value;
 
-                XmlElement Software = (XmlElement)projects.GetElementsByTagName("Software")[0];
-                foreach (XmlNode node in Software)
+                XmlElement Software = (XmlElement)project.GetElementsByTagName("Software")[0];
+                if (Software != null)
                 {
-                    AddSubProjectButtonToGroup(node.Name);
-                    subProjectNames.Add(node.Name);
+                    foreach (XmlNode node in Software)
+                        subProjectNames.Add(node.Name);
+
+                    subProjectNames.Sort();
+
+                    foreach (string subProjectName in subProjectNames)
+                        AddSubProjectButtonToGroup(subProjectName);
                 }
             }
         }
@@ -70,6 +76,21 @@ namespace S1084_AutoRelease
             }
         }
 
+        private void ResetGroupOfSubProject()
+        {
+            SubProjectsGroupBox.Controls.Clear();
+
+            SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
+            SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
+            subProjectButton_x = 20;
+            subProjectButton_y = 140;
+
+            subProjectNames.Sort();
+
+            foreach (string subProjectRemaining in subProjectNames)
+                AddSubProjectButtonToGroup(subProjectRemaining);
+        }
+
         private bool SaveProject()
         {
             string projectName = ProjectNameTextBox.Text;
@@ -86,19 +107,49 @@ namespace S1084_AutoRelease
                 return false;
             }
 
+
+            // If project already exists in the XML doc, then remove it so it can be re-add afresh
             XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
-            XmlElement xmlProject;
+
+            if (projects.GetElementsByTagName(projectName)[0] != null)
+                projects.RemoveChild(projects.GetElementsByTagName(projectName)[0]);
+
+            XmlElement project = db.CreateElement(projectName);
+            project.SetAttribute("desName", DescriptiveNameTextBox.Text);
+            project.SetAttribute("description", DescriptionTextBox.Text);
+            project.SetAttribute("repoPath", RepoPathTextBox.Text);
+            project.SetAttribute("stage", StageComboBox.Text);
+            project.SetAttribute("status", StatusComboBox.Text);
+
+            if (subProjectNames.Count > 0)
+            {
+                XmlElement subProjectElement = db.CreateElement("Software");
+
+                foreach (string subProjectName in subProjectNames)
+                    subProjectElement.AppendChild(db.CreateElement(subProjectName));
+
+                project.AppendChild(subProjectElement);
+            }
+
+            db.GetElementsByTagName("Projects")[0].AppendChild(project);
+            db.Save(db.DocumentElement.GetAttribute("path"));
+            return true;
+
+            //**************************
+
+            /*XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
+            
 
             if (projects.GetElementsByTagName(projectName).Count == 0) // Checking is project doesn't already exist
-                xmlProject = db.CreateElement(projectName);
+                project = db.CreateElement(projectName);
             else
-                xmlProject = (XmlElement)db.GetElementsByTagName(projectName)[0];
+                project = (XmlElement)db.GetElementsByTagName(projectName)[0];
 
-            xmlProject.SetAttribute("desName", DescriptiveNameTextBox.Text);
-            xmlProject.SetAttribute("description", DescriptionTextBox.Text);
-            xmlProject.SetAttribute("repoPath", RepoPathTextBox.Text);
-            xmlProject.SetAttribute("stage", StageComboBox.Text);
-            xmlProject.SetAttribute("status", StatusComboBox.Text);
+            project.SetAttribute("desName", DescriptiveNameTextBox.Text);
+            project.SetAttribute("description", DescriptionTextBox.Text);
+            project.SetAttribute("repoPath", RepoPathTextBox.Text);
+            project.SetAttribute("stage", StageComboBox.Text);
+            project.SetAttribute("status", StatusComboBox.Text);
 
 
             if (projects.GetElementsByTagName(projectName).Count == 0) // Checking if project doesn't already exist
@@ -113,50 +164,52 @@ namespace S1084_AutoRelease
                         subProjectElement.AppendChild(newSub);
                     }
 
-                    xmlProject.AppendChild(subProjectElement);
+                    project.AppendChild(subProjectElement);
                 }
             }
             else // Else project does exists
             {
                 if (subProjectNames.Count > 0)
                 {
-                    if (projects.GetElementsByTagName("Software").Count == 0)
+                    if (project.GetElementsByTagName("Software")[0] != null)
+                        project.RemoveChild(project.GetElementsByTagName("Software")[0]);
+
+                    XmlElement software = db.CreateElement("Software");
+
+                    foreach (string subProjectName in subProjectNames)
                     {
-                        XmlElement subProjectElement = db.CreateElement("Software");
-
-                        foreach (string subProjectName in subProjectNames)
-                        {
-                            XmlElement newSub = db.CreateElement(subProjectName);
-                            subProjectElement.AppendChild(newSub);
-                        }
-
-                        xmlProject.AppendChild(subProjectElement);
+                        XmlElement newSub = db.CreateElement(subProjectName);
+                        software.AppendChild(newSub);
                     }
-                    else
-                    {
-                        XmlElement subProjectElement = (XmlElement)projects.GetElementsByTagName("Software")[0];
 
-                        foreach (string subProjectName in subProjectNames)
-                        {
-                            if (subProjectElement.GetElementsByTagName(subProjectName).Count == 0)
-                            {
-                                XmlElement newSub = db.CreateElement(subProjectName);
-                                subProjectElement.AppendChild(newSub);
-                            }
-                        }
-                    }
+                    project.AppendChild(software);
+
+                    //}
+                    //else
+                    //{
+                    //    XmlElement subProjectElement = (XmlElement)project.GetElementsByTagName("Software")[0];
+
+                    //    foreach (string subProjectName in subProjectNames)
+                    //    {
+                    //        if (subProjectElement.GetElementsByTagName(subProjectName).Count == 0)
+                    //        {
+                    //            XmlElement newSub = db.CreateElement(subProjectName);
+                    //            subProjectElement.AppendChild(newSub);
+                    //        }
+                    //    }
+                    //}
                 }
             }
 
             if (projects.GetElementsByTagName(projectName).Count == 0)
-                projects.AppendChild(xmlProject);
+                projects.AppendChild(project);
 
             //XmlElement root = db.DocumentElement;
             //root.AppendChild(xmlProject);
             string xmlPath = db.DocumentElement.GetAttribute("path");
             db.Save(xmlPath);
 
-            return true;
+            return true;*/
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -179,6 +232,8 @@ namespace S1084_AutoRelease
             }
         }
 
+
+
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
             SelectSubProject Sxxxx = new SelectSubProject(db);
@@ -194,8 +249,8 @@ namespace S1084_AutoRelease
                     }
                 }
 
-                AddSubProjectButtonToGroup(Sxxxx.selectedSubProject);
                 subProjectNames.Add(Sxxxx.selectedSubProject);
+                ResetGroupOfSubProject();
             }
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
@@ -209,16 +264,7 @@ namespace S1084_AutoRelease
                     if (subProjectName == Sxxxx.selectedSubProject)
                     {
                         subProjectNames.Remove(subProjectName);
-                        SubProjectsGroupBox.Controls.Clear();
-
-                        SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
-                        SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
-                        subProjectButton_x = 20;
-                        subProjectButton_y = 140;
-
-                        foreach (string subProjectRemaining in subProjectNames)
-                            AddSubProjectButtonToGroup(subProjectRemaining);
-
+                        ResetGroupOfSubProject();
                         return; 
                     }
                 }

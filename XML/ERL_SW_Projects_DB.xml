@@ -9,7 +9,16 @@
         <S1071 />
       </Software>
     </DCB1>
-    <FRED desName="Some words" description="Brief spec" repoPath="A Path to a repo" stage="Green" status="Abandoned">
+    <FRED2 desName="Some words" description="Brief spec" repoPath="A Path to a repo" stage="Green" status="Abandoned">
+      <Software>
+        <S1071 />
+      </Software>
+    </FRED2>
+    <FRED desName="Some words" description="Brief spec blah blah" repoPath="A Path to a repo" stage="Green" status="Abandoned">
+      <Software>
+        <S1071 />
+        <S1072 />
+      </Software>
     </FRED>
   </Projects>
   <SoftwareProjects>
