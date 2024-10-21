@@ -32,7 +32,6 @@ namespace S1084_AutoRelease
             if (name != "") // If editing an existing project then:
             {
                 XmlElement project = (XmlElement)db.GetElementsByTagName(name)[0];
-                //XmlElement project = (XmlElement)projects.GetElementsByTagName(name)[0];
                 ProjectNameTextBox.Text = name; //  For example, "DCB1"
                 DescriptiveNameTextBox.Text = project.Attributes["desName"].Value; //  For example, "Distributed Current Bus"
                 DescriptionTextBox.Text = project.Attributes["description"].Value;
@@ -108,7 +107,7 @@ namespace S1084_AutoRelease
             }
 
 
-            // If project already exists in the XML doc, then remove it so it can be re-add afresh
+            // If project already exists in the XML doc, then remove it so it can be re-added afresh
             XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
 
             if (projects.GetElementsByTagName(projectName)[0] != null)
@@ -134,82 +133,6 @@ namespace S1084_AutoRelease
             db.GetElementsByTagName("Projects")[0].AppendChild(project);
             db.Save(db.DocumentElement.GetAttribute("path"));
             return true;
-
-            //**************************
-
-            /*XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
-            
-
-            if (projects.GetElementsByTagName(projectName).Count == 0) // Checking is project doesn't already exist
-                project = db.CreateElement(projectName);
-            else
-                project = (XmlElement)db.GetElementsByTagName(projectName)[0];
-
-            project.SetAttribute("desName", DescriptiveNameTextBox.Text);
-            project.SetAttribute("description", DescriptionTextBox.Text);
-            project.SetAttribute("repoPath", RepoPathTextBox.Text);
-            project.SetAttribute("stage", StageComboBox.Text);
-            project.SetAttribute("status", StatusComboBox.Text);
-
-
-            if (projects.GetElementsByTagName(projectName).Count == 0) // Checking if project doesn't already exist
-            {
-                if (subProjectNames.Count > 0)
-                {
-                    XmlElement subProjectElement = db.CreateElement("Software");
-
-                    foreach (string subProjectName in subProjectNames)
-                    {
-                        XmlElement newSub = db.CreateElement(subProjectName);
-                        subProjectElement.AppendChild(newSub);
-                    }
-
-                    project.AppendChild(subProjectElement);
-                }
-            }
-            else // Else project does exists
-            {
-                if (subProjectNames.Count > 0)
-                {
-                    if (project.GetElementsByTagName("Software")[0] != null)
-                        project.RemoveChild(project.GetElementsByTagName("Software")[0]);
-
-                    XmlElement software = db.CreateElement("Software");
-
-                    foreach (string subProjectName in subProjectNames)
-                    {
-                        XmlElement newSub = db.CreateElement(subProjectName);
-                        software.AppendChild(newSub);
-                    }
-
-                    project.AppendChild(software);
-
-                    //}
-                    //else
-                    //{
-                    //    XmlElement subProjectElement = (XmlElement)project.GetElementsByTagName("Software")[0];
-
-                    //    foreach (string subProjectName in subProjectNames)
-                    //    {
-                    //        if (subProjectElement.GetElementsByTagName(subProjectName).Count == 0)
-                    //        {
-                    //            XmlElement newSub = db.CreateElement(subProjectName);
-                    //            subProjectElement.AppendChild(newSub);
-                    //        }
-                    //    }
-                    //}
-                }
-            }
-
-            if (projects.GetElementsByTagName(projectName).Count == 0)
-                projects.AppendChild(project);
-
-            //XmlElement root = db.DocumentElement;
-            //root.AppendChild(xmlProject);
-            string xmlPath = db.DocumentElement.GetAttribute("path");
-            db.Save(xmlPath);
-
-            return true;*/
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
