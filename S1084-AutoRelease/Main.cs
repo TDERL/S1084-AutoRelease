@@ -10,6 +10,7 @@ namespace S1084_AutoRelease
         {
             InitializeComponent();
             EditProjectButton.Visible = false;
+            GenerateReportButton.Visible = false;
             EditSubProjectButton.Visible = false;
 
             string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\ERL_SW_Projects_DB.xml";
@@ -71,7 +72,15 @@ namespace S1084_AutoRelease
         private void ProjectListComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ProjectListComboBox.Text != "")
+            {
                 EditProjectButton.Visible = true;
+                GenerateReportButton.Visible = true;
+            }
+        }
+
+        private void GenerateReportButton_Click(object sender, EventArgs e)
+        {
+            GenerateReport gen = new GenerateReport(db, ProjectListComboBox.Text);
         }
 
         //*********************************************************
@@ -98,7 +107,9 @@ namespace S1084_AutoRelease
         private void SubProjectListComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SubProjectListComboBox.Text != "")
+            {
                 EditSubProjectButton.Visible = true;
+            }
         }
 
         private string CalculateNewSubProjectNumber()
@@ -137,6 +148,5 @@ namespace S1084_AutoRelease
                 RefreshSubProjectListComboBox();
             }
         }
-
     }
 }

@@ -33,6 +33,7 @@
             ProjectListComboBox = new ComboBox();
             CreateSubProjectButton = new Button();
             groupBox1 = new GroupBox();
+            GenerateReportButton = new Button();
             label1 = new Label();
             groupBox2 = new GroupBox();
             label2 = new Label();
@@ -90,16 +91,29 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(GenerateReportButton);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(CreateProjectButton);
             groupBox1.Controls.Add(EditProjectButton);
             groupBox1.Controls.Add(ProjectListComboBox);
             groupBox1.Location = new Point(24, 26);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(174, 288);
+            groupBox1.Size = new Size(174, 456);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Projects";
+            // 
+            // GenerateReportButton
+            // 
+            GenerateReportButton.BackColor = Color.FromArgb(192, 255, 192);
+            GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GenerateReportButton.Location = new Point(24, 279);
+            GenerateReportButton.Name = "GenerateReportButton";
+            GenerateReportButton.Size = new Size(119, 66);
+            GenerateReportButton.TabIndex = 4;
+            GenerateReportButton.Text = "Generate Report";
+            GenerateReportButton.UseVisualStyleBackColor = false;
+            GenerateReportButton.Click += GenerateReportButton_Click;
             // 
             // label1
             // 
@@ -159,7 +173,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(481, 573);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Main";
@@ -183,5 +197,6 @@
         private Button EditSubProjectButton;
         private ComboBox SubProjectListComboBox;
         private Label label2;
+        private Button GenerateReportButton;
     }
 }

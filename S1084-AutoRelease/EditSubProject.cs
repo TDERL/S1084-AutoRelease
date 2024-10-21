@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace S1084_AutoRelease
 {
-    internal partial class EditSubProject
+    internal class EditSubProject
     {
         public EditSubProject(XmlDocument db, string projectName)
         {
