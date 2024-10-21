@@ -20,7 +20,6 @@ namespace S1084_AutoRelease
         private int subProjectButton_x = 20;
         private int subProjectButton_y = 140;
         private XmlDocument db = new XmlDocument();
-        // private List<AddSubProject> addSubProjects = new List<AddSubProject>();
         private List<string> subProjectNames = new List<string>();
 
         public ProjectInfo(XmlDocument db, string name)
@@ -186,6 +185,15 @@ namespace S1084_AutoRelease
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)
             {
+                foreach (string subProjectName in subProjectNames)
+                {
+                    if (subProjectName == Sxxxx.selectedSubProject)
+                    {
+                        MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
+                        return;
+                    }
+                }
+
                 AddSubProjectButtonToGroup(Sxxxx.selectedSubProject);
                 subProjectNames.Add(Sxxxx.selectedSubProject);
             }

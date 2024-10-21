@@ -56,7 +56,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(269, 128);
             Controls.Add(label1);
             Controls.Add(SubProjectsComboBox);
             Name = "SelectSubProject";

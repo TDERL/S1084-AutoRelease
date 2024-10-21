@@ -21,7 +21,7 @@ namespace S1084_AutoRelease
 
             SubProjectsComboBox.Items.Clear();
 
-            foreach (XmlNode node in db.GetElementsByTagName("SubProjects")[0])
+            foreach (XmlNode node in db.GetElementsByTagName("SoftwareProjects")[0])
                 SubProjectsComboBox.Items.Add(node.Name);
         }
 
