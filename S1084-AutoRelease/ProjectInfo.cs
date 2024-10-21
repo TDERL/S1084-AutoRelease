@@ -12,12 +12,24 @@ using System.Xml;
 using static System.Windows.Forms.AxHost;
 using System.Xml.Linq;
 using System.Collections;
+using static S1084_AutoRelease.ProjectInfo;
 
 
 namespace S1084_AutoRelease
 {
     public partial class ProjectInfo : Form
     {
+        public struct endOfSprint
+        {
+            public string name;
+            public string unplanned;
+            public string todo;
+            public string inProgress;
+            public string done;
+        }
+
+        private List<endOfSprint> endOfSprints = new List<endOfSprint>();
+
         private int subProjectButton_x = 20;
         private int subProjectButton_y = 140;
         private XmlDocument db = new XmlDocument();
@@ -49,6 +61,21 @@ namespace S1084_AutoRelease
 
                     foreach (string subProjectName in subProjectNames)
                         AddSubProjectButtonToGroup(subProjectName);
+                }
+
+                XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
+                if (sprints != null)
+                {
+                    foreach (XmlElement node in sprints)
+                    {
+                        endOfSprint sprint = new endOfSprint();
+                        sprint.name = node.Name; 
+                        sprint.unplanned = node.Attributes["unplanned"].Value;
+                        sprint.todo = node.Attributes["todo"].Value;
+                        sprint.inProgress = node.Attributes["inProgress"].Value;
+                        sprint.done = node.Attributes["done"].Value;
+                        endOfSprints.Add(sprint);
+                    }
                 }
             }
         }
@@ -128,6 +155,24 @@ namespace S1084_AutoRelease
                     subProjectElement.AppendChild(db.CreateElement(subProjectName));
 
                 project.AppendChild(subProjectElement);
+            }
+
+
+            if (endOfSprints.Count > 0)
+            {
+                XmlElement sprints = db.CreateElement("Sprints");
+
+                foreach (endOfSprint sprint in endOfSprints)
+                {
+                    XmlElement xmlSprint = db.CreateElement(sprint.name);
+                    xmlSprint.SetAttribute("unplanned", sprint.unplanned);
+                    xmlSprint.SetAttribute("todo", sprint.todo);
+                    xmlSprint.SetAttribute("inProgress", sprint.inProgress);
+                    xmlSprint.SetAttribute("done", sprint.done);
+                    sprints.AppendChild(xmlSprint);
+                }
+
+                project.AppendChild(sprints);
             }
 
             db.GetElementsByTagName("Projects")[0].AppendChild(project);

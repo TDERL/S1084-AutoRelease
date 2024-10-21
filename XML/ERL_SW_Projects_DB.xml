@@ -8,18 +8,11 @@
         <S1070 />
         <S1071 />
       </Software>
+      <Sprints>
+        <R29 unplanned="34" todo="302" inProgress="97" done="1891" />
+        <R30 unplanned="34" todo="220" inProgress="130" done="52" />
+      </Sprints>
     </DCB1>
-    <FRED2 desName="Some words" description="Brief spec" repoPath="A Path to a repo" stage="Green" status="Abandoned">
-      <Software>
-        <S1071 />
-      </Software>
-    </FRED2>
-    <FRED desName="Some words" description="Brief spec blah blah" repoPath="A Path to a repo" stage="Green" status="Abandoned">
-      <Software>
-        <S1071 />
-        <S1072 />
-      </Software>
-    </FRED>
   </Projects>
   <SoftwareProjects>
     <S1070 shortName="Control" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" versionPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\App\Version" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases" archivePath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases\Archive">Control Micro for DCB1. PWM generation, user control, current control loop</S1070>
