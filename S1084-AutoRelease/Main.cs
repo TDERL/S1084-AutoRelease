@@ -108,6 +108,7 @@ namespace S1084_AutoRelease
                 if (result == DialogResult.OK)
                 {
                     node.Attributes["shortName"].Value = Sxxxx.shortName;
+                    node.Attributes["platform"].Value = Sxxxx.platform;
                     node.Attributes["outputType"].Value = Sxxxx.outputType;
                     node.Attributes["outputPath"].Value = Sxxxx.outputPath;
                     node.Attributes["versionPath"].Value = Sxxxx.versionPath;
