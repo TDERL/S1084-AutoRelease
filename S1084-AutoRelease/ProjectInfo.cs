@@ -200,7 +200,31 @@ namespace S1084_AutoRelease
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
         {
+            SelectSubProject Sxxxx = new SelectSubProject(db);
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                foreach (string subProjectName in subProjectNames)
+                {
+                    if (subProjectName == Sxxxx.selectedSubProject)
+                    {
+                        subProjectNames.Remove(subProjectName);
+                        SubProjectsGroupBox.Controls.Clear();
 
+                        SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
+                        SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
+                        subProjectButton_x = 20;
+                        subProjectButton_y = 140;
+
+                        foreach (string subProjectRemaining in subProjectNames)
+                            AddSubProjectButtonToGroup(subProjectRemaining);
+
+                        return; 
+                    }
+                }
+
+                MessageBox.Show("Cannot remove " + Sxxxx.selectedSubProject + " as is not included in project " + ProjectNameTextBox.Text);
+            }
         }
 
         private void OpenSubProjectButton_Click(object sender, EventArgs e)
