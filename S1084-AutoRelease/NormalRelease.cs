@@ -147,12 +147,37 @@ namespace S1084_AutoRelease
 
                     // STEP 3 - Tell user to build: Would be much nicer if we could auto build.
                     string message = "WARNING: ONLY Click OK AFTER building ALL software!\n\nPlease Build/Compile:\n\n";
+
+                    XmlElement softwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
+
                     foreach (XmlNode Sxxxx in software)
                     {
-                        message += Sxxxx.Name;
-                        message += "\n";
+                        bool ok = false;
+
+                        foreach (XmlNode softwareProject in softwareProjects)
+                        {
+                            if (Sxxxx.Name == softwareProject.Name)
+                            {
+                                ok = true;
+
+                                if (softwareProject.Attributes["outputType"].Value != "TBD")
+                                {
+                                    message += Sxxxx.Name;
+                                    message += "\n";
+                                }
+
+                                break;
+                            }
+
+                        }
+
+                        if (ok == false)
+                        {
+                            MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
+                            this.Close();
+                        }
                     }
-  
+
                     if (MessageBox.Show(message, "Build", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
                     {
                         MessageBox.Show("Release process aborted: User chose not to build software");
@@ -162,49 +187,39 @@ namespace S1084_AutoRelease
                         // Here we have to assume user has built all software as requested
                         // STEP 4 - Archive current releases and save a copy of new output files to the releases folders
 
-                        XmlElement softwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
 
                         foreach (XmlNode Sxxxx in software)
                         {
-                            bool ok = false;
-
                             foreach (XmlNode softwareProject in softwareProjects)
                             {
                                 if (Sxxxx.Name == softwareProject.Name)
                                 {
                                     // Found the right Software Project, so can now get all the paths needed to release
-                                    ok = true;
 
                                     string fileExtension = softwareProject.Attributes["outputType"].Value;
                                     string outputPath = softwareProject.Attributes["outputPath"].Value;
                                     string releasesPath = softwareProject.Attributes["releasesPath"].Value;
                                     string archivePath = releasesPath + "\\Archive";
 
-
-                                    // STEP 4a - Archive
-                                    string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
-
-                                    foreach (var file in files)
-                                        File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
-
-                                    // STEP 4b - Release
-                                    files = Directory.GetFiles(outputPath, "*" + fileExtension);
-
-                                    foreach (var file in files)
+                                    if (fileExtension != "TBD") // If ext is TBD then don't try to release it
                                     {
-                                        string newFileName = Path.GetFileName(file).Split('.')[0] + "__" + Sxxxx.Name + "-" + version + fileExtension;
-                                        File.Copy(Path.Combine(outputPath, Path.GetFileName(file)), Path.Combine(releasesPath, newFileName));
+                                        // STEP 4a - Archive
+                                        string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
+
+                                        foreach (var file in files)
+                                            File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
+
+                                        // STEP 4b - Release
+                                        files = Directory.GetFiles(outputPath, "*" + fileExtension);
+
+                                        foreach (var file in files)
+                                        {
+                                            string newFileName = Path.GetFileName(file).Split('.')[0] + "__" + Sxxxx.Name + "-" + version + fileExtension;
+                                            File.Copy(Path.Combine(outputPath, Path.GetFileName(file)), Path.Combine(releasesPath, newFileName));
+                                        }
                                     }
+                                 }
 
-                                    break;
-                                }
-
-                            }
-
-                            if (ok == false)
-                            {
-                                MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
-                                this.Close();
                             }
                         }
 

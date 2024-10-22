@@ -7,30 +7,59 @@
       <Software>
         <S1070 />
         <S1071 />
+        <S1073 />
+        <S1076 />
+        <S1077 />
+        <S1079 />
+        <S1081 />
+        <S1082 />
+        <S1083 />
       </Software>
       <Sprints reportPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\End Of Sprint Reports">
         <R29 unplanned="34" todo="302" inProgress="97" done="1891" />
         <R30 unplanned="34" todo="220" inProgress="130" done="52" />
         <R31 unplanned="40" todo="211" inProgress="79" done="80" />
         <R32 unplanned="38" todo="270" inProgress="31" done="78" />
+        <R33 unplanned="47" todo="300" inProgress="52" done="5" />
       </Sprints>
     </DCB1>
   </Projects>
   <SoftwareProjects>
-    <S1070 shortName="Control" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases">Control Micro for DCB1. PWM generation, user control, current control loop</S1070>
-    <S1071 shortName="BITE" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1071-BITE\Debug" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1071 - BITE\Releases">BITE Micro. Monitors that things working as expected and only lets S1070 Control run is all ok</S1071>
-    <S1072 shortName="DevBoard" platform="PCB" outputType="NA" outputPath="NA" releasesPath="NA">PCB design for generic dev board to support any 32 pin micro</S1072>
-    <S1073 shortName="EnOcean" platform="TCM300" outputType="TDB" outputPath="TBD" releasesPath="TBD">Ghalib to add EnOcean code</S1073>
-    <S1074 shortName="G030 Play" platform="STM32G030K8" outputType=".bin" outputPath="C:\Projects\Sandboxes\S1074-G030\Debug" releasesPath="TBD">Safe place to play around and try out the G030</S1074>
-    <S1075 shortName="WB55 Play" platform="STM32WB55CG" outputType=".bin" outputPath="C:\Projects\Sandboxes\S1075-WB55\Debug" releasesPath="TBD">Safe place to play around and try out the WB55</S1075>
-    <S1076 shortName="Mobile App" platform="IOs &amp; Android" outputType="TBD" outputPath="TBD" releasesPath="TBD">Replaced by S1083. Mobile App for controlling on/off and power level (2 channels), EnOcean learn/clear and view history</S1076>
+    <S1049 shortName="VisualGDB Assess" platform="STM32G070RB" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess VisualGDB (Visual Studio plug-in for STM32 Dev)</S1049>
+    <S1050 shortName="RP2040 Assess" platform="RP2040" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess RP2040 as a viable general purpose microcontroller</S1050>
+    <S1051 shortName="Brain Stem" platform="STM32G0B1MC" outputType=".bin" outputPath="TBD" releasesPath="TBD">Main Brain Stem for distributed iBus PSU with Bridgeless PFC and HFAC Output (under 100KHz)</S1051>
+    <S1052 shortName="G431R Assess" platform="STM32G431RB" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess STM32G431RBT's PWM capabilities to aid micro selection</S1052>
+    <S1053 shortName="PWM configurator" platform="Windows" outputType=".bin" outputPath="TBD" releasesPath="TBD">C# Win Form. Easy way to set period, duty and deadtime (if supported) on target micro</S1053>
+    <S1054 shortName="PIC33CH Assess" platform="dsPIC33CH512MP508" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess dsPIC33CH512MP508's PWM capabilities to aid micro selection</S1054>
+    <S1055 shortName="G070R Assess" platform="STM32G070RB" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess STM32G070RBT's PWM capabilities to aid micro selection</S1055>
+    <S1056 shortName="66AK2G1 Assess" platform="66AK2G1x" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess 66AK2G1x's PWM capabilities to aid micro selection</S1056>
+    <S1057 shortName="H750 Assess" platform="STM32H750" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess STM32H750's PWM capabilities to aid micro selection</S1057>
+    <S1058 shortName="STM32 Code Gen" platform="Windows" outputType=".bin" outputPath="TBD" releasesPath="TBD">STM32 Code Generator (G070 and G431). Clocks, GPIO, USART's, some timers, helpers. In C++</S1058>
+    <S1059 shortName="dsPIC33 Code Gen" platform="Windows" outputType=".bin" outputPath="TBD" releasesPath="TBD">dsPIC33 Code Generator. Clocks and GPIO (including HTML IO report). In C</S1059>
+    <S1060 shortName="PFC PIC Code" platform="dsPIC33CK256MP506" outputType=".bin" outputPath="TBD" releasesPath="TBD">Example PFC code from Transphorm.</S1060>
+    <S1061 shortName="BIN to C Array" platform="Windows" outputType=".bin" outputPath="TBD" releasesPath="TBD">Console App. Run from CMD line. Convert BIN to C Array.</S1061>
+    <S1062 shortName="STM32 Programmer" platform="RP2040" outputType=".bin" outputPath="TBD" releasesPath="TBD">Uses STM32 Bootloader to reprogram the STM32 with image contained in a C Arrary</S1062>
+    <S1063 shortName="G0B1 Assess" platform="STM32G0B1RE" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to assess STM32G0B1 and play about with it</S1063>
+    <S1064 shortName="Control FPGA" platform="FPGA" outputType=".bin" outputPath="TBD" releasesPath="TBD">Full bridge HFAC PSU for embedded application with dual bridge and phase correction</S1064>
+    <S1065 shortName="T20 FPGA Assess" platform="T20 Trion FPGA" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to play about and assess the T20 FPGA from Efinix</S1065>
+    <S1066 shortName="ICE40 FPGA Assess" platform="ICE40UL1K-CM36AI" outputType=".bin" outputPath="TBD" releasesPath="TBD">Sandbox project to play about and assess the ICE40 FPGA and ICEcube IDE from Lattice</S1066>
+    <S1067 shortName="Bite Micro" platform="STM32G0B1MC" outputType=".bin" outputPath="TBD" releasesPath="TBD">Brain Stem BITE (with Temporal Lobe) for distributed iBus PSU with Bridgeless PFC and HFAC Output (under 100KHz) (REF S1051)</S1067>
+    <S1068 shortName="UI and AI" platform="STM32G071RB" outputType=".bin" outputPath="TBD" releasesPath="TBD">Assumes role of Frontal and Occipital Lobes for whatever fits it. UI Board with wireless connectivity. Replaced by S1077</S1068>
+    <S1069 shortName="Bite Micro" platform="STM32G071RB" outputType=".bin" outputPath="TBD" releasesPath="TBD">BITE micro for S1064 embedded HFAC</S1069>
+    <S1070 shortName="Control Micro" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1070-Control\Debug" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1070 - Control\Releases">Control Micro. PWM generation, user control, current control loop</S1070>
+    <S1071 shortName="Bite Micro" platform="STM32G0B1RE" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Logic\S1071-BITE\Debug" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1071 - BITE\Releases">BITE Micro. Monitors that things working as expected and only lets S1070 Control run is all ok</S1071>
+    <S1072 shortName="DevBoard" platform="PCB" outputType="NA" outputPath="NA" releasesPath="NA">Should never have been allocated an SW number. PCB design for generic dev board to support any 32 pin micro</S1072>
+    <S1073 shortName="EnOcean" platform="TCM300" outputType="TBD" outputPath="TBD" releasesPath="TBD">Redundant as now using a TCM515 Gateway. Was for EnOcean code</S1073>
+    <S1074 shortName="G030 Assess" platform="STM32G030K8" outputType=".bin" outputPath="C:\Projects\Sandboxes\S1074-G030\Debug" releasesPath="TBD">Safe place to play around and try out the G030</S1074>
+    <S1075 shortName="WB55 Assess" platform="STM32WB55CG" outputType=".bin" outputPath="C:\Projects\Sandboxes\S1075-WB55\Debug" releasesPath="TBD">Safe place to play around and try out the WB55</S1075>
+    <S1076 shortName="Mobile App" platform="IOs &amp; Android" outputType="TBD" outputPath="TBD" releasesPath="TBD">Redundant as replaced by S1083. Mobile App for controlling on/off and power level (2 channels), EnOcean learn/clear and view history</S1076>
     <S1077 shortName="Telemetry Micro" platform="ESP32" outputType=".bin" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Wireless\S1077-Telemetry\build" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1077 - Telemetry\Releases">Comms Micro for IoT, OTA Updates, Config and general data up/down loading. Includes embedded website</S1077>
     <S1078 shortName="Ext ADC simulator" platform="STM32G070RB" outputType=".bin" outputPath="C:\Projects\Embedded_HFAC_VBus_1MHz_1KW\S1078-ADCSim\Debug" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\EVB1 - Embedded Voltage Bus - Documents\Software\S1078 - ADCSim\Releases">8 bit ADC simulator to aid John and Sengyim's testing</S1078>
     <S1079 shortName="Telemetry AWS" platform="AWS Cloud" outputType="TBD" outputPath="TBD" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1079 - AWS\Releases">Telemetry-cloud data storage and analysis</S1079>
     <S1080 shortName="H-Bridge PWM" platform="STM32G0B1RC" outputType=".bin" outputPath="C:\Projects\Embedded_HFAC_VBus_1MHz_1KW\S1080-PWMs\Debug" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\EVB1 - Embedded Voltage Bus - Documents\Software\S1080 - H-Bridge PWMs\Releases">PWM drive for stand alone output stage. 1MHz, 50% duty, configurable dead time and phase shift</S1080>
     <S1081 shortName="Telemetry simulator" platform="Windows C# Win Form" outputType="TBD" outputPath="TBD" releasesPath="TBD">Telemetry simulator to aid test and development of the JSON comms. Docklight is ok, but there's just too many variables</S1081>
     <S1082 shortName="DCB1 Test Scripts" platform="Cross (Python)" outputType="TBD" outputPath="TBD" releasesPath="TBD">Python test utility to aid development and testing of various comms (similar to S1081 but is CLI drive)</S1082>
-    <S1083 shortName="Telemetry Website" platform="ESP32" outputType=".html" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Wireless\S1077-Telemetry\website" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1083 - ESP32 Website\Releases">I actually part of S1077, but given it's own SW number in case it needs to be update separately</S1083>
+    <S1083 shortName="Telemetry Website" platform="ESP32" outputType=".html" outputPath="C:\Projects\DCB1-DistributedCurrentBus\Software\Wireless\S1077-Telemetry\website" releasesPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\S1083 - ESP32 Website\Releases">ESP32 hosted website. Actually part of S1077, but given it's own SW number in case it needs to be update separately</S1083>
     <S1084 shortName="Auto Tag n Release" platform="Windows C# Win Form" outputType="TBD" outputPath="TBD" releasesPath="TBD">Was started in Python, but clunky and not very flexible. An app to manage weekly releases and progress KPI's</S1084>
   </SoftwareProjects>
 </S1084>

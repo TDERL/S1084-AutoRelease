@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             CreateProjectButton = new Button();
             EditProjectButton = new Button();
             ProjectListComboBox = new ComboBox();
@@ -36,9 +37,11 @@
             ReleaseButton = new Button();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            GenerateReportButton = new Button();
             label2 = new Label();
             EditSubProjectButton = new Button();
             SubProjectListComboBox = new ComboBox();
+            MainToolTip = new ToolTip(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -126,16 +129,30 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(GenerateReportButton);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(EditSubProjectButton);
             groupBox2.Controls.Add(SubProjectListComboBox);
             groupBox2.Controls.Add(CreateSubProjectButton);
             groupBox2.Location = new Point(232, 26);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(174, 288);
+            groupBox2.Size = new Size(174, 373);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sub-Projects (Sxxxx)";
+            // 
+            // GenerateReportButton
+            // 
+            GenerateReportButton.BackColor = Color.FromArgb(192, 255, 192);
+            GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GenerateReportButton.Location = new Point(26, 279);
+            GenerateReportButton.Name = "GenerateReportButton";
+            GenerateReportButton.Size = new Size(119, 66);
+            GenerateReportButton.TabIndex = 7;
+            GenerateReportButton.Text = "Generate Report";
+            MainToolTip.SetToolTip(GenerateReportButton, "Click to generate an updated HTML report of all Sub-Projects");
+            GenerateReportButton.UseVisualStyleBackColor = false;
+            GenerateReportButton.Click += GenerateReportButton_Click;
             // 
             // label2
             // 
@@ -156,7 +173,6 @@
             EditSubProjectButton.TabIndex = 5;
             EditSubProjectButton.Text = "Edit Sub-Project";
             EditSubProjectButton.UseVisualStyleBackColor = false;
-            EditSubProjectButton.Visible = false;
             EditSubProjectButton.Click += EditSubProjectButton_Click;
             // 
             // SubProjectListComboBox
@@ -198,5 +214,7 @@
         private ComboBox SubProjectListComboBox;
         private Label label2;
         private Button ReleaseButton;
+        private Button GenerateReportButton;
+        private ToolTip MainToolTip;
     }
 }
