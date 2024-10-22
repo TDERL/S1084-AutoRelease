@@ -14,6 +14,7 @@ using System.Management.Automation;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Security.Policy;
+using System.Xml.Linq;
 
 
 namespace S1084_AutoRelease
@@ -115,6 +116,8 @@ namespace S1084_AutoRelease
                 this.Close();
             }
 
+            MessageBox.Show("Please be patient, this may take a few seconds");
+
             // STEP 1 - Check out Develop Branch and make sure it is up to date
             string repoPath = db.GetElementsByTagName(projectName)[0].Attributes["repoPath"].Value;
 
@@ -143,6 +146,7 @@ namespace S1084_AutoRelease
                     MessageBox.Show("Release process aborted:\n\n" + response[0]);
                 }
 
+ 
                 // STEP 2 - Tag Develop Branch with latest release version
                 // Only continue if fetching and updating Develop branch was successful
                 if (this.DialogResult == DialogResult.OK)
@@ -158,8 +162,7 @@ namespace S1084_AutoRelease
                         message += Sxxxx.Name;
                         message += "\n";
                     }
-                    //all software and Press Enter when done..."
-
+  
                     if (MessageBox.Show(message, "Build", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
                     {
                         MessageBox.Show("Release process aborted: User chose not to build software");
@@ -167,8 +170,50 @@ namespace S1084_AutoRelease
                     else
                     {
                         // Here we have to assume user has built all software as requested
+                        // STEP 4 - Archive current releases and save a copy of new output files to the releases folders
+
+                        XmlElement softwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
+
+                        foreach (XmlNode Sxxxx in software)
+                        {
+                            bool ok = false;
+
+                            foreach (XmlNode softwareProject in softwareProjects)
+                            {
+                                if (Sxxxx.Name == softwareProject.Name)
+                                {
+                                    // Found the right Software Project, so can not get all the paths needs to release
+                                    ok = true;
+
+                                    string fileExtension = softwareProject.Attributes["outputType"].Value;
+                                    string outputPath = softwareProject.Attributes["outputPath"].Value;
+                                    string versionPath = softwareProject.Attributes["versionPath"].Value;
+                                    string releasesPath = softwareProject.Attributes["releasesPath"].Value;
+                                    string archivePath = softwareProject.Attributes["archivePath"].Value;
+
+                                    string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
+
+                                    foreach (var file in files)
+                                    {
+                                        File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
+                                    }
+
+                                    break;
+                                }
+                            }
+
+                            if (ok == false)
+                            {
+                                MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
+                                this.Close();
+                            }
+                            else
+                            {
+
+                            }
+                        }
                     }
-                     
+
                 }
             }
 
