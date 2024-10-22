@@ -182,7 +182,7 @@ namespace S1084_AutoRelease
                             {
                                 if (Sxxxx.Name == softwareProject.Name)
                                 {
-                                    // Found the right Software Project, so can not get all the paths needs to release
+                                    // Found the right Software Project, so can now get all the paths needed to release
                                     ok = true;
 
                                     string fileExtension = softwareProject.Attributes["outputType"].Value;
@@ -190,25 +190,34 @@ namespace S1084_AutoRelease
                                     string releasesPath = softwareProject.Attributes["releasesPath"].Value;
                                     string archivePath = releasesPath + "\\Archive";
 
+
+                                    // STEP 4a - Archive
                                     string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
 
                                     foreach (var file in files)
-                                    {
                                         File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
+
+                                    // STEP 4b - Release
+                                    files = Directory.GetFiles(outputPath, "*" + fileExtension);
+
+                                    foreach (var file in files)
+                                    {
+                                        string newFileName = Path.GetFileName(file).Split('.')[0] + "__" + Sxxxx.Name + "-" + version + fileExtension;
+                                        File.Copy(Path.Combine(outputPath, Path.GetFileName(file)), Path.Combine(releasesPath, newFileName));
                                     }
 
                                     break;
                                 }
+
                             }
 
-                            if (ok == false)
+                            if (ok)
                             {
-                                MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
-                                this.Close();
                             }
                             else
                             {
-
+                                MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
+                                this.Close();
                             }
                         }
                     }
