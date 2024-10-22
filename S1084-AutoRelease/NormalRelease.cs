@@ -187,9 +187,8 @@ namespace S1084_AutoRelease
 
                                     string fileExtension = softwareProject.Attributes["outputType"].Value;
                                     string outputPath = softwareProject.Attributes["outputPath"].Value;
-                                    string versionPath = softwareProject.Attributes["versionPath"].Value;
                                     string releasesPath = softwareProject.Attributes["releasesPath"].Value;
-                                    string archivePath = softwareProject.Attributes["archivePath"].Value;
+                                    string archivePath = releasesPath + "\\Archive";
 
                                     string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
 

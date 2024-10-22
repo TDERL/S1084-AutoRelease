@@ -153,9 +153,7 @@ namespace S1084_AutoRelease
                 xmlSubProject.SetAttribute("platform", Sxxxx.platform);
                 xmlSubProject.SetAttribute("outputType", Sxxxx.outputType);
                 xmlSubProject.SetAttribute("outputPath", Sxxxx.outputPath);
-                xmlSubProject.SetAttribute("versionPath", Sxxxx.versionPath);
                 xmlSubProject.SetAttribute("releasesPath", Sxxxx.releasesPath);
-                xmlSubProject.SetAttribute("archivePath", Sxxxx.archivePath);
                 xmlSubProject.InnerText = Sxxxx.description;
                 db.GetElementsByTagName("SoftwareProjects")[0].AppendChild(xmlSubProject);
                 db.Save(db.DocumentElement.GetAttribute("path"));

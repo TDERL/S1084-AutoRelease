@@ -20,9 +20,7 @@ namespace S1084_AutoRelease
         public string description = "";
         public string outputType = "Please enter a .extension";
         public string outputPath = "Please enter path";
-        public string versionPath = "Please enter path";
         public string releasesPath = "Please enter path";
-        public string archivePath = "Please enter path";
 
         public AddSubProject(string number)
         {
@@ -38,9 +36,7 @@ namespace S1084_AutoRelease
             DescriptionTextBox.Text = description;
             OutputTypeTextBox.Text = outputType;
             OutputPathTextBox.Text = outputPath;
-            VersionPathTextBox.Text = versionPath;
             ReleasesPathTextBox.Text = releasesPath;
-            ArchivePathTextBox.Text = archivePath;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -57,9 +53,7 @@ namespace S1084_AutoRelease
             description = DescriptionTextBox.Text;
             outputType = OutputTypeTextBox.Text;
             outputPath = OutputPathTextBox.Text;
-            versionPath = VersionPathTextBox.Text;
             releasesPath = ReleasesPathTextBox.Text;
-            archivePath = ArchivePathTextBox.Text;
 
             if (number == "Please enter number")
             {
@@ -75,9 +69,7 @@ namespace S1084_AutoRelease
             }
 
             if ((outputPath == "Please enter path") ||
-                (versionPath == "Please enter path") ||
-                (releasesPath == "Please enter path") ||
-                (archivePath == "Please enter path"))
+                (releasesPath == "Please enter path")) 
             {
                 MessageBox.Show("Please enter a valid directory path [C:\\...]");
                 return;

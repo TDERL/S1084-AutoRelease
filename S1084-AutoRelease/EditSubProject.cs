@@ -19,9 +19,7 @@ namespace S1084_AutoRelease
             Sxxxx.platform = node.Attributes["platform"].Value;
             Sxxxx.outputType = node.Attributes["outputType"].Value;
             Sxxxx.outputPath = node.Attributes["outputPath"].Value;
-            Sxxxx.versionPath = node.Attributes["versionPath"].Value;
             Sxxxx.releasesPath = node.Attributes["releasesPath"].Value;
-            Sxxxx.archivePath = node.Attributes["archivePath"].Value;
             Sxxxx.description = node.InnerText;
             Sxxxx.Refresh();
 
@@ -32,9 +30,7 @@ namespace S1084_AutoRelease
                 node.Attributes["platform"].Value = Sxxxx.platform;
                 node.Attributes["outputType"].Value = Sxxxx.outputType;
                 node.Attributes["outputPath"].Value = Sxxxx.outputPath;
-                node.Attributes["versionPath"].Value = Sxxxx.versionPath;
                 node.Attributes["releasesPath"].Value = Sxxxx.releasesPath;
-                node.Attributes["archivePath"].Value = Sxxxx.archivePath;
                 node.InnerText = Sxxxx.description;
                 db.Save(db.DocumentElement.GetAttribute("path"));
             }
