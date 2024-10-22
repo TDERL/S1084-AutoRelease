@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            InitInfoLabel = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -37,24 +37,26 @@
             ToDoTextBox = new TextBox();
             InProgressTextBox = new TextBox();
             DoneTextBox = new TextBox();
+            OkayButton = new Button();
+            CancelButton = new Button();
             SuspendLayout();
             // 
-            // label1
+            // InitInfoLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(24, 21);
-            label1.Name = "label1";
-            label1.Size = new Size(199, 42);
-            label1.TabIndex = 0;
-            label1.Text = "As of the END of the Sprint,\r\nenter number of stories in:\r\n";
+            InitInfoLabel.AutoSize = true;
+            InitInfoLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InitInfoLabel.Location = new Point(29, 18);
+            InitInfoLabel.Name = "InitInfoLabel";
+            InitInfoLabel.Size = new Size(237, 42);
+            InitInfoLabel.TabIndex = 0;
+            InitInfoLabel.Text = "Before closing the current Sprint,\r\nenter number of stories in:\r\n";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Silver;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(29, 88);
+            label2.Location = new Point(31, 104);
             label2.Name = "label2";
             label2.Size = new Size(81, 21);
             label2.TabIndex = 1;
@@ -65,7 +67,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.Silver;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(29, 128);
+            label3.Location = new Point(31, 144);
             label3.Name = "label3";
             label3.Size = new Size(59, 21);
             label3.TabIndex = 2;
@@ -76,7 +78,7 @@
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(192, 192, 255);
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(29, 168);
+            label4.Location = new Point(31, 184);
             label4.Name = "label4";
             label4.Size = new Size(111, 21);
             label4.TabIndex = 3;
@@ -87,7 +89,7 @@
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(192, 255, 192);
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(29, 208);
+            label5.Location = new Point(31, 224);
             label5.Name = "label5";
             label5.Size = new Size(56, 21);
             label5.TabIndex = 4;
@@ -96,7 +98,7 @@
             // BacklogTextBox
             // 
             BacklogTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BacklogTextBox.Location = new Point(159, 85);
+            BacklogTextBox.Location = new Point(161, 101);
             BacklogTextBox.Name = "BacklogTextBox";
             BacklogTextBox.Size = new Size(64, 29);
             BacklogTextBox.TabIndex = 5;
@@ -105,7 +107,7 @@
             // ToDoTextBox
             // 
             ToDoTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ToDoTextBox.Location = new Point(159, 125);
+            ToDoTextBox.Location = new Point(161, 141);
             ToDoTextBox.Name = "ToDoTextBox";
             ToDoTextBox.Size = new Size(64, 29);
             ToDoTextBox.TabIndex = 6;
@@ -114,7 +116,7 @@
             // InProgressTextBox
             // 
             InProgressTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InProgressTextBox.Location = new Point(159, 165);
+            InProgressTextBox.Location = new Point(161, 181);
             InProgressTextBox.Name = "InProgressTextBox";
             InProgressTextBox.Size = new Size(64, 29);
             InProgressTextBox.TabIndex = 7;
@@ -123,17 +125,41 @@
             // DoneTextBox
             // 
             DoneTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DoneTextBox.Location = new Point(159, 205);
+            DoneTextBox.Location = new Point(161, 221);
             DoneTextBox.Name = "DoneTextBox";
             DoneTextBox.Size = new Size(64, 29);
             DoneTextBox.TabIndex = 8;
             DoneTextBox.KeyPress += TextBox_KeyPress;
             // 
+            // OkayButton
+            // 
+            OkayButton.Font = new Font("Segoe UI", 12F);
+            OkayButton.Location = new Point(139, 279);
+            OkayButton.Name = "OkayButton";
+            OkayButton.Size = new Size(86, 35);
+            OkayButton.TabIndex = 10;
+            OkayButton.Text = "Okay";
+            OkayButton.UseVisualStyleBackColor = true;
+            OkayButton.Click += OkayButton_Click;
+            // 
+            // CancelButton
+            // 
+            CancelButton.Font = new Font("Segoe UI", 12F);
+            CancelButton.Location = new Point(29, 279);
+            CancelButton.Name = "CancelButton";
+            CancelButton.Size = new Size(86, 35);
+            CancelButton.TabIndex = 9;
+            CancelButton.Text = "Cancel";
+            CancelButton.UseVisualStyleBackColor = true;
+            CancelButton.Click += CancelButton_Click;
+            // 
             // NormalRelease
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(264, 341);
+            Controls.Add(OkayButton);
+            Controls.Add(CancelButton);
             Controls.Add(DoneTextBox);
             Controls.Add(InProgressTextBox);
             Controls.Add(ToDoTextBox);
@@ -142,16 +168,16 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(InitInfoLabel);
             Name = "NormalRelease";
-            Text = "NormalRelease";
+            Text = "Normal, end of Sprint, Release";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Label InitInfoLabel;
         private Label label2;
         private Label label3;
         private Label label4;
@@ -160,5 +186,7 @@
         private TextBox ToDoTextBox;
         private TextBox InProgressTextBox;
         private TextBox DoneTextBox;
+        private Button OkayButton;
+        private Button CancelButton;
     }
 }

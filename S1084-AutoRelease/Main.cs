@@ -87,12 +87,15 @@ namespace S1084_AutoRelease
 
             var result = releaseType.ShowDialog();
             if (result == DialogResult.Yes)
-                // Normal release
-                result = 0;
+            {
+                NormalRelease normalRelease = new NormalRelease(db, ProjectListComboBox.Text);
+                normalRelease.Show();
+            }
             else if (result == DialogResult.Ignore)
+            {
                 // Mid release
                 result = 0;
-
+            }
         }
 
         //*********************************************************
