@@ -1,3 +1,4 @@
+using System.Diagnostics.Eventing.Reader;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -10,7 +11,7 @@ namespace S1084_AutoRelease
         {
             InitializeComponent();
             EditProjectButton.Visible = false;
-            GenerateReportButton.Visible = false;
+            ReleaseButton.Visible = false;
             EditSubProjectButton.Visible = false;
 
             string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\ERL_SW_Projects_DB.xml";
@@ -74,13 +75,24 @@ namespace S1084_AutoRelease
             if (ProjectListComboBox.Text != "")
             {
                 EditProjectButton.Visible = true;
-                GenerateReportButton.Visible = true;
+                ReleaseButton.Visible = true;
             }
         }
 
-        private void GenerateReportButton_Click(object sender, EventArgs e)
+        private void ReleaseButton_Click(object sender, EventArgs e)
         {
-            GenerateReport gen = new GenerateReport(db, ProjectListComboBox.Text);
+           // GenerateReport gen = new GenerateReport(db, ProjectListComboBox.Text);
+
+            ReleaseType releaseType = new ReleaseType();
+
+            var result = releaseType.ShowDialog();
+            if (result == DialogResult.Yes)
+                // Normal release
+                result = 0;
+            else if (result == DialogResult.Ignore)
+                // Mid release
+                result = 0;
+
         }
 
         //*********************************************************

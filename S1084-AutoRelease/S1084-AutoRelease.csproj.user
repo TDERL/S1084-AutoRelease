@@ -10,6 +10,9 @@
     <Compile Update="ProjectInfo.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ReleaseType.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="SelectSubProject.cs">
       <SubType>Form</SubType>
     </Compile>
