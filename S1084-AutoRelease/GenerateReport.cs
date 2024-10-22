@@ -21,7 +21,7 @@ namespace S1084_AutoRelease
             string path = sprints.GetAttribute("reportPath");
             path += '\\';
             int noOfSprints = sprints.ChildNodes.Count;
-            string reportName = projectName + "_" + sprints.ChildNodes[noOfSprints - 1].Name;
+            string reportName = projectName + "_ProgressReport";
 
             int total = 0;
             int completed = 0;

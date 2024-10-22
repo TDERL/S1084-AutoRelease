@@ -8,9 +8,11 @@
         <S1070 />
         <S1071 />
       </Software>
-      <Sprints reportPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\Reports">
+      <Sprints reportPath="C:\Users\Todd.Dowty\ENERGY RESEARCH LAB LTD\DCB1 - Distributed Current Bus - Documents\Software\End Of Sprint Reports">
         <R29 unplanned="34" todo="302" inProgress="97" done="1891" />
         <R30 unplanned="34" todo="220" inProgress="130" done="52" />
+        <R31 unplanned="40" todo="211" inProgress="79" done="80" />
+        <R32 unplanned="38" todo="270" inProgress="31" done="78" />
       </Sprints>
     </DCB1>
   </Projects>
