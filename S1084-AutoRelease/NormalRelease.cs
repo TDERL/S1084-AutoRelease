@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Management.Automation;
+using System.IO;
+using System.Collections.ObjectModel;
+
 
 namespace S1084_AutoRelease
 {
@@ -91,7 +95,7 @@ namespace S1084_AutoRelease
 
         private void OkayButton_Click(object sender, EventArgs e)
         {
-            XmlElement newRelease = db.CreateElement(version);
+           /* XmlElement newRelease = db.CreateElement(version);
             newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
             newRelease.SetAttribute("todo", ToDoTextBox.Text);
             newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
@@ -99,7 +103,20 @@ namespace S1084_AutoRelease
             sprints.AppendChild(newRelease);
             db.Save(db.DocumentElement.GetAttribute("path"));
 
-            GenerateReport gen = new GenerateReport(db, projectName);
+            GenerateReport gen = new GenerateReport(db, projectName); */
+
+            string repoPath = db.GetElementsByTagName(projectName)[0].Attributes["repoPath"].Value;
+
+            using (PowerShell powershell = PowerShell.Create())
+            {
+                powershell.AddScript($"cd {repoPath}");
+                powershell.AddScript(@"git fetch");
+                powershell.AddScript(@"git checkout Develop");
+
+                Collection<PSObject> results = powershell.Invoke();
+            }
+
+
             this.Close();
         }
     }
