@@ -99,16 +99,6 @@ namespace S1084_AutoRelease
         {
             this.DialogResult = DialogResult.Abort;
 
-            /* XmlElement newRelease = db.CreateElement(version);
-             newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
-             newRelease.SetAttribute("todo", ToDoTextBox.Text);
-             newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
-             newRelease.SetAttribute("done", DoneTextBox.Text);
-             sprints.AppendChild(newRelease);
-             db.Save(db.DocumentElement.GetAttribute("path"));
-
-             GenerateReport gen = new GenerateReport(db, projectName); */
-
             XmlNode software = project.GetElementsByTagName("Software")[0];
             if (software == null)
             {
@@ -211,15 +201,24 @@ namespace S1084_AutoRelease
 
                             }
 
-                            if (ok)
-                            {
-                            }
-                            else
+                            if (ok == false)
                             {
                                 MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
                                 this.Close();
                             }
                         }
+
+
+                        // Final STEP - Add release to XML DB and generate a new progress/releases report
+                        XmlElement newRelease = db.CreateElement(version);
+                        newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
+                        newRelease.SetAttribute("todo", ToDoTextBox.Text);
+                        newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
+                        newRelease.SetAttribute("done", DoneTextBox.Text);
+                        sprints.AppendChild(newRelease);
+                        db.Save(db.DocumentElement.GetAttribute("path"));
+
+                        GenerateReport gen = new GenerateReport(db, projectName);
                     }
 
                 }
