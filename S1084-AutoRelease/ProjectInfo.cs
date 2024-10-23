@@ -64,7 +64,6 @@ namespace S1084_AutoRelease
                 }
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
-                ReportPathTextBox.Text = sprints.Attributes["reportPath"].Value;
 
                 if (sprints != null)
                 {
@@ -163,7 +162,6 @@ namespace S1084_AutoRelease
             if (endOfSprints.Count > 0)
             {
                 XmlElement sprints = db.CreateElement("Sprints");
-                sprints.SetAttribute("reportPath", ReportPathTextBox.Text);
 
                 foreach (endOfSprint sprint in endOfSprints)
                 {

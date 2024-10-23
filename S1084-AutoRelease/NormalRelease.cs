@@ -139,6 +139,24 @@ namespace S1084_AutoRelease
             XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
             XmlNode software = project.GetElementsByTagName("Software")[0];
 
+            //************************************
+            //
+            // TEST - Remove
+            // Final STEP - Add release to XML DB and generate a new progress/releases report
+            XmlElement newRelease = db.CreateElement(version);
+            newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
+            newRelease.SetAttribute("todo", ToDoTextBox.Text);
+            newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
+            newRelease.SetAttribute("done", DoneTextBox.Text);
+            project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
+            db.Save(db.DocumentElement.GetAttribute("path"));
+
+            GenerateReport gen = new GenerateReport(db, projectName);
+
+            //*********************************
+
+            /*
+ 
             if (software == null)
             {
                 MessageBox.Show("Release process aborted: There is no software included in " + projectName);
@@ -279,7 +297,7 @@ namespace S1084_AutoRelease
                 }
             }
 
-
+            */
 
 
             this.Close();

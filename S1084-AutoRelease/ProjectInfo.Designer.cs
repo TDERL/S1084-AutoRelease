@@ -51,9 +51,6 @@
             label6 = new Label();
             label12 = new Label();
             label7 = new Label();
-            label8 = new Label();
-            ReportPathTextBox = new TextBox();
-            label9 = new Label();
             SubProjectsGroupBox.SuspendLayout();
             SuspendLayout();
             // 
@@ -80,7 +77,7 @@
             // 
             SaveAndCloseButton.BackColor = Color.FromArgb(255, 255, 192);
             SaveAndCloseButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveAndCloseButton.Location = new Point(483, 208);
+            SaveAndCloseButton.Location = new Point(483, 166);
             SaveAndCloseButton.Name = "SaveAndCloseButton";
             SaveAndCloseButton.Size = new Size(127, 66);
             SaveAndCloseButton.TabIndex = 5;
@@ -114,7 +111,7 @@
             // 
             CloseButton.BackColor = Color.FromArgb(255, 224, 192);
             CloseButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CloseButton.Location = new Point(626, 208);
+            CloseButton.Location = new Point(626, 166);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(127, 66);
             CloseButton.TabIndex = 6;
@@ -126,7 +123,7 @@
             // 
             SaveButton.BackColor = Color.FromArgb(192, 255, 192);
             SaveButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveButton.Location = new Point(339, 208);
+            SaveButton.Location = new Point(339, 166);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(127, 66);
             SaveButton.TabIndex = 4;
@@ -151,7 +148,7 @@
             SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
             SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
             SubProjectsGroupBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SubProjectsGroupBox.Location = new Point(24, 297);
+            SubProjectsGroupBox.Location = new Point(24, 255);
             SubProjectsGroupBox.Name = "SubProjectsGroupBox";
             SubProjectsGroupBox.Size = new Size(729, 288);
             SubProjectsGroupBox.TabIndex = 11;
@@ -174,7 +171,7 @@
             // 
             StageComboBox.FormattingEnabled = true;
             StageComboBox.Items.AddRange(new object[] { "Red", "Blue", "Green", "Black" });
-            StageComboBox.Location = new Point(201, 205);
+            StageComboBox.Location = new Point(201, 163);
             StageComboBox.Name = "StageComboBox";
             StageComboBox.Size = new Size(121, 23);
             StageComboBox.TabIndex = 12;
@@ -183,7 +180,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(24, 203);
+            label3.Location = new Point(24, 161);
             label3.Name = "label3";
             label3.Size = new Size(139, 21);
             label3.TabIndex = 13;
@@ -193,7 +190,7 @@
             // 
             StatusComboBox.FormattingEnabled = true;
             StatusComboBox.Items.AddRange(new object[] { "Active", "On Hold", "Abandoned", "Complete", "" });
-            StatusComboBox.Location = new Point(201, 250);
+            StatusComboBox.Location = new Point(201, 208);
             StatusComboBox.Name = "StatusComboBox";
             StatusComboBox.Size = new Size(121, 23);
             StatusComboBox.TabIndex = 14;
@@ -202,7 +199,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(24, 248);
+            label4.Location = new Point(24, 206);
             label4.Name = "label4";
             label4.Size = new Size(107, 21);
             label4.TabIndex = 15;
@@ -270,47 +267,11 @@
             label7.TabIndex = 31;
             label7.Text = "*";
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.Red;
-            label8.Location = new Point(183, 163);
-            label8.Name = "label8";
-            label8.Size = new Size(17, 21);
-            label8.TabIndex = 34;
-            label8.Text = "*";
-            // 
-            // ReportPathTextBox
-            // 
-            ReportPathTextBox.Font = new Font("Segoe UI", 9.75F);
-            ReportPathTextBox.ForeColor = SystemColors.WindowFrame;
-            ReportPathTextBox.Location = new Point(201, 160);
-            ReportPathTextBox.Name = "ReportPathTextBox";
-            ReportPathTextBox.Size = new Size(552, 25);
-            ReportPathTextBox.TabIndex = 33;
-            ReportPathTextBox.Text = "Please enter path";
-            ProjectInfoToolTip.SetToolTip(ReportPathTextBox, "Local directory path where generated reports are to be saved");
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(24, 160);
-            label9.Name = "label9";
-            label9.Size = new Size(157, 21);
-            label9.TabIndex = 32;
-            label9.Text = "Local path to Reports";
-            ProjectInfoToolTip.SetToolTip(label9, "Local directory path where generated reports are to be saved");
-            // 
             // ProjectInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 595);
-            Controls.Add(label8);
-            Controls.Add(ReportPathTextBox);
-            Controls.Add(label9);
+            ClientSize = new Size(800, 552);
             Controls.Add(label7);
             Controls.Add(label12);
             Controls.Add(RepoPathTextBox);
@@ -359,8 +320,5 @@
         private Label label6;
         private Label label12;
         private Label label7;
-        private Label label8;
-        private TextBox ReportPathTextBox;
-        private Label label9;
     }
 }
