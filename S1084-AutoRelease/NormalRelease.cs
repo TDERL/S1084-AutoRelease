@@ -111,16 +111,16 @@ namespace S1084_AutoRelease
         }
 
 
-        private string GetBasePath()
-        {
-            string basePath = db.GetElementsByTagName("S1084")[0].Attributes["path"].Value;
-            string[] temp = basePath.Split('\\');
-            basePath = "";
-            for (int i = 0; i < (temp.Length - 1); i++)
-                basePath += temp[i] + "\\";
+        //private string GetBasePath()
+        //{
+        //    string basePath = db.GetElementsByTagName("S1084")[0].Attributes["path"].Value;
+        //    string[] temp = basePath.Split('\\');
+        //    basePath = "";
+        //    for (int i = 0; i < (temp.Length - 1); i++)
+        //        basePath += temp[i] + "\\";
 
-            return basePath;
-        }
+        //    return basePath;
+        //}
 
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -152,7 +152,7 @@ namespace S1084_AutoRelease
             //
             // TEST - Remove
             // Final STEP - Add release to XML DB and generate a new progress/releases report
-            XmlElement newRelease = db.CreateElement(version);
+            /*XmlElement newRelease = db.CreateElement(version);
             newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
             newRelease.SetAttribute("todo", ToDoTextBox.Text);
             newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
@@ -160,11 +160,12 @@ namespace S1084_AutoRelease
             project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
             db.Save(db.DocumentElement.GetAttribute("path"));
 
-            GenerateReport gen = new GenerateReport(db, projectName);
+            GenerateReport generate = new GenerateReport();
+            generate.ProjectProgress(db, projectName);*/
 
             //*********************************
 
-            /*
+            
  
             if (software == null)
             {
@@ -265,9 +266,12 @@ namespace S1084_AutoRelease
                                     //string archivePath = releasesPath + "\\Archive";
 
                                     // If ext or output path are TBD then don't try to release it
-                                    if ((fileExtension != "TBD") && (outputPath != "TBD")) // TODO: Replace this with a active status attribute
+                                    //if ((fileExtension != "TBD") && (outputPath != "TBD")) // TODO: Replace this with a active status attribute
+                                    if (softwareProject.Attributes["active"].Value == "active")
                                     {
-                                        string releasesPath = GetBasePath() + projectName + "\\Releases\\" + version + "\\" + Sxxxx.Name;
+                                        string desc = db.GetElementsByTagName(projectName)[0].Attributes["desName"].Value;
+                                        Paths paths = new Paths(db);
+                                        string releasesPath = paths.GetReleases(projectName) + version + "\\" + Sxxxx.Name + " - " + softwareProject.Attributes["shortName"].Value;
                                         Directory.CreateDirectory(releasesPath); // Just a little belts 'n' braces
 
                                         // STEP 4a - Archive
@@ -300,13 +304,14 @@ namespace S1084_AutoRelease
                         project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
                         db.Save(db.DocumentElement.GetAttribute("path"));
 
-                        GenerateReport gen = new GenerateReport(db, projectName);
+                        GenerateReport generate = new GenerateReport();
+                        generate.ProjectProgress(db, projectName);
                     }
 
                 }
             }
 
-            */
+            
 
 
             this.Close();

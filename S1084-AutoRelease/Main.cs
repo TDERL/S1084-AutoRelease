@@ -168,6 +168,16 @@ namespace S1084_AutoRelease
 
         private void GenerateReportButton_Click(object sender, EventArgs e)
         {
+            GenerateReport generate = new GenerateReport();
+            generate.ReportHomePage(db);
+            generate.ProjectProgress(db, ProjectListComboBox.Text);
+
+            /*
+            GenerateReport generate = new GenerateReport();
+            generate.SoftwareComponents(db);
+
+
+
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
@@ -218,7 +228,7 @@ namespace S1084_AutoRelease
 
                     MessageBox.Show("Software Master Part Number List.html generated");
                 }
-            }
+            }*/
         }
     }
 }
