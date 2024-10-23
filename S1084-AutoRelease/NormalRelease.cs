@@ -63,25 +63,23 @@ namespace S1084_AutoRelease
                     break;
             }
 
+            revision = 1;
             sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
 
-            if (sprints.ChildNodes.Count == 0)
-            {
-                revision = 1;
-            }
-            else
+            if ((sprints != null) && (sprints.ChildNodes.Count > 0))
             {
                 string last = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
-                last = last.Substring(1);
-                revision = Int32.Parse(last);
-                revision += 1;
+
+                if (last[0] == stage[0])
+                {
+                    last = last.Substring(1);
+                    revision = Int32.Parse(last);
+                    revision += 1;
+                }
             }
 
             version = stage + revision.ToString();
 
-
-            // Before closing the current Sprint,
-            // enter number of stories in:
             InitInfoLabel.Text = "You are about to release " + version + "\nBefore closing Sprint " + version + "\nenter number of stories in:";
         }
 

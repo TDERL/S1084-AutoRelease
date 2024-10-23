@@ -1,6 +1,7 @@
 using Microsoft.PowerShell.Commands;
 using Microsoft.VisualBasic;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -16,15 +17,15 @@ namespace S1084_AutoRelease
             ReleaseButton.Enabled = false;
             EditSubProjectButton.Enabled = false;
 
-            string xmlPath = "C:\\Projects\\Windows Apps\\S1084-AutoRelease\\XML\\ERL_SW_Projects_DB.xml";
+            string xmlPath = "C:\\ERL-Software-Products\\ERL_SW_Projects_DB.xml";
             if (File.Exists(xmlPath) == false)
             {
+                Directory.CreateDirectory("C:\\ERL-Software-Products\\"); // Just a little belts 'n' braces
                 XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
                 writer.Formatting = Formatting.Indented;
                 writer.WriteStartDocument();
                 String PItext = "type='text/xsl'";
                 writer.WriteProcessingInstruction("xml-stylesheet", PItext);
-                //writer.WriteDocType("Projects", null, null, null);
                 writer.WriteComment("S1084, Projects DB and Auto Release");
                 writer.WriteStartElement("S1084");
                 writer.WriteAttributeString("path", xmlPath);
@@ -84,6 +85,9 @@ namespace S1084_AutoRelease
 
         private void ReleaseButton_Click(object sender, EventArgs e)
         {
+
+
+
             ReleaseType releaseType = new ReleaseType();
 
             var result = releaseType.ShowDialog();
