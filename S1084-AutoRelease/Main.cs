@@ -1,4 +1,5 @@
 using Microsoft.PowerShell.Commands;
+using Microsoft.VisualBasic;
 using System.Diagnostics.Eventing.Reader;
 using System.Xml;
 using System.Xml.Linq;
@@ -80,17 +81,18 @@ namespace S1084_AutoRelease
             }
         }
 
+
         private void ReleaseButton_Click(object sender, EventArgs e)
         {
-            // GenerateReport gen = new GenerateReport(db, ProjectListComboBox.Text);
-
             ReleaseType releaseType = new ReleaseType();
 
             var result = releaseType.ShowDialog();
             if (result == DialogResult.Yes)
             {
                 NormalRelease normalRelease = new NormalRelease(db, ProjectListComboBox.Text);
-                normalRelease.Show();
+
+                if (normalRelease.Required())
+                    normalRelease.Show();
             }
             else if (result == DialogResult.Ignore)
             {

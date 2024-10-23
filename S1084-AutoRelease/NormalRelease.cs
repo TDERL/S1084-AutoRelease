@@ -85,6 +85,33 @@ namespace S1084_AutoRelease
             InitInfoLabel.Text = "You are about to release " + version + "\nBefore closing Sprint " + version + "\nenter number of stories in:";
         }
 
+        public bool Required()
+        {
+            bool returnValue = false;
+            XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
+            XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
+            string currentVersion = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
+            string repoPath = db.GetElementsByTagName(projectName)[0].Attributes["repoPath"].Value;
+            string[] response;
+
+            using (PowerShell powershell = PowerShell.Create())
+            {
+                powershell.AddScript($"cd {repoPath}");
+                powershell.AddScript(@"git describe --tags");
+                Collection<PSObject> results = powershell.Invoke();
+                response = results[0].BaseObject.ToString().Split("-");
+            }
+
+            if (response[0] != currentVersion)
+                MessageBox.Show("Cannot run release process as something has gone wrong which needs manual fixing\nCurrent version is " + currentVersion + "\nLatest GIT tag is " + response[0], "ERROR; Cannot run release process");
+            else if (response.Length == 1)
+                MessageBox.Show("No need to run through the Release Process as no code has been added since last release", "Current Release Still Latest");
+            else
+                returnValue = true;
+
+            return returnValue;
+        }
+
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
