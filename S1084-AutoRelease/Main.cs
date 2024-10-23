@@ -85,9 +85,6 @@ namespace S1084_AutoRelease
 
         private void ReleaseButton_Click(object sender, EventArgs e)
         {
-
-
-
             ReleaseType releaseType = new ReleaseType();
 
             var result = releaseType.ShowDialog();

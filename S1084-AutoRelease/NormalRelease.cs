@@ -26,8 +26,8 @@ namespace S1084_AutoRelease
         private string stage = "";
         private string version = "";
         private int revision = 0;
-        XmlElement project;
-        XmlElement sprints;
+       // XmlElement project;
+       // XmlElement sprints;
 
         public NormalRelease(XmlDocument db, string name)
         {
@@ -36,7 +36,7 @@ namespace S1084_AutoRelease
             projectName = name;
             this.db = db;
 
-            project = (XmlElement)db.GetElementsByTagName(name)[0];
+            XmlElement project = (XmlElement)db.GetElementsByTagName(name)[0];
 
             stage = project.Attributes["stage"].Value;
 
@@ -64,7 +64,7 @@ namespace S1084_AutoRelease
             }
 
             revision = 1;
-            sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
+            XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
 
             if ((sprints != null) && (sprints.ChildNodes.Count > 0))
             {
@@ -110,6 +110,18 @@ namespace S1084_AutoRelease
             return returnValue;
         }
 
+
+        private string GetBasePath()
+        {
+            string basePath = db.GetElementsByTagName("S1084")[0].Attributes["path"].Value;
+            string[] temp = basePath.Split('\\');
+            basePath = "";
+            for (int i = 0; i < (temp.Length - 1); i++)
+                basePath += temp[i] + "\\";
+
+            return basePath;
+        }
+
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
@@ -124,7 +136,9 @@ namespace S1084_AutoRelease
         {
             this.DialogResult = DialogResult.Abort;
 
+            XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
             XmlNode software = project.GetElementsByTagName("Software")[0];
+
             if (software == null)
             {
                 MessageBox.Show("Release process aborted: There is no software included in " + projectName);
@@ -211,8 +225,6 @@ namespace S1084_AutoRelease
                     {
                         // Here we have to assume user has built all software as requested
                         // STEP 4 - Archive current releases and save a copy of new output files to the releases folders
-
-
                         foreach (XmlNode Sxxxx in software)
                         {
                             foreach (XmlNode softwareProject in softwareProjects)
@@ -220,22 +232,25 @@ namespace S1084_AutoRelease
                                 if (Sxxxx.Name == softwareProject.Name)
                                 {
                                     // Found the right Software Project, so can now get all the paths needed to release
-
+ 
                                     string fileExtension = softwareProject.Attributes["outputType"].Value;
                                     string outputPath = softwareProject.Attributes["outputPath"].Value;
-                                    string releasesPath = softwareProject.Attributes["releasesPath"].Value;
-                                    string archivePath = releasesPath + "\\Archive";
+                                    //string archivePath = releasesPath + "\\Archive";
 
-                                    if (fileExtension != "TBD") // If ext is TBD then don't try to release it
+                                    // If ext or output path are TBD then don't try to release it
+                                    if ((fileExtension != "TBD") && (outputPath != "TBD")) // TODO: Replace this with a active status attribute
                                     {
+                                        string releasesPath = GetBasePath() + projectName + "\\Releases\\" + version + "\\" + Sxxxx.Name;
+                                        Directory.CreateDirectory(releasesPath); // Just a little belts 'n' braces
+
                                         // STEP 4a - Archive
-                                        string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
+                                        //string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
 
-                                        foreach (var file in files)
-                                            File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
+                                        //foreach (var file in files)
+                                        //    File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
 
-                                        // STEP 4b - Release
-                                        files = Directory.GetFiles(outputPath, "*" + fileExtension);
+                                        // STEP 4 - Release
+                                        string[] files = Directory.GetFiles(outputPath, "*" + fileExtension);
 
                                         foreach (var file in files)
                                         {
@@ -255,7 +270,7 @@ namespace S1084_AutoRelease
                         newRelease.SetAttribute("todo", ToDoTextBox.Text);
                         newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
                         newRelease.SetAttribute("done", DoneTextBox.Text);
-                        sprints.AppendChild(newRelease);
+                        project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
                         db.Save(db.DocumentElement.GetAttribute("path"));
 
                         GenerateReport gen = new GenerateReport(db, projectName);
