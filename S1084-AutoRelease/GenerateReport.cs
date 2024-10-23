@@ -70,38 +70,14 @@ namespace S1084_AutoRelease
                     w.WriteLine("<tr><th style=\"padding:8px\">Unplanned (unpointed) Stories: </th><td style=\"min-width: 200px\">" + sprints.ChildNodes[noOfSprints - 1].Attributes["unplanned"].Value + "</td></tr>");
                     w.WriteLine("</table>");
 
-
-                    w.WriteLine("<h4 style=\"color:purple \"> Software Products Included</h4>");
-                    w.WriteLine("<table>");
-
-                    foreach (XmlNode Sxxxx in software.ChildNodes)
-                    {
-                        string description = "No Description Found";
-                        string platform = "Unspecified Platform";
-
-                        foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
-                        {
-                            if (softwareProject.Name == Sxxxx.Name)
-                            {
-                                description = softwareProject.InnerText;
-                                platform = softwareProject.Attributes["platform"].Value;
-                                break;
-                            }
-                        }
-
-                        w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + "</th><td style=\"min-width: 200px\", \"padding:8px\">" + platform + "</td><td style=\"padding:8px\">" + description + "</td></tr>");
-                    }
-                    w.WriteLine("</table>");
-
-
-                    w.WriteLine("<h4 style=\"color:purple \">Release History</h4>");
+                    w.WriteLine("<h3 style=\"color:purple \">Release History</h3>");
 
                     total = 0;
                     completed = 0;
 
                     w.WriteLine("<table>");
                     w.WriteLine("<tr><th style=\"padding:8px\">Version</th><th style=\"padding:8px\">Scope</th><th style=\"padding:8px\">Completed</th><th style=\"padding:8px\">Unplanned</th></tr>");
-                    foreach (XmlNode sprint in sprints.ChildNodes) 
+                    foreach (XmlNode sprint in sprints.ChildNodes)
                     {
                         completed += int.Parse(sprint.Attributes["done"].Value);
                         total += int.Parse(sprint.Attributes["done"].Value);
@@ -120,6 +96,57 @@ namespace S1084_AutoRelease
                         total -= int.Parse(sprint.Attributes["inProgress"].Value);
                     }
                     w.WriteLine("</table>");
+
+
+                    w.WriteLine("<h3 style=\"color:purple \">Software Products</h3>");
+
+                    w.WriteLine("<h4 style=\"color:purple \">Active</h4>");
+                    w.WriteLine("Software products actively included in formal releases for overall build of " + projectName);
+                    w.WriteLine("<br><br>");
+                    w.WriteLine("<table>");
+
+                    foreach (XmlNode Sxxxx in software.ChildNodes)
+                    {
+                        string description = "No Description Found";
+                        string platform = "Unspecified Platform";
+
+                        foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
+                        {
+                            if ((softwareProject.Name == Sxxxx.Name) && (softwareProject.Attributes["active"].Value == "active"))
+                            {
+                                description = softwareProject.InnerText;
+                                platform = softwareProject.Attributes["platform"].Value;
+                                w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + "</th><td style=\"min-width: 200px\", \"padding:8px\">" + platform + "</td><td style=\"padding:8px\">" + description + "</td></tr>");
+                                break;
+                            }
+                        }
+                    }
+                    w.WriteLine("</table>");
+
+
+                    w.WriteLine("<h4 style=\"color:purple \">Inactive</h4>");
+                    w.WriteLine("Software products associated with " + projectName + " but no longer (or never were) part of formal releases</h4>");
+                    w.WriteLine("<br><br>");
+                    w.WriteLine("<table>");
+
+                    foreach (XmlNode Sxxxx in software.ChildNodes)
+                    {
+                        string description = "No Description Found";
+                        string platform = "Unspecified Platform";
+
+                        foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
+                        {
+                            if ((softwareProject.Name == Sxxxx.Name) && (softwareProject.Attributes["active"].Value == "inactive"))
+                            {
+                                description = softwareProject.InnerText;
+                                platform = softwareProject.Attributes["platform"].Value;
+                                w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + "</th><td style=\"min-width: 200px\", \"padding:8px\">" + platform + "</td><td style=\"padding:8px\">" + description + "</td></tr>");
+                                break;
+                            }
+                        }
+                    }
+                    w.WriteLine("</table>");
+
 
                     w.WriteLine("");
                     w.WriteLine("</body>");

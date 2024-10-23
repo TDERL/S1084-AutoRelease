@@ -134,6 +134,15 @@ namespace S1084_AutoRelease
 
         private void OkayButton_Click(object sender, EventArgs e)
         {
+            if ((BacklogTextBox.Text == "") ||
+                (ToDoTextBox.Text == "") ||
+                (InProgressTextBox.Text == "") ||
+                (DoneTextBox.Text == ""))
+            {
+                MessageBox.Show("Numerical value must be entered in all four fields", "ERROR");
+                return;
+            }
+
             this.DialogResult = DialogResult.Abort;
 
             XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
