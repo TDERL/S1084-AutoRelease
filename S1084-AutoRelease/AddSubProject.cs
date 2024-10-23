@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace S1084_AutoRelease
 {
@@ -20,7 +21,7 @@ namespace S1084_AutoRelease
         public string description = "";
         public string outputType = "Please enter a .extension";
         public string outputPath = "Please enter path";
-        public string releasesPath = "Please enter path";
+        public string active = "inactive";
 
         public AddSubProject(string number)
         {
@@ -36,7 +37,11 @@ namespace S1084_AutoRelease
             DescriptionTextBox.Text = description;
             OutputTypeTextBox.Text = outputType;
             OutputPathTextBox.Text = outputPath;
-            ReleasesPathTextBox.Text = releasesPath;
+
+            if (active == "inactive")
+                ActiveCheckBox.Checked = false;
+            else
+                ActiveCheckBox.Checked = true;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -53,7 +58,11 @@ namespace S1084_AutoRelease
             description = DescriptionTextBox.Text;
             outputType = OutputTypeTextBox.Text;
             outputPath = OutputPathTextBox.Text;
-            releasesPath = ReleasesPathTextBox.Text;
+
+            if (ActiveCheckBox.Checked == false)
+                active = "inactive";
+            else
+                active = "active";
 
             if (number == "Please enter number")
             {
@@ -62,14 +71,13 @@ namespace S1084_AutoRelease
             }
 
             //Please enter a.extension
-            if (outputType == "Please enter a .extension")
+            if (outputType == "")
             {
                 MessageBox.Show("Please enter a valid file extension, including the dot [EG .bin]");
                 return;
             }
 
-            if ((outputPath == "Please enter path") ||
-                (releasesPath == "Please enter path")) 
+            if (outputPath == "")
             {
                 MessageBox.Show("Please enter a valid directory path [C:\\...]");
                 return;
