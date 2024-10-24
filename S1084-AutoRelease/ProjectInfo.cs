@@ -22,6 +22,7 @@ namespace S1084_AutoRelease
     {
         public struct endOfSprint
         {
+            public string date;
             public string name;
             public string unplanned;
             public string todo;
@@ -85,6 +86,7 @@ namespace S1084_AutoRelease
                     {
                         endOfSprint sprint = new endOfSprint();
                         sprint.name = node.Name;
+                        sprint.date = node.Attributes["date"].Value;
                         sprint.unplanned = node.Attributes["unplanned"].Value;
                         sprint.todo = node.Attributes["todo"].Value;
                         sprint.inProgress = node.Attributes["inProgress"].Value;
@@ -223,6 +225,7 @@ namespace S1084_AutoRelease
                 foreach (endOfSprint sprint in endOfSprints)
                 {
                     XmlElement xmlSprint = db.CreateElement(sprint.name);
+                    xmlSprint.SetAttribute("date", sprint.date);
                     xmlSprint.SetAttribute("unplanned", sprint.unplanned);
                     xmlSprint.SetAttribute("todo", sprint.todo);
                     xmlSprint.SetAttribute("inProgress", sprint.inProgress);

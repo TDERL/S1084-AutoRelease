@@ -142,7 +142,7 @@ namespace S1084_AutoRelease
 
                     w.WriteLine("<h3 style=\"color:purple \">Software Products</h3>");
 
-                    w.WriteLine("<h4 style=\"color:purple \">Active</h4>");
+                    w.WriteLine("<h4 style=\"color:purple \">Included</h4>");
                     w.WriteLine("Software products actively included in formal releases for overall build of " + projectName);
                     w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
@@ -154,7 +154,7 @@ namespace S1084_AutoRelease
 
                         foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
                         {
-                            if ((softwareProject.Name == Sxxxx.Name) && (softwareProject.Attributes["active"].Value == "active"))
+                            if ((softwareProject.Name == Sxxxx.Name) && (Sxxxx.Attributes["included"].Value == "yes"))
                             {
                                 description = softwareProject.InnerText;
                                 platform = softwareProject.Attributes["platform"].Value;
@@ -166,8 +166,8 @@ namespace S1084_AutoRelease
                     w.WriteLine("</table>");
 
 
-                    w.WriteLine("<h4 style=\"color:purple \">Inactive</h4>");
-                    w.WriteLine("Software products associated with " + projectName + " but no longer (or never were) part of formal releases</h4>");
+                    w.WriteLine("<h4 style=\"color:purple \">Not Included</h4>");
+                    w.WriteLine("Software products associated with " + projectName + " but not included in formal releases for overall build");
                     w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
 
@@ -178,7 +178,7 @@ namespace S1084_AutoRelease
 
                         foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
                         {
-                            if ((softwareProject.Name == Sxxxx.Name) && (softwareProject.Attributes["active"].Value == "inactive"))
+                            if ((softwareProject.Name == Sxxxx.Name) && (Sxxxx.Attributes["included"].Value == "no"))
                             {
                                 description = softwareProject.InnerText;
                                 platform = softwareProject.Attributes["platform"].Value;
