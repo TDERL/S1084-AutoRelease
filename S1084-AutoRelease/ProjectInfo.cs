@@ -34,7 +34,13 @@ namespace S1084_AutoRelease
         private int subProjectButton_x = 20;
         private int subProjectButton_y = 140;
         private XmlDocument db = new XmlDocument();
-        private List<string> subProjectNames = new List<string>();
+
+        struct Sxxxx
+        {
+            public string name;     // S1070 or S1071, etc --> Name of children elements to 'Project/Software'
+            public string included; // Attribute to the named Sxxxx element
+        }
+        private List<Sxxxx> subProjectNames = new List<Sxxxx>();
 
         public ProjectInfo(XmlDocument db, string name)
         {
@@ -56,13 +62,16 @@ namespace S1084_AutoRelease
                 if (Software != null)
                 {
                     foreach (XmlNode node in Software)
-                        subProjectNames.Add(node.Name);
+                    {
+                        Sxxxx sxxxx = new Sxxxx();
+                        sxxxx.name = node.Name;
+                        sxxxx.included = node.Attributes["included"].Value;
+                        subProjectNames.Add(sxxxx);
+                    }
 
-                    subProjectNames.Sort();
+                    //subProjectNames.Sort();
 
-                    //RemoveFinalRowToSxxxxTable();
-
-                    foreach (string subProjectName in subProjectNames)
+                    foreach (Sxxxx subProjectName in subProjectNames)
                         AddSxxxxProductToTable(subProjectName);
                 }
 
@@ -86,7 +95,7 @@ namespace S1084_AutoRelease
             }
         }
 
-        private void AddSxxxxProductToTable(string name)
+        private void AddSxxxxProductToTable(Sxxxx sxxxx)
         {
             Button subProjectButton = new Button();
             subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
@@ -95,18 +104,9 @@ namespace S1084_AutoRelease
             subProjectButton.Name = "subProjectButton";
             subProjectButton.Size = new Size(80, 50);
             subProjectButton.TabIndex = 0;
-            subProjectButton.Text = name;
+            subProjectButton.Text = sxxxx.name;
             subProjectButton.UseVisualStyleBackColor = false;
             subProjectButton.Click += OpenSubProjectButton_Click;
-            //SubProjectsGroupBox.Controls.Add(subProjectButton);
-
-            //subProjectButton_x = subProjectButton_x + 100;
-            //if (subProjectButton_x > 621)
-            //{
-            //    subProjectButton_x = 20;
-            //    subProjectButton_y = subProjectButton_y + 70;
-            //}
-
 
             Button removeSubProjectButton = new Button();
             removeSubProjectButton.Size = new Size(50, 50);
@@ -128,7 +128,7 @@ namespace S1084_AutoRelease
 
             foreach (XmlNode softwareProject in db.GetElementsByTagName("SoftwareProjects")[0].ChildNodes)
             {
-                if (name ==  softwareProject.Name)
+                if (sxxxx.name ==  softwareProject.Name)
                 {
                     Label desc = new Label();
                     desc.AutoSize = true;
@@ -141,25 +141,14 @@ namespace S1084_AutoRelease
 
             CheckBox incl = new CheckBox();
             incl.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            XmlElement project = (XmlElement)db.GetElementsByTagName(ProjectNameTextBox.Text)[0];
-            XmlElement software = (XmlElement)project.GetElementsByTagName("Software")[0];
-            XmlNode Sxxxx = project.GetElementsByTagName(name)[0];
 
-            if (Sxxxx.Attributes["included"].Value == "yes")
+            if (sxxxx.included == "yes")
                 incl.Checked = true;
             else
                 incl.Checked = false;
 
             TableLayoutPanel.Controls.Add(incl, 3, row);
         }
-
-        //private void RemoveFinalRowToSxxxxTable()
-        //{
-        //    int rows = TableLayoutPanel.RowCount;
-        //    rows--;
-        //    TableLayoutPanel.RowStyles.RemoveAt(rows);
-        //    TableLayoutPanel.RowCount = rows;
-        //}
 
         private void AddFinalRowToSxxxxTable()
         {
@@ -180,32 +169,6 @@ namespace S1084_AutoRelease
             TableLayoutPanel.Size = new Size(width, height);
         }
 
-        /*private void ResetTableOfSxxxxProducts()
-        {
-            TableLayoutPanel.Controls.Clear();
-
-            for (int i = 1; i < TableLayoutPanel.RowCount; i++)
-            {
-                TableLayoutPanel.RowStyles.RemoveAt(i);
-            }
-
-            TableLayoutPanel.RowCount = 1;
-
-            //asdasd
-            //SubProjectsGroupBox.Controls.Clear();
-
-            //SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
-            //SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
-            //subProjectButton_x = 20;
-            //subProjectButton_y = 140;
-
-            subProjectNames.Sort();
-
-            foreach (string subProjectRemaining in subProjectNames)
-                AddSxxxxProductToTable(subProjectRemaining);
-
-            AddFinalRowToSxxxxTable();
-        }*/
 
         private bool SaveProject()
         {
@@ -241,8 +204,12 @@ namespace S1084_AutoRelease
             {
                 XmlElement subProjectElement = db.CreateElement("Software");
 
-                foreach (string subProjectName in subProjectNames)
-                    subProjectElement.AppendChild(db.CreateElement(subProjectName));
+                foreach (Sxxxx sxxxx in subProjectNames)
+                {
+                    XmlElement sub = db.CreateElement(sxxxx.name);
+                    sub.SetAttribute("included", sxxxx.included);
+                    subProjectElement.AppendChild(sub);
+                }
 
                 project.AppendChild(subProjectElement);
             }
@@ -335,11 +302,11 @@ namespace S1084_AutoRelease
         {
             Button subProjectButton = (Button)sender;
 
-            foreach (string subProjectName in subProjectNames)
+            foreach (Sxxxx sxxxx in subProjectNames)
             {
-                if (subProjectName == subProjectButton.Text)
+                if (sxxxx.name == subProjectButton.Text)
                 {
-                    EditSubProject edit = new EditSubProject(db, subProjectName);
+                    EditSubProject edit = new EditSubProject(db, sxxxx.name);
                 }
             }
         }
