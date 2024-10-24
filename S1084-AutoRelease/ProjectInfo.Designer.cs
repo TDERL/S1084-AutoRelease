@@ -258,9 +258,9 @@
             SxxxxIncludedLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SxxxxIncludedLabel.Location = new Point(585, 1);
             SxxxxIncludedLabel.Name = "SxxxxIncludedLabel";
-            SxxxxIncludedLabel.Size = new Size(69, 21);
+            SxxxxIncludedLabel.Size = new Size(125, 21);
             SxxxxIncludedLabel.TabIndex = 2;
-            SxxxxIncludedLabel.Text = "Included";
+            SxxxxIncludedLabel.Text = "Included in build";
             // 
             // SxxxxDescLabel
             // 

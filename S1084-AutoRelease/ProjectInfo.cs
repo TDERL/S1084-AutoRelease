@@ -170,6 +170,7 @@ namespace S1084_AutoRelease
         }
 
 
+
         private bool SaveProject()
         {
             string projectName = ProjectNameTextBox.Text;
@@ -307,6 +308,7 @@ namespace S1084_AutoRelease
                 if (sxxxx.name == subProjectButton.Text)
                 {
                     EditSubProject edit = new EditSubProject(db, sxxxx.name);
+                    this.Close();
                 }
             }
         }
