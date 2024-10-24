@@ -60,8 +60,12 @@ namespace S1084_AutoRelease
 
                     subProjectNames.Sort();
 
+                    RemoveFinalRowToSxxxxTable();
+
                     foreach (string subProjectName in subProjectNames)
                         AddSubProjectButtonToGroup(subProjectName);
+
+                    AddFinalRowToSxxxxTable();
                 }
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
@@ -104,12 +108,6 @@ namespace S1084_AutoRelease
             }
 
 
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectInfo));
-            Button addSubProjectButton = new Button();
-            addSubProjectButton.Size = new Size(50, 50);
-            addSubProjectButton.Image = Image.FromFile("C:\\Projects\\Windows Apps\\S1084-AutoRelease\\Icons\\Add-50x50.png");  //(Image)resources.GetObject("AddSubProjectButton.Image");
-            addSubProjectButton.Click += AddSubProjectButton_Click;
-            TableLayoutPanel.Controls.Add(addSubProjectButton, 0, 1);
 
             int width = TableLayoutPanel.Size.Width;
             int height = TableLayoutPanel.Size.Height;
@@ -117,7 +115,35 @@ namespace S1084_AutoRelease
             int row = TableLayoutPanel.RowCount;
             TableLayoutPanel.RowCount++;
             TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TableLayoutPanel.Controls.Add(subProjectButton, 0, row);
+            TableLayoutPanel.Controls.Add(subProjectButton, 1, row);
+
+            height += 50;
+            TableLayoutPanel.Size = new Size(width, height);
+        }
+
+        private void RemoveFinalRowToSxxxxTable()
+        {
+            int rows = TableLayoutPanel.RowCount;
+            rows--;
+            TableLayoutPanel.RowStyles.RemoveAt(rows);
+            TableLayoutPanel.RowCount = rows;
+        }
+
+        private void AddFinalRowToSxxxxTable()
+        {
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectInfo));
+            Button addSubProjectButton = new Button();
+            addSubProjectButton.Size = new Size(50, 50);
+            addSubProjectButton.Image = Image.FromFile("C:\\Projects\\Windows Apps\\S1084-AutoRelease\\Icons\\Add-50x50.png");  //(Image)resources.GetObject("AddSubProjectButton.Image");
+            addSubProjectButton.Click += AddSubProjectButton_Click;
+
+            int width = TableLayoutPanel.Size.Width;
+            int height = TableLayoutPanel.Size.Height;
+
+            int row = TableLayoutPanel.RowCount;
+            TableLayoutPanel.RowCount++;
+            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TableLayoutPanel.Controls.Add(addSubProjectButton, 0, row);
 
             height += 50;
             TableLayoutPanel.Size = new Size(width, height);
