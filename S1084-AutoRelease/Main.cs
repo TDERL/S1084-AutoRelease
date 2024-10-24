@@ -170,7 +170,11 @@ namespace S1084_AutoRelease
         {
             GenerateReport generate = new GenerateReport();
             generate.ReportHomePage(db);
-            generate.ProjectProgress(db, ProjectListComboBox.Text);
+
+            foreach (string project in ProjectListComboBox.Items)
+            {
+                generate.ProjectProgress(db, project);
+            }
         }
     }
 }

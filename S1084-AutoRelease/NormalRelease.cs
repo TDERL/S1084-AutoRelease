@@ -110,18 +110,6 @@ namespace S1084_AutoRelease
             return returnValue;
         }
 
-
-        //private string GetBasePath()
-        //{
-        //    string basePath = db.GetElementsByTagName("S1084")[0].Attributes["path"].Value;
-        //    string[] temp = basePath.Split('\\');
-        //    basePath = "";
-        //    for (int i = 0; i < (temp.Length - 1); i++)
-        //        basePath += temp[i] + "\\";
-
-        //    return basePath;
-        //}
-
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
@@ -147,25 +135,6 @@ namespace S1084_AutoRelease
 
             XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
             XmlNode software = project.GetElementsByTagName("Software")[0];
-
-            //************************************
-            //
-            // TEST - Remove
-            // Final STEP - Add release to XML DB and generate a new progress/releases report
-            /*XmlElement newRelease = db.CreateElement(version);
-            newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
-            newRelease.SetAttribute("todo", ToDoTextBox.Text);
-            newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
-            newRelease.SetAttribute("done", DoneTextBox.Text);
-            project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
-            db.Save(db.DocumentElement.GetAttribute("path"));
-
-            GenerateReport generate = new GenerateReport();
-            generate.ProjectProgress(db, projectName);*/
-
-            //*********************************
-
-            
  
             if (software == null)
             {
@@ -306,6 +275,7 @@ namespace S1084_AutoRelease
                         db.Save(db.DocumentElement.GetAttribute("path"));
 
                         GenerateReport generate = new GenerateReport();
+                        generate.ReportHomePage(db);
                         generate.ProjectProgress(db, projectName);
                     }
 

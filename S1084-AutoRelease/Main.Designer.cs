@@ -62,7 +62,7 @@
             // 
             EditProjectButton.BackColor = Color.FromArgb(255, 224, 192);
             EditProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            EditProjectButton.Location = new Point(24, 192);
+            EditProjectButton.Location = new Point(24, 201);
             EditProjectButton.Name = "EditProjectButton";
             EditProjectButton.Size = new Size(119, 66);
             EditProjectButton.TabIndex = 1;
@@ -101,7 +101,7 @@
             groupBox1.Controls.Add(ProjectListComboBox);
             groupBox1.Location = new Point(24, 26);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(174, 373);
+            groupBox1.Size = new Size(174, 379);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Projects";
@@ -110,7 +110,7 @@
             // 
             ReleaseButton.BackColor = Color.FromArgb(192, 255, 192);
             ReleaseButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ReleaseButton.Location = new Point(24, 279);
+            ReleaseButton.Location = new Point(24, 293);
             ReleaseButton.Name = "ReleaseButton";
             ReleaseButton.Size = new Size(119, 66);
             ReleaseButton.TabIndex = 4;
@@ -129,14 +129,13 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(GenerateReportButton);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(EditSubProjectButton);
             groupBox2.Controls.Add(SubProjectListComboBox);
             groupBox2.Controls.Add(CreateSubProjectButton);
             groupBox2.Location = new Point(232, 26);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(174, 373);
+            groupBox2.Size = new Size(174, 287);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sub-Projects (Sxxxx)";
@@ -145,11 +144,11 @@
             // 
             GenerateReportButton.BackColor = Color.FromArgb(192, 255, 192);
             GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GenerateReportButton.Location = new Point(26, 279);
+            GenerateReportButton.Location = new Point(258, 319);
             GenerateReportButton.Name = "GenerateReportButton";
             GenerateReportButton.Size = new Size(119, 66);
             GenerateReportButton.TabIndex = 7;
-            GenerateReportButton.Text = "Generate Report";
+            GenerateReportButton.Text = "Generate Reports";
             MainToolTip.SetToolTip(GenerateReportButton, "Click to generate an updated HTML report of all Sub-Projects");
             GenerateReportButton.UseVisualStyleBackColor = false;
             GenerateReportButton.Click += GenerateReportButton_Click;
@@ -167,7 +166,7 @@
             // 
             EditSubProjectButton.BackColor = Color.FromArgb(255, 224, 192);
             EditSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            EditSubProjectButton.Location = new Point(26, 192);
+            EditSubProjectButton.Location = new Point(26, 201);
             EditSubProjectButton.Name = "EditSubProjectButton";
             EditSubProjectButton.Size = new Size(119, 66);
             EditSubProjectButton.TabIndex = 5;
@@ -189,7 +188,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(440, 429);
+            ClientSize = new Size(440, 455);
+            Controls.Add(GenerateReportButton);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Main";
