@@ -49,6 +49,26 @@ namespace S1084_AutoRelease
                     w.WriteLine("<!DOCTYPE html>");
                     w.WriteLine("<html>");
                     w.WriteLine("<style>");
+                    w.WriteLine("/* Tooltip text */");
+                    w.WriteLine(".tooltip .tooltiptext {");
+                    w.WriteLine("visibility: hidden;");
+                    w.WriteLine("width: 120px;");
+                    w.WriteLine("background-color: darkgray;");
+                    w.WriteLine("color: #fff;");
+                    w.WriteLine("text-align: center;");
+                    w.WriteLine("padding: 5px 0;");
+                    w.WriteLine("border-radius: 6px;");
+                    w.WriteLine("");
+                    w.WriteLine("/* Position the tooltip text - see examples below! */");
+                    w.WriteLine("position: absolute;");
+                    w.WriteLine("z-index: 1;");
+                    w.WriteLine("}");
+                    w.WriteLine("");
+                    w.WriteLine("/* Show the tooltip text when you mouse over the tooltip container */");
+                    w.WriteLine(".tooltip:hover .tooltiptext {");
+                    w.WriteLine("visibility: visible;");
+                    w.WriteLine("}");
+                    w.WriteLine("");
                     w.WriteLine("table, th, td {border:1px solid black; border-collapse: collapse; border-color: #96D4D4;}");
                     w.WriteLine("tr:hover {background-color: #D6EEEE;}");
                     w.WriteLine("td {text-align: center;}");
@@ -73,7 +93,12 @@ namespace S1084_AutoRelease
                     w.WriteLine("<h3 style=\"color:purple \">Release History</h3>");
 
                     w.WriteLine("<table>");
-                    w.WriteLine("<tr><th style=\"padding:8px\">Version</th><th style=\"padding:8px\">Scope</th><th style=\"padding:8px\">Completed</th><th style=\"padding:8px\">Unplanned</th></tr>");
+                    w.WriteLine("<tr>" +
+                        "<th style=\"padding:8px\">Version</th>" +
+                        "<th style=\"padding:8px\" class=\"tooltip\">Scope<span class=\"tooltiptext\">Total size of project (estimated)</span></th>" +
+                        "<th style=\"padding:8px\">Completed</th>" +
+                        "<th style=\"padding:8px\" class=\"tooltip\">Unplanned<span class=\"tooltiptext\">Features not yet planned (estimated)</span></th>" +
+                        "</tr>");
 
                     int[] completedPerSprint = new int[sprints.ChildNodes.Count];
                     int[] totalPerSprint = new int[sprints.ChildNodes.Count];
