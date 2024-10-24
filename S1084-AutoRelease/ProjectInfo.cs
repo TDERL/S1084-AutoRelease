@@ -13,6 +13,7 @@ using static System.Windows.Forms.AxHost;
 using System.Xml.Linq;
 using System.Collections;
 using static S1084_AutoRelease.ProjectInfo;
+using S1084_AutoRelease.Properties;
 
 
 namespace S1084_AutoRelease
@@ -70,7 +71,7 @@ namespace S1084_AutoRelease
                     foreach (XmlElement node in sprints)
                     {
                         endOfSprint sprint = new endOfSprint();
-                        sprint.name = node.Name; 
+                        sprint.name = node.Name;
                         sprint.unplanned = node.Attributes["unplanned"].Value;
                         sprint.todo = node.Attributes["todo"].Value;
                         sprint.inProgress = node.Attributes["inProgress"].Value;
@@ -101,6 +102,14 @@ namespace S1084_AutoRelease
                 subProjectButton_x = 20;
                 subProjectButton_y = subProjectButton_y + 70;
             }
+
+
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectInfo));
+            Button addSubProjectButton = new Button();
+            addSubProjectButton.Size = new Size(50, 50);
+            addSubProjectButton.Image = Image.FromFile("C:\\Projects\\Windows Apps\\S1084-AutoRelease\\Icons\\Add-50x50.png");  //(Image)resources.GetObject("AddSubProjectButton.Image");
+            addSubProjectButton.Click += AddSubProjectButton_Click;
+            TableLayoutPanel.Controls.Add(addSubProjectButton, 0, 1);
 
             int width = TableLayoutPanel.Size.Width;
             int height = TableLayoutPanel.Size.Height;
@@ -245,7 +254,7 @@ namespace S1084_AutoRelease
                     {
                         subProjectNames.Remove(subProjectName);
                         ResetGroupOfSubProject();
-                        return; 
+                        return;
                     }
                 }
 
@@ -269,5 +278,6 @@ namespace S1084_AutoRelease
         {
             e.Handled = (e.KeyChar == (char)Keys.Space);
         }
+
     }
 }

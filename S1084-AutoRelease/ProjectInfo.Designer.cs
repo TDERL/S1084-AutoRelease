@@ -55,6 +55,7 @@
             SxxxxIncludedLabel = new Label();
             SxxxxDescLabel = new Label();
             SxxxxNameLabel = new Label();
+            label8 = new Label();
             SubProjectsGroupBox.SuspendLayout();
             TableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -141,9 +142,9 @@
             AddSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
             AddSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             AddSubProjectButton.Image = (Image)resources.GetObject("AddSubProjectButton.Image");
-            AddSubProjectButton.Location = new Point(20, 37);
+            AddSubProjectButton.Location = new Point(4, 39);
             AddSubProjectButton.Name = "AddSubProjectButton";
-            AddSubProjectButton.Size = new Size(75, 75);
+            AddSubProjectButton.Size = new Size(78, 73);
             AddSubProjectButton.TabIndex = 3;
             AddSubProjectButton.UseVisualStyleBackColor = false;
             AddSubProjectButton.Click += AddSubProjectButton_Click;
@@ -153,7 +154,7 @@
             SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
             SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
             SubProjectsGroupBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SubProjectsGroupBox.Location = new Point(24, 255);
+            SubProjectsGroupBox.Location = new Point(838, 229);
             SubProjectsGroupBox.Name = "SubProjectsGroupBox";
             SubProjectsGroupBox.Size = new Size(729, 288);
             SubProjectsGroupBox.TabIndex = 11;
@@ -275,49 +276,62 @@
             // TableLayoutPanel
             // 
             TableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            TableLayoutPanel.ColumnCount = 3;
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            TableLayoutPanel.Controls.Add(SxxxxIncludedLabel, 0, 0);
-            TableLayoutPanel.Controls.Add(SxxxxDescLabel, 0, 0);
-            TableLayoutPanel.Controls.Add(SxxxxNameLabel, 0, 0);
-            TableLayoutPanel.Location = new Point(825, 267);
+            TableLayoutPanel.ColumnCount = 4;
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutPanel.Controls.Add(SxxxxIncludedLabel, 3, 0);
+            TableLayoutPanel.Controls.Add(SxxxxDescLabel, 2, 0);
+            TableLayoutPanel.Controls.Add(SxxxxNameLabel, 1, 0);
+            TableLayoutPanel.Controls.Add(label8, 0, 0);
+            TableLayoutPanel.Location = new Point(24, 271);
             TableLayoutPanel.Name = "TableLayoutPanel";
-            TableLayoutPanel.RowCount = 1;
+            TableLayoutPanel.RowCount = 2;
             TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TableLayoutPanel.Size = new Size(282, 39);
+            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TableLayoutPanel.Size = new Size(729, 71);
             TableLayoutPanel.TabIndex = 32;
             // 
             // SxxxxIncludedLabel
             // 
             SxxxxIncludedLabel.AutoSize = true;
             SxxxxIncludedLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SxxxxIncludedLabel.Location = new Point(190, 1);
+            SxxxxIncludedLabel.Location = new Point(585, 1);
             SxxxxIncludedLabel.Name = "SxxxxIncludedLabel";
-            SxxxxIncludedLabel.Size = new Size(40, 21);
+            SxxxxIncludedLabel.Size = new Size(69, 21);
             SxxxxIncludedLabel.TabIndex = 2;
-            SxxxxIncludedLabel.Text = "Sxxx";
+            SxxxxIncludedLabel.Text = "Included";
             // 
             // SxxxxDescLabel
             // 
             SxxxxDescLabel.AutoSize = true;
             SxxxxDescLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SxxxxDescLabel.Location = new Point(97, 1);
+            SxxxxDescLabel.Location = new Point(222, 1);
             SxxxxDescLabel.Name = "SxxxxDescLabel";
-            SxxxxDescLabel.Size = new Size(40, 21);
+            SxxxxDescLabel.Size = new Size(131, 21);
             SxxxxDescLabel.TabIndex = 1;
-            SxxxxDescLabel.Text = "Sxxx";
+            SxxxxDescLabel.Text = "Short Description";
             // 
             // SxxxxNameLabel
             // 
             SxxxxNameLabel.AutoSize = true;
             SxxxxNameLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SxxxxNameLabel.Location = new Point(4, 1);
+            SxxxxNameLabel.Location = new Point(113, 1);
             SxxxxNameLabel.Name = "SxxxxNameLabel";
-            SxxxxNameLabel.Size = new Size(40, 21);
+            SxxxxNameLabel.Size = new Size(64, 21);
             SxxxxNameLabel.TabIndex = 0;
-            SxxxxNameLabel.Text = "Sxxx";
+            SxxxxNameLabel.Text = "Product";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Location = new Point(4, 1);
+            label8.Name = "label8";
+            label8.Size = new Size(101, 21);
+            label8.TabIndex = 3;
+            label8.Text = "Add/Remove";
             // 
             // ProjectInfo
             // 
@@ -380,5 +394,6 @@
         private Label SxxxxNameLabel;
         private Label SxxxxDescLabel;
         private Label SxxxxIncludedLabel;
+        private Label label8;
     }
 }
