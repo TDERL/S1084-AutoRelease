@@ -51,7 +51,12 @@
             label6 = new Label();
             label12 = new Label();
             label7 = new Label();
+            TableLayoutPanel = new TableLayoutPanel();
+            SxxxxIncludedLabel = new Label();
+            SxxxxDescLabel = new Label();
+            SxxxxNameLabel = new Label();
             SubProjectsGroupBox.SuspendLayout();
+            TableLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -267,11 +272,60 @@
             label7.TabIndex = 31;
             label7.Text = "*";
             // 
+            // TableLayoutPanel
+            // 
+            TableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            TableLayoutPanel.ColumnCount = 3;
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TableLayoutPanel.Controls.Add(SxxxxIncludedLabel, 0, 0);
+            TableLayoutPanel.Controls.Add(SxxxxDescLabel, 0, 0);
+            TableLayoutPanel.Controls.Add(SxxxxNameLabel, 0, 0);
+            TableLayoutPanel.Location = new Point(825, 267);
+            TableLayoutPanel.Name = "TableLayoutPanel";
+            TableLayoutPanel.RowCount = 1;
+            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TableLayoutPanel.Size = new Size(282, 39);
+            TableLayoutPanel.TabIndex = 32;
+            // 
+            // SxxxxIncludedLabel
+            // 
+            SxxxxIncludedLabel.AutoSize = true;
+            SxxxxIncludedLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SxxxxIncludedLabel.Location = new Point(190, 1);
+            SxxxxIncludedLabel.Name = "SxxxxIncludedLabel";
+            SxxxxIncludedLabel.Size = new Size(40, 21);
+            SxxxxIncludedLabel.TabIndex = 2;
+            SxxxxIncludedLabel.Text = "Sxxx";
+            // 
+            // SxxxxDescLabel
+            // 
+            SxxxxDescLabel.AutoSize = true;
+            SxxxxDescLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SxxxxDescLabel.Location = new Point(97, 1);
+            SxxxxDescLabel.Name = "SxxxxDescLabel";
+            SxxxxDescLabel.Size = new Size(40, 21);
+            SxxxxDescLabel.TabIndex = 1;
+            SxxxxDescLabel.Text = "Sxxx";
+            // 
+            // SxxxxNameLabel
+            // 
+            SxxxxNameLabel.AutoSize = true;
+            SxxxxNameLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SxxxxNameLabel.Location = new Point(4, 1);
+            SxxxxNameLabel.Name = "SxxxxNameLabel";
+            SxxxxNameLabel.Size = new Size(40, 21);
+            SxxxxNameLabel.TabIndex = 0;
+            SxxxxNameLabel.Text = "Sxxx";
+            // 
             // ProjectInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 552);
+            AutoSize = true;
+            ClientSize = new Size(1354, 552);
+            Controls.Add(TableLayoutPanel);
             Controls.Add(label7);
             Controls.Add(label12);
             Controls.Add(RepoPathTextBox);
@@ -293,6 +347,8 @@
             Name = "ProjectInfo";
             Text = "Project Info";
             SubProjectsGroupBox.ResumeLayout(false);
+            TableLayoutPanel.ResumeLayout(false);
+            TableLayoutPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -320,5 +376,9 @@
         private Label label6;
         private Label label12;
         private Label label7;
+        private TableLayoutPanel TableLayoutPanel;
+        private Label SxxxxNameLabel;
+        private Label SxxxxDescLabel;
+        private Label SxxxxIncludedLabel;
     }
 }

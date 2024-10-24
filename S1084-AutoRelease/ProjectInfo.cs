@@ -101,6 +101,17 @@ namespace S1084_AutoRelease
                 subProjectButton_x = 20;
                 subProjectButton_y = subProjectButton_y + 70;
             }
+
+            int width = TableLayoutPanel.Size.Width;
+            int height = TableLayoutPanel.Size.Height;
+
+            int row = TableLayoutPanel.RowCount;
+            TableLayoutPanel.RowCount++;
+            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TableLayoutPanel.Controls.Add(subProjectButton, 0, row);
+
+            height += 50;
+            TableLayoutPanel.Size = new Size(width, height);
         }
 
         private void ResetGroupOfSubProject()
