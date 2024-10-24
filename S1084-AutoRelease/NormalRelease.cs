@@ -297,6 +297,7 @@ namespace S1084_AutoRelease
 
                         // Final STEP - Add release to XML DB and generate a new progress/releases report
                         XmlElement newRelease = db.CreateElement(version);
+                        newRelease.SetAttribute("date", DateOnly.FromDateTime(DateTime.Now).ToString());
                         newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
                         newRelease.SetAttribute("todo", ToDoTextBox.Text);
                         newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
