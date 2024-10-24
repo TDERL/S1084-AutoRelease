@@ -69,32 +69,53 @@ namespace S1084_AutoRelease
                     w.WriteLine("<tr><th style=\"padding:8px\">Unplanned (unpointed) Stories: </th><td style=\"min-width: 200px\">" + sprints.ChildNodes[noOfSprints - 1].Attributes["unplanned"].Value + "</td></tr>");
                     w.WriteLine("</table>");
 
-                    w.WriteLine("<h3 style=\"color:purple \">Release History</h3>");
 
-                    total = 0;
-                    completed = 0;
+                    w.WriteLine("<h3 style=\"color:purple \">Release History</h3>");
 
                     w.WriteLine("<table>");
                     w.WriteLine("<tr><th style=\"padding:8px\">Version</th><th style=\"padding:8px\">Scope</th><th style=\"padding:8px\">Completed</th><th style=\"padding:8px\">Unplanned</th></tr>");
 
+                    int[] completedPerSprint = new int[sprints.ChildNodes.Count];
+                    int[] totalPerSprint = new int[sprints.ChildNodes.Count];
+                    int[] percentCompletedPerSprint = new int[sprints.ChildNodes.Count];
 
-                    foreach (XmlNode sprint in sprints.ChildNodes)
+                    for (int i = 0; i < sprints.ChildNodes.Count; i++)
                     {
-                        completed += int.Parse(sprint.Attributes["done"].Value);
-                        total += int.Parse(sprint.Attributes["done"].Value);
-                        total += int.Parse(sprint.Attributes["todo"].Value);
-                        total += int.Parse(sprint.Attributes["inProgress"].Value);
-                        percentCompleted = (int)(((float)completed / (float)total) * 100);
+                        completedPerSprint[i] = 0;
+                        totalPerSprint[i] = 0;
+                        percentCompletedPerSprint[i] = 0;
+                    }
 
-                        releasePath = paths.GetReleases(projectName) + sprint.Name + "\\ReleasedReport-" + sprint.Name + ".html";
+                    total = 0;
+                    completed = 0;
 
-                        w.WriteLine("<tr><td style=\"min-width: 200px\"><a href=\"" + releasePath + "\">" + sprint.Name + "</a></td>");
-                        w.WriteLine("<td style=\"min-width: 200px\">" + total + "</td>");
-                        w.WriteLine("<td style=\"min-width: 200px\">" + completed + " (" + percentCompleted + "%)</td>");
-                        w.WriteLine("<td style=\"min-width: 200px\">" + sprint.Attributes["unplanned"].Value + "</td></tr>");
+                    //foreach (XmlNode sprint in sprints.ChildNodes)
+                    for (int i = 0; i < sprints.ChildNodes.Count; i++)
+                    {
+                        total += int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
+                        total += int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
+                        total += int.Parse(sprints.ChildNodes[i].Attributes["done"].Value);
+                        completed += int.Parse(sprints.ChildNodes[i].Attributes["done"].Value);
+                        percentCompletedPerSprint[i] = (int)(((float)completed / (float)total) * 100);
 
-                        total -= int.Parse(sprint.Attributes["todo"].Value);
-                        total -= int.Parse(sprint.Attributes["inProgress"].Value);
+                        totalPerSprint[i] = total;
+                        completedPerSprint[i] = completed;
+
+                        total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
+                        total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
+                    }
+
+                    for (int i = (sprints.ChildNodes.Count - 1); i > 0; i--)
+                    { 
+                        releasePath = paths.GetReleases(projectName) + sprints.ChildNodes[i].Name + "\\ReleasedReport-" + sprints.ChildNodes[i].Name + ".html";
+
+                        w.WriteLine("<tr><td style=\"min-width: 200px\"><a href=\"" + releasePath + "\">" + sprints.ChildNodes[i].Name + "</a></td>");
+                        w.WriteLine("<td style=\"min-width: 200px\">" + totalPerSprint[i] + "</td>");
+                        w.WriteLine("<td style=\"min-width: 200px\">" + completedPerSprint[i] + " (" + percentCompletedPerSprint[i] + "%)</td>");
+                        w.WriteLine("<td style=\"min-width: 200px\">" + sprints.ChildNodes[i].Attributes["unplanned"].Value + "</td></tr>");
+
+                        total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
+                        total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
                     }
                     w.WriteLine("</table>");
 
