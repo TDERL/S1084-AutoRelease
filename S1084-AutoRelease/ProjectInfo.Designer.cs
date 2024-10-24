@@ -56,6 +56,7 @@
             SxxxxDescLabel = new Label();
             SxxxxNameLabel = new Label();
             label8 = new Label();
+            label9 = new Label();
             SubProjectsGroupBox.SuspendLayout();
             TableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -285,12 +286,11 @@
             TableLayoutPanel.Controls.Add(SxxxxDescLabel, 2, 0);
             TableLayoutPanel.Controls.Add(SxxxxNameLabel, 1, 0);
             TableLayoutPanel.Controls.Add(label8, 0, 0);
-            TableLayoutPanel.Location = new Point(24, 271);
+            TableLayoutPanel.Location = new Point(24, 276);
             TableLayoutPanel.Name = "TableLayoutPanel";
-            TableLayoutPanel.RowCount = 2;
-            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TableLayoutPanel.Size = new Size(729, 71);
+            TableLayoutPanel.RowCount = 1;
+            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            TableLayoutPanel.Size = new Size(729, 40);
             TableLayoutPanel.TabIndex = 32;
             // 
             // SxxxxIncludedLabel
@@ -333,12 +333,24 @@
             label8.TabIndex = 3;
             label8.Text = "Add/Remove";
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(24, 247);
+            label9.Name = "label9";
+            label9.Size = new Size(140, 21);
+            label9.TabIndex = 33;
+            label9.Text = "Software Products:";
+            // 
             // ProjectInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             AutoSize = true;
             ClientSize = new Size(1354, 552);
+            Controls.Add(label9);
             Controls.Add(TableLayoutPanel);
             Controls.Add(label7);
             Controls.Add(label12);
@@ -395,5 +407,6 @@
         private Label SxxxxDescLabel;
         private Label SxxxxIncludedLabel;
         private Label label8;
+        private Label label9;
     }
 }

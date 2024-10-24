@@ -60,13 +60,13 @@ namespace S1084_AutoRelease
 
                     subProjectNames.Sort();
 
-                    RemoveFinalRowToSxxxxTable();
+                    //RemoveFinalRowToSxxxxTable();
 
                     foreach (string subProjectName in subProjectNames)
-                        AddSubProjectButtonToGroup(subProjectName);
-
-                    AddFinalRowToSxxxxTable();
+                        AddSxxxxProductToTable(subProjectName);
                 }
+
+                AddFinalRowToSxxxxTable();
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
 
@@ -86,7 +86,7 @@ namespace S1084_AutoRelease
             }
         }
 
-        private void AddSubProjectButtonToGroup(string name)
+        private void AddSxxxxProductToTable(string name)
         {
             Button subProjectButton = new Button();
             subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
@@ -98,40 +98,71 @@ namespace S1084_AutoRelease
             subProjectButton.Text = name;
             subProjectButton.UseVisualStyleBackColor = false;
             subProjectButton.Click += OpenSubProjectButton_Click;
-            SubProjectsGroupBox.Controls.Add(subProjectButton);
+            //SubProjectsGroupBox.Controls.Add(subProjectButton);
 
-            subProjectButton_x = subProjectButton_x + 100;
-            if (subProjectButton_x > 621)
-            {
-                subProjectButton_x = 20;
-                subProjectButton_y = subProjectButton_y + 70;
-            }
+            //subProjectButton_x = subProjectButton_x + 100;
+            //if (subProjectButton_x > 621)
+            //{
+            //    subProjectButton_x = 20;
+            //    subProjectButton_y = subProjectButton_y + 70;
+            //}
 
 
+            Button removeSubProjectButton = new Button();
+            removeSubProjectButton.Size = new Size(50, 50);
+            removeSubProjectButton.Image = Image.FromFile("C:\\Projects\\Windows Apps\\S1084-AutoRelease\\Icons\\Remove-50x50.png");
+            removeSubProjectButton.Click += RemoveSubProjectButton_Click;
 
             int width = TableLayoutPanel.Size.Width;
             int height = TableLayoutPanel.Size.Height;
 
             int row = TableLayoutPanel.RowCount;
-            TableLayoutPanel.RowCount++;
             TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TableLayoutPanel.RowCount++;
+
+            TableLayoutPanel.Controls.Add(removeSubProjectButton, 0, row);
             TableLayoutPanel.Controls.Add(subProjectButton, 1, row);
 
             height += 50;
             TableLayoutPanel.Size = new Size(width, height);
+
+            foreach (XmlNode softwareProject in db.GetElementsByTagName("SoftwareProjects")[0].ChildNodes)
+            {
+                if (name ==  softwareProject.Name)
+                {
+                    Label desc = new Label();
+                    desc.AutoSize = true;
+                    desc.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+                    desc.Text = softwareProject.Attributes["shortName"].Value;
+                    TableLayoutPanel.Controls.Add(desc, 2, row);
+                    break;
+                }
+            }
+
+            CheckBox incl = new CheckBox();
+            incl.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            XmlElement project = (XmlElement)db.GetElementsByTagName(ProjectNameTextBox.Text)[0];
+            XmlElement software = (XmlElement)project.GetElementsByTagName("Software")[0];
+            XmlNode Sxxxx = project.GetElementsByTagName(name)[0];
+
+            if (Sxxxx.Attributes["included"].Value == "yes")
+                incl.Checked = true;
+            else
+                incl.Checked = false;
+
+            TableLayoutPanel.Controls.Add(incl, 3, row);
         }
 
-        private void RemoveFinalRowToSxxxxTable()
-        {
-            int rows = TableLayoutPanel.RowCount;
-            rows--;
-            TableLayoutPanel.RowStyles.RemoveAt(rows);
-            TableLayoutPanel.RowCount = rows;
-        }
+        //private void RemoveFinalRowToSxxxxTable()
+        //{
+        //    int rows = TableLayoutPanel.RowCount;
+        //    rows--;
+        //    TableLayoutPanel.RowStyles.RemoveAt(rows);
+        //    TableLayoutPanel.RowCount = rows;
+        //}
 
         private void AddFinalRowToSxxxxTable()
         {
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectInfo));
             Button addSubProjectButton = new Button();
             addSubProjectButton.Size = new Size(50, 50);
             addSubProjectButton.Image = Image.FromFile("C:\\Projects\\Windows Apps\\S1084-AutoRelease\\Icons\\Add-50x50.png");  //(Image)resources.GetObject("AddSubProjectButton.Image");
@@ -149,20 +180,32 @@ namespace S1084_AutoRelease
             TableLayoutPanel.Size = new Size(width, height);
         }
 
-        private void ResetGroupOfSubProject()
+        /*private void ResetTableOfSxxxxProducts()
         {
-            SubProjectsGroupBox.Controls.Clear();
+            TableLayoutPanel.Controls.Clear();
 
-            SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
-            SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
-            subProjectButton_x = 20;
-            subProjectButton_y = 140;
+            for (int i = 1; i < TableLayoutPanel.RowCount; i++)
+            {
+                TableLayoutPanel.RowStyles.RemoveAt(i);
+            }
+
+            TableLayoutPanel.RowCount = 1;
+
+            //asdasd
+            //SubProjectsGroupBox.Controls.Clear();
+
+            //SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
+            //SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
+            //subProjectButton_x = 20;
+            //subProjectButton_y = 140;
 
             subProjectNames.Sort();
 
             foreach (string subProjectRemaining in subProjectNames)
-                AddSubProjectButtonToGroup(subProjectRemaining);
-        }
+                AddSxxxxProductToTable(subProjectRemaining);
+
+            AddFinalRowToSxxxxTable();
+        }*/
 
         private bool SaveProject()
         {
@@ -251,41 +294,41 @@ namespace S1084_AutoRelease
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
-            SelectSubProject Sxxxx = new SelectSubProject(db);
-            var result = Sxxxx.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                foreach (string subProjectName in subProjectNames)
-                {
-                    if (subProjectName == Sxxxx.selectedSubProject)
-                    {
-                        MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
-                        return;
-                    }
-                }
+            //SelectSubProject Sxxxx = new SelectSubProject(db);
+            //var result = Sxxxx.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    foreach (string subProjectName in subProjectNames)
+            //    {
+            //        if (subProjectName == Sxxxx.selectedSubProject)
+            //        {
+            //            MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
+            //            return;
+            //        }
+            //    }
 
-                subProjectNames.Add(Sxxxx.selectedSubProject);
-                ResetGroupOfSubProject();
-            }
+            //    subProjectNames.Add(Sxxxx.selectedSubProject);
+            //    ResetTableOfSxxxxProducts();
+            //}
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
         {
-            SelectSubProject Sxxxx = new SelectSubProject(db);
-            var result = Sxxxx.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                foreach (string subProjectName in subProjectNames)
-                {
-                    if (subProjectName == Sxxxx.selectedSubProject)
-                    {
-                        subProjectNames.Remove(subProjectName);
-                        ResetGroupOfSubProject();
-                        return;
-                    }
-                }
+            //SelectSubProject Sxxxx = new SelectSubProject(db);
+            //var result = Sxxxx.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    foreach (string subProjectName in subProjectNames)
+            //    {
+            //        if (subProjectName == Sxxxx.selectedSubProject)
+            //        {
+            //            subProjectNames.Remove(subProjectName);
+            //            ResetTableOfSxxxxProducts();
+            //            return;
+            //        }
+            //    }
 
-                MessageBox.Show("Cannot remove " + Sxxxx.selectedSubProject + " as is not included in project " + ProjectNameTextBox.Text);
-            }
+            //    MessageBox.Show("Cannot remove " + Sxxxx.selectedSubProject + " as is not included in project " + ProjectNameTextBox.Text);
+            //}
         }
 
         private void OpenSubProjectButton_Click(object sender, EventArgs e)
