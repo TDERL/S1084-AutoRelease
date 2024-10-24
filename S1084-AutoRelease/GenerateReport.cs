@@ -121,7 +121,7 @@ namespace S1084_AutoRelease
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
                     }
 
-                    for (int i = (sprints.ChildNodes.Count - 1); i > 0; i--)
+                    for (int i = (sprints.ChildNodes.Count - 1); i >= 0; i--)
                     {
                         string releasePath = paths.GetReleases(projectName) + sprints.ChildNodes[i].Name + "\\ReleasedReport-" + sprints.ChildNodes[i].Name + ".html";
 
