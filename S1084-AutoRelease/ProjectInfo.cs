@@ -60,6 +60,16 @@ namespace S1084_AutoRelease
                 StageComboBox.Text = project.Attributes["stage"].Value;
                 StatusComboBox.Text = project.Attributes["status"].Value;
 
+
+                DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
+                checkColumn.Name = "Included";
+                checkColumn.HeaderText = "Included in Build";
+                checkColumn.Width = 50;
+                checkColumn.ReadOnly = false;
+                checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
+                TableOfSxxxx.Columns.Add(checkColumn);
+
+
                 XmlElement Software = (XmlElement)project.GetElementsByTagName("Software")[0];
                 if (Software != null)
                 {
@@ -70,7 +80,10 @@ namespace S1084_AutoRelease
                         sxxxx.included = node.Attributes["included"].Value;
                         subProjects.Add(sxxxx);
 
-                        TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"));
+                        if (node.Attributes["included"].Value == "yes")
+                            TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"), true);
+                        else
+                            TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"), false);
                     }
 
                     subProjects = subProjects.OrderBy(o => o.name).ToList();
@@ -83,13 +96,6 @@ namespace S1084_AutoRelease
 
                 AddFinalRowToSxxxxTable();
 
-                DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
-                checkColumn.Name = "Included";
-                checkColumn.HeaderText = "Included in Build";
-                checkColumn.Width = 50;
-                checkColumn.ReadOnly = false;
-                checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
-                TableOfSxxxx.Columns.Add(checkColumn);
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
 
