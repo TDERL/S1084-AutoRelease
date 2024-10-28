@@ -41,7 +41,7 @@ namespace S1084_AutoRelease
             public string name;     // S1070 or S1071, etc --> Name of children elements to 'Project/Software'
             public string included; // Attribute to the named Sxxxx element
         }
-        private List<Sxxxx> subProjectNames = new List<Sxxxx>();
+        private List<Sxxxx> subProjects = new List<Sxxxx>();
 
         public ProjectInfo(XmlDocument db, string name)
         {
@@ -67,13 +67,13 @@ namespace S1084_AutoRelease
                         Sxxxx sxxxx = new Sxxxx();
                         sxxxx.name = node.Name;
                         sxxxx.included = node.Attributes["included"].Value;
-                        subProjectNames.Add(sxxxx);
+                        subProjects.Add(sxxxx);
                     }
 
                     //subProjectNames.Sort();
 
-                    foreach (Sxxxx subProjectName in subProjectNames)
-                        AddSxxxxProductToTable(subProjectName);
+                    foreach (Sxxxx subProject in subProjects)
+                        AddSxxxxProductToTable(subProject);
                 }
 
                 AddFinalRowToSxxxxTable();
@@ -204,11 +204,11 @@ namespace S1084_AutoRelease
             project.SetAttribute("stage", StageComboBox.Text);
             project.SetAttribute("status", StatusComboBox.Text);
 
-            if (subProjectNames.Count > 0)
+            if (subProjects.Count > 0)
             {
                 XmlElement subProjectElement = db.CreateElement("Software");
 
-                foreach (Sxxxx sxxxx in subProjectNames)
+                foreach (Sxxxx sxxxx in subProjects)
                 {
                     XmlElement sub = db.CreateElement(sxxxx.name);
                     sub.SetAttribute("included", sxxxx.included);
@@ -266,22 +266,22 @@ namespace S1084_AutoRelease
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
-            //SelectSubProject Sxxxx = new SelectSubProject(db);
-            //var result = Sxxxx.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    foreach (string subProjectName in subProjectNames)
-            //    {
-            //        if (subProjectName == Sxxxx.selectedSubProject)
-            //        {
-            //            MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
-            //            return;
-            //        }
-            //    }
+            SelectSubProject Sxxxx = new SelectSubProject(db);
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                foreach (Sxxxx subProject in subProjects)
+                {
+                    if (subProject.name == Sxxxx.selectedSubProject)
+                    {
+                        MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
+                        return;
+                    }
+                }
 
             //    subProjectNames.Add(Sxxxx.selectedSubProject);
             //    ResetTableOfSxxxxProducts();
-            //}
+            }
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
         {
@@ -321,7 +321,7 @@ namespace S1084_AutoRelease
         {
             Button subProjectButton = (Button)sender;
 
-            foreach (Sxxxx sxxxx in subProjectNames)
+            foreach (Sxxxx sxxxx in subProjects)
             {
                 if (sxxxx.name == subProjectButton.Text)
                 {
