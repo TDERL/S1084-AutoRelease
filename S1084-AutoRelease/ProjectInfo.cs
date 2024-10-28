@@ -286,8 +286,8 @@ namespace S1084_AutoRelease
                 subProjects.Add(sxxxx);
                 subProjects = subProjects.OrderBy(o => o.name).ToList();
 
-                //    subProjectNames.Add(Sxxxx.selectedSubProject);
-                //    ResetTableOfSxxxxProducts();
+                AddSxxxxProductToTable(sxxxx);
+                AddFinalRowToSxxxxTable();
             }
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
