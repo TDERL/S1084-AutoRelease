@@ -243,11 +243,11 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(24, 247);
+            label9.Location = new Point(23, 259);
             label9.Name = "label9";
-            label9.Size = new Size(140, 21);
+            label9.Size = new Size(140, 42);
             label9.TabIndex = 33;
-            label9.Text = "Software Products:";
+            label9.Text = "Associated\r\nSoftware Products:";
             // 
             // TableOfSxxxx
             // 
@@ -271,7 +271,7 @@
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
             TableOfSxxxx.DefaultCellStyle = dataGridViewCellStyle4;
-            TableOfSxxxx.Location = new Point(780, 185);
+            TableOfSxxxx.Location = new Point(24, 328);
             TableOfSxxxx.Name = "TableOfSxxxx";
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = SystemColors.Control;
@@ -282,7 +282,7 @@
             dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
             TableOfSxxxx.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             TableOfSxxxx.ScrollBars = ScrollBars.None;
-            TableOfSxxxx.Size = new Size(508, 250);
+            TableOfSxxxx.Size = new Size(452, 175);
             TableOfSxxxx.TabIndex = 34;
             TableOfSxxxx.CellContentDoubleClick += TableOfSxxxx_CellContentDoubleClick;
             // 
@@ -311,7 +311,7 @@
             // AddSxxxxButton
             // 
             AddSxxxxButton.Image = Properties.Resources.Add_50x50;
-            AddSxxxxButton.Location = new Point(803, 115);
+            AddSxxxxButton.Location = new Point(183, 259);
             AddSxxxxButton.Name = "AddSxxxxButton";
             AddSxxxxButton.Size = new Size(50, 50);
             AddSxxxxButton.TabIndex = 35;
@@ -321,7 +321,7 @@
             // RemoveSxxxxButton
             // 
             RemoveSxxxxButton.Image = Properties.Resources.Remove_50x50;
-            RemoveSxxxxButton.Location = new Point(859, 116);
+            RemoveSxxxxButton.Location = new Point(239, 259);
             RemoveSxxxxButton.Name = "RemoveSxxxxButton";
             RemoveSxxxxButton.Size = new Size(50, 50);
             RemoveSxxxxButton.TabIndex = 36;
@@ -334,7 +334,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(1406, 552);
+            ClientSize = new Size(773, 552);
             Controls.Add(RemoveSxxxxButton);
             Controls.Add(AddSxxxxButton);
             Controls.Add(TableOfSxxxx);
