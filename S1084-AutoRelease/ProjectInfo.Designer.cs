@@ -349,6 +349,7 @@
             TableOfSxxxx.ScrollBars = ScrollBars.None;
             TableOfSxxxx.Size = new Size(508, 250);
             TableOfSxxxx.TabIndex = 34;
+            TableOfSxxxx.CellContentDoubleClick += TableOfSxxxx_CellContentDoubleClick;
             // 
             // Product
             // 

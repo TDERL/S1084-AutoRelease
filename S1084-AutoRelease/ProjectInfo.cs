@@ -130,6 +130,12 @@ namespace S1084_AutoRelease
                 height += row.Height;
 
             TableOfSxxxx.Height = height;
+
+            TableOfSxxxx.Sort(TableOfSxxxx.Columns[0], ListSortDirection.Ascending);
+            TableOfSxxxx.Columns[0].ReadOnly = true;
+            TableOfSxxxx.Columns[1].ReadOnly = true;
+            TableOfSxxxx.Columns[2].ReadOnly = true;
+            TableOfSxxxx.Columns[3].ReadOnly = false;
         }
 
         private string GetSxxxxAttributeFromName(string Sxxxx, string attribute)
@@ -422,6 +428,15 @@ namespace S1084_AutoRelease
                 TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"));
                 UpdateTableOfSxxxxSize();
             }
+        }
+
+
+        private void TableOfSxxxx_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView d = (DataGridView)sender;
+            
+            int rowIndex = d.SelectedCells[0].RowIndex;
+            EditSubProject edit = new EditSubProject(db, TableOfSxxxx.Rows[rowIndex].Cells[0].Value.ToString());
         }
     }
 }
