@@ -286,8 +286,11 @@ namespace S1084_AutoRelease
                 subProjects.Add(sxxxx);
                 subProjects = subProjects.OrderBy(o => o.name).ToList();
 
+                TableLayoutPanel.SuspendLayout();
+                TableLayoutHelper.RemoveArbitraryRow(TableLayoutPanel, TableLayoutPanel.RowCount - 1); // Remove last row. Will re-add after
                 AddSxxxxProductToTable(sxxxx);
                 AddFinalRowToSxxxxTable();
+                TableLayoutPanel.ResumeLayout();
             }
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
@@ -310,23 +313,6 @@ namespace S1084_AutoRelease
                     break;
                 }
             }
-
-            //SelectSubProject Sxxxx = new SelectSubProject(db);
-            //var result = Sxxxx.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    foreach (string subProjectName in subProjectNames)
-            //    {
-            //        if (subProjectName == Sxxxx.selectedSubProject)
-            //        {
-            //            subProjectNames.Remove(subProjectName);
-            //            ResetTableOfSxxxxProducts();
-            //            return;
-            //        }
-            //    }
-
-            //    MessageBox.Show("Cannot remove " + Sxxxx.selectedSubProject + " as is not included in project " + ProjectNameTextBox.Text);
-            //}
         }
 
         private void OpenSubProjectButton_Click(object sender, EventArgs e)
