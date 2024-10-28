@@ -37,18 +37,26 @@ namespace S1084_AutoRelease
         private int subProjectButton_y = 140;
         private XmlDocument db = new XmlDocument();
 
-        struct Sxxxx
-        {
-            public string name;     // S1070 or S1071, etc --> Name of children elements to 'Project/Software'
-            public string included; // Attribute to the named Sxxxx element
-        }
-        private List<Sxxxx> subProjects = new List<Sxxxx>();
+        //struct Sxxxx
+        //{
+        //    public string name;     // S1070 or S1071, etc --> Name of children elements to 'Project/Software'
+        //    public string included; // Attribute to the named Sxxxx element
+        //}
+        //private List<Sxxxx> subProjects = new List<Sxxxx>();
 
         public ProjectInfo(XmlDocument db, string name)
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
             this.db = db;
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
+            checkColumn.Name = "Included";
+            checkColumn.HeaderText = "Included in Build";
+            checkColumn.Width = 50;
+            checkColumn.ReadOnly = false;
+            checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
+            TableOfSxxxx.Columns.Add(checkColumn);
 
             if (name != "") // If editing an existing project then:
             {
@@ -60,25 +68,15 @@ namespace S1084_AutoRelease
                 StageComboBox.Text = project.Attributes["stage"].Value;
                 StatusComboBox.Text = project.Attributes["status"].Value;
 
-
-                DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
-                checkColumn.Name = "Included";
-                checkColumn.HeaderText = "Included in Build";
-                checkColumn.Width = 50;
-                checkColumn.ReadOnly = false;
-                checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
-                TableOfSxxxx.Columns.Add(checkColumn);
-
-
                 XmlElement Software = (XmlElement)project.GetElementsByTagName("Software")[0];
                 if (Software != null)
                 {
                     foreach (XmlNode node in Software)
                     {
-                        Sxxxx sxxxx = new Sxxxx();
-                        sxxxx.name = node.Name;
-                        sxxxx.included = node.Attributes["included"].Value;
-                        subProjects.Add(sxxxx);
+                        //Sxxxx sxxxx = new Sxxxx();
+                        //sxxxx.name = node.Name;
+                        //sxxxx.included = node.Attributes["included"].Value;
+                        //subProjects.Add(sxxxx);
 
                         if (node.Attributes["included"].Value == "yes")
                             TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"), true);
@@ -86,15 +84,15 @@ namespace S1084_AutoRelease
                             TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"), false);
                     }
 
-                    subProjects = subProjects.OrderBy(o => o.name).ToList();
+                    //subProjects = subProjects.OrderBy(o => o.name).ToList();
 
-                    foreach (Sxxxx subProject in subProjects)
-                    {
-                        AddSxxxxProductToTable(subProject);
-                    }
+                    //foreach (Sxxxx subProject in subProjects)
+                    //{
+                    //    AddSxxxxProductToTable(subProject);
+                    //}
                 }
 
-                AddFinalRowToSxxxxTable();
+                //AddFinalRowToSxxxxTable();
 
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
@@ -162,7 +160,7 @@ namespace S1084_AutoRelease
             return retVal;
         }
 
-        private void AddSxxxxProductToTable(Sxxxx sxxxx)
+        /*private void AddSxxxxProductToTable(Sxxxx sxxxx)
         {
             Button subProjectButton = new Button();
             subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
@@ -237,7 +235,7 @@ namespace S1084_AutoRelease
 
             height += 50;
             TableLayoutPanel.Size = new Size(width, height);
-        }
+        }*/
 
 
 
@@ -271,23 +269,30 @@ namespace S1084_AutoRelease
             project.SetAttribute("stage", StageComboBox.Text);
             project.SetAttribute("status", StatusComboBox.Text);
 
-            if (subProjects.Count > 0)
-            {
-                XmlElement subProjectElement = db.CreateElement("Software");
-
-                foreach (Sxxxx sxxxx in subProjects)
+            //if (subProjects.Count > 0)
+            //if (TableOfSxxxx.Rows.Count > 0)
+            //{
+                XmlElement software = db.CreateElement("Software");
+                foreach (DataGridViewRow row in TableOfSxxxx.Rows)
                 {
-                    XmlElement sub = db.CreateElement(sxxxx.name);
-                    sub.SetAttribute("included", sxxxx.included);
-                    subProjectElement.AppendChild(sub);
+                    if (row.Cells[0].Value != null)
+                    {
+                        XmlElement sub = db.CreateElement(row.Cells[0].Value.ToString());
+
+                        string inc = "no";
+                        if ((bool)row.Cells[3].Value)
+                            inc = "yes";
+
+                        sub.SetAttribute("included", inc);
+                        software.AppendChild(sub);
+                    }
                 }
+                project.AppendChild(software);
+            //}
 
-                project.AppendChild(subProjectElement);
-            }
 
-
-            if (endOfSprints.Count > 0)
-            {
+            //if (endOfSprints.Count > 0)
+            //{
                 XmlElement sprints = db.CreateElement("Sprints");
 
                 foreach (endOfSprint sprint in endOfSprints)
@@ -302,7 +307,7 @@ namespace S1084_AutoRelease
                 }
 
                 project.AppendChild(sprints);
-            }
+            //}
 
             db.GetElementsByTagName("Projects")[0].AppendChild(project);
             db.Save(db.DocumentElement.GetAttribute("path"));
@@ -331,7 +336,7 @@ namespace S1084_AutoRelease
 
 
 
-        private void AddSubProjectButton_Click(object sender, EventArgs e)
+        /*private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
             SelectSubProject SxxxxForm = new SelectSubProject(db);
             var result = SxxxxForm.ShowDialog();
@@ -393,7 +398,8 @@ namespace S1084_AutoRelease
                     this.Close();
                 }
             }
-        }
+        }*/
+
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = (e.KeyChar == (char)Keys.Space);

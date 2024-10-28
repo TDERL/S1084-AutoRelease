@@ -52,11 +52,6 @@
             label6 = new Label();
             label12 = new Label();
             label7 = new Label();
-            TableLayoutPanel = new TableLayoutPanel();
-            SxxxxIncludedLabel = new Label();
-            SxxxxDescLabel = new Label();
-            SxxxxNameLabel = new Label();
-            label8 = new Label();
             label9 = new Label();
             TableOfSxxxx = new DataGridView();
             Product = new DataGridViewTextBoxColumn();
@@ -64,7 +59,6 @@
             Platform = new DataGridViewTextBoxColumn();
             AddSxxxxButton = new Button();
             RemoveSxxxxButton = new Button();
-            TableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TableOfSxxxx).BeginInit();
             SuspendLayout();
             // 
@@ -245,65 +239,6 @@
             label7.TabIndex = 31;
             label7.Text = "*";
             // 
-            // TableLayoutPanel
-            // 
-            TableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            TableLayoutPanel.ColumnCount = 4;
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            TableLayoutPanel.Controls.Add(SxxxxIncludedLabel, 3, 0);
-            TableLayoutPanel.Controls.Add(SxxxxDescLabel, 2, 0);
-            TableLayoutPanel.Controls.Add(SxxxxNameLabel, 1, 0);
-            TableLayoutPanel.Controls.Add(label8, 0, 0);
-            TableLayoutPanel.Location = new Point(24, 276);
-            TableLayoutPanel.Name = "TableLayoutPanel";
-            TableLayoutPanel.RowCount = 1;
-            TableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            TableLayoutPanel.Size = new Size(729, 40);
-            TableLayoutPanel.TabIndex = 32;
-            // 
-            // SxxxxIncludedLabel
-            // 
-            SxxxxIncludedLabel.AutoSize = true;
-            SxxxxIncludedLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SxxxxIncludedLabel.Location = new Point(585, 1);
-            SxxxxIncludedLabel.Name = "SxxxxIncludedLabel";
-            SxxxxIncludedLabel.Size = new Size(125, 21);
-            SxxxxIncludedLabel.TabIndex = 2;
-            SxxxxIncludedLabel.Text = "Included in build";
-            // 
-            // SxxxxDescLabel
-            // 
-            SxxxxDescLabel.AutoSize = true;
-            SxxxxDescLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SxxxxDescLabel.Location = new Point(222, 1);
-            SxxxxDescLabel.Name = "SxxxxDescLabel";
-            SxxxxDescLabel.Size = new Size(131, 21);
-            SxxxxDescLabel.TabIndex = 1;
-            SxxxxDescLabel.Text = "Short Description";
-            // 
-            // SxxxxNameLabel
-            // 
-            SxxxxNameLabel.AutoSize = true;
-            SxxxxNameLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SxxxxNameLabel.Location = new Point(113, 1);
-            SxxxxNameLabel.Name = "SxxxxNameLabel";
-            SxxxxNameLabel.Size = new Size(64, 21);
-            SxxxxNameLabel.TabIndex = 0;
-            SxxxxNameLabel.Text = "Product";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(4, 1);
-            label8.Name = "label8";
-            label8.Size = new Size(101, 21);
-            label8.TabIndex = 3;
-            label8.Text = "Add/Remove";
-            // 
             // label9
             // 
             label9.AutoSize = true;
@@ -404,7 +339,6 @@
             Controls.Add(AddSxxxxButton);
             Controls.Add(TableOfSxxxx);
             Controls.Add(label9);
-            Controls.Add(TableLayoutPanel);
             Controls.Add(label7);
             Controls.Add(label12);
             Controls.Add(RepoPathTextBox);
@@ -425,8 +359,6 @@
             Name = "ProjectInfo";
             Text = "Project Info";
             Load += ProjectInfo_Load;
-            TableLayoutPanel.ResumeLayout(false);
-            TableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)TableOfSxxxx).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -452,11 +384,6 @@
         private Label label6;
         private Label label12;
         private Label label7;
-        private TableLayoutPanel TableLayoutPanel;
-        private Label SxxxxNameLabel;
-        private Label SxxxxDescLabel;
-        private Label SxxxxIncludedLabel;
-        private Label label8;
         private Label label9;
         private DataGridView TableOfSxxxx;
         private Button AddSxxxxButton;
