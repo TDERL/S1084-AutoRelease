@@ -69,15 +69,27 @@ namespace S1084_AutoRelease
                         sxxxx.name = node.Name;
                         sxxxx.included = node.Attributes["included"].Value;
                         subProjects.Add(sxxxx);
+
+                        TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"));
                     }
 
                     subProjects = subProjects.OrderBy(o => o.name).ToList();
 
                     foreach (Sxxxx subProject in subProjects)
+                    {
                         AddSxxxxProductToTable(subProject);
+                    }
                 }
 
                 AddFinalRowToSxxxxTable();
+
+                DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
+                checkColumn.Name = "Included";
+                checkColumn.HeaderText = "Included in Build";
+                checkColumn.Width = 50;
+                checkColumn.ReadOnly = false;
+                checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
+                TableOfSxxxx.Columns.Add(checkColumn);
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
 
@@ -96,6 +108,46 @@ namespace S1084_AutoRelease
                     }
                 }
             }
+        }
+
+        private void ProjectInfo_Load(object sender, EventArgs e)
+        {
+            UpdateTableOfSxxxxSize();
+        }
+
+        private void UpdateTableOfSxxxxSize()
+        {
+            int width = TableOfSxxxx.RowHeadersWidth;
+
+            foreach (DataGridViewColumn col in TableOfSxxxx.Columns)
+                width += col.Width;
+
+            TableOfSxxxx.Width = width;
+
+            int height = TableOfSxxxx.ColumnHeadersHeight;
+
+            foreach (DataGridViewRow row in TableOfSxxxx.Rows)
+                height += row.Height;
+
+            TableOfSxxxx.Height = height;
+        }
+
+        private string GetSxxxxAttributeFromName(string Sxxxx, string attribute)
+        {
+            string retVal = "";
+            foreach (XmlNode softwareProject in db.GetElementsByTagName("SoftwareProjects")[0].ChildNodes)
+            {
+                if (Sxxxx == softwareProject.Name)
+                {
+                    if (softwareProject.Attributes[attribute] != null)
+                    {
+                        retVal = softwareProject.Attributes[attribute].Value;
+                        break;
+                    }
+                }
+            }
+
+            return retVal;
         }
 
         private void AddSxxxxProductToTable(Sxxxx sxxxx)
@@ -130,14 +182,16 @@ namespace S1084_AutoRelease
             height += 50;
             TableLayoutPanel.Size = new Size(width, height);
 
+            string shortDescription = "";
             foreach (XmlNode softwareProject in db.GetElementsByTagName("SoftwareProjects")[0].ChildNodes)
             {
-                if (sxxxx.name ==  softwareProject.Name)
+                if (sxxxx.name == softwareProject.Name)
                 {
                     Label desc = new Label();
                     desc.AutoSize = true;
                     desc.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
                     desc.Text = softwareProject.Attributes["shortName"].Value;
+                    shortDescription = softwareProject.Attributes["shortName"].Value;
                     TableLayoutPanel.Controls.Add(desc, 2, row);
                     break;
                 }
@@ -301,7 +355,7 @@ namespace S1084_AutoRelease
 
             for (int rowIndex = 0; rowIndex < TableLayoutPanel.RowCount; rowIndex++)
             {
-                sxxxx = subProjects[rowIndex];  
+                sxxxx = subProjects[rowIndex];
 
                 if (("Remove" + SxxxxButtons[rowIndex].Text) == removeButton.Name)
                 {
@@ -333,5 +387,41 @@ namespace S1084_AutoRelease
             e.Handled = (e.KeyChar == (char)Keys.Space);
         }
 
+
+        private void RemoveSxxxxButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow item in this.TableOfSxxxx.SelectedRows)
+            {
+                if (item.Index < (TableOfSxxxx.Rows.Count - 1))
+                    TableOfSxxxx.Rows.RemoveAt(item.Index);
+            }
+
+            UpdateTableOfSxxxxSize();
+        }
+
+        private void AddSxxxxButton_Click(object sender, EventArgs e)
+        {
+            SelectSubProject SxxxxForm = new SelectSubProject(db);
+            var result = SxxxxForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string name = SxxxxForm.selectedSubProject;
+
+                foreach (DataGridViewRow row in TableOfSxxxx.Rows)
+                {
+                    if (row.Cells[0].Value != null)
+                    {
+                        if (row.Cells[0].Value.ToString() == name)
+                        {
+                            MessageBox.Show(SxxxxForm.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
+                            return;
+                        }
+                    }
+                }
+
+                TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"));
+                UpdateTableOfSxxxxSize();
+            }
+        }
     }
 }

@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label1 = new Label();
             DescriptionTextBox = new TextBox();
             SaveAndCloseButton = new Button();
@@ -53,7 +58,14 @@
             SxxxxNameLabel = new Label();
             label8 = new Label();
             label9 = new Label();
+            TableOfSxxxx = new DataGridView();
+            Product = new DataGridViewTextBoxColumn();
+            Description = new DataGridViewTextBoxColumn();
+            Platform = new DataGridViewTextBoxColumn();
+            AddSxxxxButton = new Button();
+            RemoveSxxxxButton = new Button();
             TableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)TableOfSxxxx).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -302,13 +314,94 @@
             label9.TabIndex = 33;
             label9.Text = "Software Products:";
             // 
+            // TableOfSxxxx
+            // 
+            TableOfSxxxx.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            TableOfSxxxx.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            TableOfSxxxx.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            TableOfSxxxx.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            TableOfSxxxx.Columns.AddRange(new DataGridViewColumn[] { Product, Description, Platform });
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            TableOfSxxxx.DefaultCellStyle = dataGridViewCellStyle4;
+            TableOfSxxxx.Location = new Point(780, 185);
+            TableOfSxxxx.Name = "TableOfSxxxx";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            TableOfSxxxx.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            TableOfSxxxx.ScrollBars = ScrollBars.None;
+            TableOfSxxxx.Size = new Size(508, 250);
+            TableOfSxxxx.TabIndex = 34;
+            // 
+            // Product
+            // 
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Product.DefaultCellStyle = dataGridViewCellStyle2;
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.Width = 89;
+            // 
+            // Description
+            // 
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Description.DefaultCellStyle = dataGridViewCellStyle3;
+            Description.HeaderText = "Short Description";
+            Description.Name = "Description";
+            Description.Width = 142;
+            // 
+            // Platform
+            // 
+            Platform.HeaderText = "Platform";
+            Platform.Name = "Platform";
+            Platform.Width = 95;
+            // 
+            // AddSxxxxButton
+            // 
+            AddSxxxxButton.Image = Properties.Resources.Add_50x50;
+            AddSxxxxButton.Location = new Point(803, 115);
+            AddSxxxxButton.Name = "AddSxxxxButton";
+            AddSxxxxButton.Size = new Size(50, 50);
+            AddSxxxxButton.TabIndex = 35;
+            AddSxxxxButton.UseVisualStyleBackColor = true;
+            AddSxxxxButton.Click += AddSxxxxButton_Click;
+            // 
+            // RemoveSxxxxButton
+            // 
+            RemoveSxxxxButton.Image = Properties.Resources.Remove_50x50;
+            RemoveSxxxxButton.Location = new Point(859, 116);
+            RemoveSxxxxButton.Name = "RemoveSxxxxButton";
+            RemoveSxxxxButton.Size = new Size(50, 50);
+            RemoveSxxxxButton.TabIndex = 36;
+            RemoveSxxxxButton.UseVisualStyleBackColor = true;
+            RemoveSxxxxButton.Click += RemoveSxxxxButton_Click;
+            // 
             // ProjectInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(779, 552);
+            ClientSize = new Size(1406, 552);
+            Controls.Add(RemoveSxxxxButton);
+            Controls.Add(AddSxxxxButton);
+            Controls.Add(TableOfSxxxx);
             Controls.Add(label9);
             Controls.Add(TableLayoutPanel);
             Controls.Add(label7);
@@ -330,8 +423,10 @@
             Controls.Add(label1);
             Name = "ProjectInfo";
             Text = "Project Info";
+            Load += ProjectInfo_Load;
             TableLayoutPanel.ResumeLayout(false);
             TableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)TableOfSxxxx).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -362,5 +457,11 @@
         private Label SxxxxIncludedLabel;
         private Label label8;
         private Label label9;
+        private DataGridView TableOfSxxxx;
+        private Button AddSxxxxButton;
+        private Button RemoveSxxxxButton;
+        private DataGridViewTextBoxColumn Product;
+        private DataGridViewTextBoxColumn Description;
+        private DataGridViewTextBoxColumn Platform;
     }
 }
