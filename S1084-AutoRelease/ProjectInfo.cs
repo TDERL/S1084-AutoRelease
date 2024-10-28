@@ -111,6 +111,7 @@ namespace S1084_AutoRelease
             subProjectButton.Click += OpenSubProjectButton_Click;
 
             Button removeSubProjectButton = new Button();
+            removeSubProjectButton.Name = "Remove" + sxxxx.name;
             removeSubProjectButton.Size = new Size(50, 50);
             removeSubProjectButton.Image = Image.FromFile("C:\\Projects\\Windows Apps\\S1084-AutoRelease\\Icons\\Remove-50x50.png");
             removeSubProjectButton.Click += RemoveSubProjectButton_Click;
@@ -284,6 +285,20 @@ namespace S1084_AutoRelease
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
         {
+            Button removeButton = (Button)sender;
+            Control[] SxxxxButtons = TableLayoutPanel.Controls.Find("subProjectButton", true);
+
+            for (int rowIndex = 0; rowIndex < TableLayoutPanel.RowCount; rowIndex++)
+            {
+                if (("Remove" + SxxxxButtons[rowIndex].Text) == removeButton.Name)
+                {
+                    TableLayoutPanel.SuspendLayout();
+                    TableLayoutHelper.RemoveArbitraryRow(TableLayoutPanel, rowIndex);
+                    TableLayoutPanel.ResumeLayout();
+                    break;
+                }
+            }
+
             //SelectSubProject Sxxxx = new SelectSubProject(db);
             //var result = Sxxxx.ShowDialog();
             //if (result == DialogResult.OK)
