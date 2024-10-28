@@ -13,6 +13,8 @@ using static System.Windows.Forms.AxHost;
 using System.Xml.Linq;
 using System.Collections;
 using static S1084_AutoRelease.ProjectInfo;
+using S1084_AutoRelease.Properties;
+
 
 
 namespace S1084_AutoRelease
@@ -21,6 +23,7 @@ namespace S1084_AutoRelease
     {
         public struct endOfSprint
         {
+            public string date;
             public string name;
             public string unplanned;
             public string todo;
@@ -33,13 +36,27 @@ namespace S1084_AutoRelease
         private int subProjectButton_x = 20;
         private int subProjectButton_y = 140;
         private XmlDocument db = new XmlDocument();
-        private List<string> subProjectNames = new List<string>();
+
+        //struct Sxxxx
+        //{
+        //    public string name;     // S1070 or S1071, etc --> Name of children elements to 'Project/Software'
+        //    public string included; // Attribute to the named Sxxxx element
+        //}
+        //private List<Sxxxx> subProjects = new List<Sxxxx>();
 
         public ProjectInfo(XmlDocument db, string name)
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
             this.db = db;
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
+            checkColumn.Name = "Included";
+            checkColumn.HeaderText = "Included in Build";
+            checkColumn.Width = 50;
+            checkColumn.ReadOnly = false;
+            checkColumn.FillWeight = 10;
+            TableOfSxxxx.Columns.Add(checkColumn);
 
             if (name != "") // If editing an existing project then:
             {
@@ -55,12 +72,12 @@ namespace S1084_AutoRelease
                 if (Software != null)
                 {
                     foreach (XmlNode node in Software)
-                        subProjectNames.Add(node.Name);
-
-                    subProjectNames.Sort();
-
-                    foreach (string subProjectName in subProjectNames)
-                        AddSubProjectButtonToGroup(subProjectName);
+                    {
+                        if (node.Attributes["included"].Value == "yes")
+                            TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"), true);
+                        else
+                            TableOfSxxxx.Rows.Add(node.Name, GetSxxxxAttributeFromName(node.Name, "shortName"), GetSxxxxAttributeFromName(node.Name, "platform"), false);
+                    }
                 }
 
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
@@ -70,7 +87,8 @@ namespace S1084_AutoRelease
                     foreach (XmlElement node in sprints)
                     {
                         endOfSprint sprint = new endOfSprint();
-                        sprint.name = node.Name; 
+                        sprint.name = node.Name;
+                        sprint.date = node.Attributes["date"].Value;
                         sprint.unplanned = node.Attributes["unplanned"].Value;
                         sprint.todo = node.Attributes["todo"].Value;
                         sprint.inProgress = node.Attributes["inProgress"].Value;
@@ -81,42 +99,52 @@ namespace S1084_AutoRelease
             }
         }
 
-        private void AddSubProjectButtonToGroup(string name)
+        private void ProjectInfo_Load(object sender, EventArgs e)
         {
-            Button subProjectButton = new Button();
-            subProjectButton.BackColor = Color.FromArgb(243, 111, 247);
-            subProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            subProjectButton.Location = new Point(subProjectButton_x, subProjectButton_y);
-            subProjectButton.Name = "subProjectButton";
-            subProjectButton.Size = new Size(80, 50);
-            subProjectButton.TabIndex = 0;
-            subProjectButton.Text = name;
-            subProjectButton.UseVisualStyleBackColor = false;
-            subProjectButton.Click += OpenSubProjectButton_Click;
-            SubProjectsGroupBox.Controls.Add(subProjectButton);
+            UpdateTableOfSxxxxSize();
+        }
 
-            subProjectButton_x = subProjectButton_x + 100;
-            if (subProjectButton_x > 621)
+        private void UpdateTableOfSxxxxSize()
+        {
+            int width = TableOfSxxxx.RowHeadersWidth;
+
+            foreach (DataGridViewColumn col in TableOfSxxxx.Columns)
+                width += col.Width;
+
+            TableOfSxxxx.Width = width;
+
+            int height = TableOfSxxxx.ColumnHeadersHeight;
+
+            foreach (DataGridViewRow row in TableOfSxxxx.Rows)
+                height += row.Height;
+
+            TableOfSxxxx.Height = height;
+
+            TableOfSxxxx.Sort(TableOfSxxxx.Columns[0], ListSortDirection.Ascending);
+            TableOfSxxxx.Columns[0].ReadOnly = true;
+            TableOfSxxxx.Columns[1].ReadOnly = true;
+            TableOfSxxxx.Columns[2].ReadOnly = true;
+            TableOfSxxxx.Columns[3].ReadOnly = false;
+        }
+
+        private string GetSxxxxAttributeFromName(string Sxxxx, string attribute)
+        {
+            string retVal = "";
+            foreach (XmlNode softwareProject in db.GetElementsByTagName("SoftwareProjects")[0].ChildNodes)
             {
-                subProjectButton_x = 20;
-                subProjectButton_y = subProjectButton_y + 70;
+                if (Sxxxx == softwareProject.Name)
+                {
+                    if (softwareProject.Attributes[attribute] != null)
+                    {
+                        retVal = softwareProject.Attributes[attribute].Value;
+                        break;
+                    }
+                }
             }
+
+            return retVal;
         }
 
-        private void ResetGroupOfSubProject()
-        {
-            SubProjectsGroupBox.Controls.Clear();
-
-            SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
-            SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
-            subProjectButton_x = 20;
-            subProjectButton_y = 140;
-
-            subProjectNames.Sort();
-
-            foreach (string subProjectRemaining in subProjectNames)
-                AddSubProjectButtonToGroup(subProjectRemaining);
-        }
 
         private bool SaveProject()
         {
@@ -148,33 +176,38 @@ namespace S1084_AutoRelease
             project.SetAttribute("stage", StageComboBox.Text);
             project.SetAttribute("status", StatusComboBox.Text);
 
-            if (subProjectNames.Count > 0)
+            XmlElement software = db.CreateElement("Software");
+            foreach (DataGridViewRow row in TableOfSxxxx.Rows)
             {
-                XmlElement subProjectElement = db.CreateElement("Software");
-
-                foreach (string subProjectName in subProjectNames)
-                    subProjectElement.AppendChild(db.CreateElement(subProjectName));
-
-                project.AppendChild(subProjectElement);
-            }
-
-
-            if (endOfSprints.Count > 0)
-            {
-                XmlElement sprints = db.CreateElement("Sprints");
-
-                foreach (endOfSprint sprint in endOfSprints)
+                if (row.Cells[0].Value != null)
                 {
-                    XmlElement xmlSprint = db.CreateElement(sprint.name);
-                    xmlSprint.SetAttribute("unplanned", sprint.unplanned);
-                    xmlSprint.SetAttribute("todo", sprint.todo);
-                    xmlSprint.SetAttribute("inProgress", sprint.inProgress);
-                    xmlSprint.SetAttribute("done", sprint.done);
-                    sprints.AppendChild(xmlSprint);
-                }
+                    XmlElement sub = db.CreateElement(row.Cells[0].Value.ToString());
 
-                project.AppendChild(sprints);
+                    string inc = "no";
+                    if ((bool)row.Cells[3].Value)
+                        inc = "yes";
+
+                    sub.SetAttribute("included", inc);
+                    software.AppendChild(sub);
+                }
             }
+            project.AppendChild(software);
+
+
+            XmlElement sprints = db.CreateElement("Sprints");
+
+            foreach (endOfSprint sprint in endOfSprints)
+            {
+                XmlElement xmlSprint = db.CreateElement(sprint.name);
+                xmlSprint.SetAttribute("date", sprint.date);
+                xmlSprint.SetAttribute("unplanned", sprint.unplanned);
+                xmlSprint.SetAttribute("todo", sprint.todo);
+                xmlSprint.SetAttribute("inProgress", sprint.inProgress);
+                xmlSprint.SetAttribute("done", sprint.done);
+                sprints.AppendChild(xmlSprint);
+            }
+
+            project.AppendChild(sprints);
 
             db.GetElementsByTagName("Projects")[0].AppendChild(project);
             db.Save(db.DocumentElement.GetAttribute("path"));
@@ -202,61 +235,55 @@ namespace S1084_AutoRelease
         }
 
 
-
-        private void AddSubProjectButton_Click(object sender, EventArgs e)
-        {
-            SelectSubProject Sxxxx = new SelectSubProject(db);
-            var result = Sxxxx.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                foreach (string subProjectName in subProjectNames)
-                {
-                    if (subProjectName == Sxxxx.selectedSubProject)
-                    {
-                        MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
-                        return;
-                    }
-                }
-
-                subProjectNames.Add(Sxxxx.selectedSubProject);
-                ResetGroupOfSubProject();
-            }
-        }
-        private void RemoveSubProjectButton_Click(object sender, EventArgs e)
-        {
-            SelectSubProject Sxxxx = new SelectSubProject(db);
-            var result = Sxxxx.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                foreach (string subProjectName in subProjectNames)
-                {
-                    if (subProjectName == Sxxxx.selectedSubProject)
-                    {
-                        subProjectNames.Remove(subProjectName);
-                        ResetGroupOfSubProject();
-                        return; 
-                    }
-                }
-
-                MessageBox.Show("Cannot remove " + Sxxxx.selectedSubProject + " as is not included in project " + ProjectNameTextBox.Text);
-            }
-        }
-
-        private void OpenSubProjectButton_Click(object sender, EventArgs e)
-        {
-            Button subProjectButton = (Button)sender;
-
-            foreach (string subProjectName in subProjectNames)
-            {
-                if (subProjectName == subProjectButton.Text)
-                {
-                    EditSubProject edit = new EditSubProject(db, subProjectName);
-                }
-            }
-        }
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = (e.KeyChar == (char)Keys.Space);
+        }
+
+
+        private void RemoveSxxxxButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow item in this.TableOfSxxxx.SelectedRows)
+            {
+                if (item.Index < (TableOfSxxxx.Rows.Count - 1))
+                    TableOfSxxxx.Rows.RemoveAt(item.Index);
+            }
+
+            UpdateTableOfSxxxxSize();
+        }
+
+        private void AddSxxxxButton_Click(object sender, EventArgs e)
+        {
+            SelectSubProject SxxxxForm = new SelectSubProject(db);
+            var result = SxxxxForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string name = SxxxxForm.selectedSubProject;
+
+                foreach (DataGridViewRow row in TableOfSxxxx.Rows)
+                {
+                    if (row.Cells[0].Value != null)
+                    {
+                        if (row.Cells[0].Value.ToString() == name)
+                        {
+                            MessageBox.Show(SxxxxForm.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
+                            return;
+                        }
+                    }
+                }
+
+                TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"));
+                UpdateTableOfSxxxxSize();
+            }
+        }
+
+
+        private void TableOfSxxxx_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView d = (DataGridView)sender;
+            
+            int rowIndex = d.SelectedCells[0].RowIndex;
+            EditSubProject edit = new EditSubProject(db, TableOfSxxxx.Rows[rowIndex].Cells[0].Value.ToString());
         }
     }
 }

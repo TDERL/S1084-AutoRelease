@@ -37,9 +37,16 @@ namespace S1084_AutoRelease
                 total += int.Parse(node.Attributes["done"].Value);
 
             completed = total;
-            total += int.Parse(sprints.ChildNodes[noOfSprints - 1].Attributes["todo"].Value);
-            total += int.Parse(sprints.ChildNodes[noOfSprints - 1].Attributes["inProgress"].Value);
-            int percentCompleted = (int)(((float)completed / (float)total) * 100);
+            int percentCompleted = 0;
+
+            if (noOfSprints > 0)
+            {
+                total += int.Parse(sprints.ChildNodes[noOfSprints - 1].Attributes["todo"].Value);
+                total += int.Parse(sprints.ChildNodes[noOfSprints - 1].Attributes["inProgress"].Value);
+                percentCompleted = (int)(((float)completed / (float)total) * 100);
+            }
+
+            Directory.CreateDirectory(path); // Just a little belts 'n' braces
 
             using (FileStream fs = new FileStream(path + reportName, FileMode.Create))
             {
@@ -142,7 +149,7 @@ namespace S1084_AutoRelease
 
                     w.WriteLine("<h3 style=\"color:purple \">Software Products</h3>");
 
-                    w.WriteLine("<h4 style=\"color:purple \">Active</h4>");
+                    w.WriteLine("<h4 style=\"color:purple \">Included</h4>");
                     w.WriteLine("Software products actively included in formal releases for overall build of " + projectName);
                     w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
@@ -154,7 +161,7 @@ namespace S1084_AutoRelease
 
                         foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
                         {
-                            if ((softwareProject.Name == Sxxxx.Name) && (softwareProject.Attributes["active"].Value == "active"))
+                            if ((softwareProject.Name == Sxxxx.Name) && (Sxxxx.Attributes["included"].Value == "yes"))
                             {
                                 description = softwareProject.InnerText;
                                 platform = softwareProject.Attributes["platform"].Value;
@@ -166,8 +173,8 @@ namespace S1084_AutoRelease
                     w.WriteLine("</table>");
 
 
-                    w.WriteLine("<h4 style=\"color:purple \">Inactive</h4>");
-                    w.WriteLine("Software products associated with " + projectName + " but no longer (or never were) part of formal releases</h4>");
+                    w.WriteLine("<h4 style=\"color:purple \">Not Included</h4>");
+                    w.WriteLine("Software products associated with " + projectName + " but not included in formal releases for overall build");
                     w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
 
@@ -178,7 +185,7 @@ namespace S1084_AutoRelease
 
                         foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
                         {
-                            if ((softwareProject.Name == Sxxxx.Name) && (softwareProject.Attributes["active"].Value == "inactive"))
+                            if ((softwareProject.Name == Sxxxx.Name) && (Sxxxx.Attributes["included"].Value == "no"))
                             {
                                 description = softwareProject.InnerText;
                                 platform = softwareProject.Attributes["platform"].Value;
@@ -207,7 +214,7 @@ namespace S1084_AutoRelease
         public void ReportHomePage(XmlDocument db)
         {
             XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
-            XmlElement sprints = (XmlElement)projects.GetElementsByTagName("Sprints")[0];
+            //XmlElement sprints = (XmlElement)projects.GetElementsByTagName("Sprints")[0];
             XmlElement SoftwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
 
             Paths paths = new Paths(db);
@@ -247,7 +254,13 @@ namespace S1084_AutoRelease
                         string description = project.Attributes["description"].Value;
                         string stage = project.Attributes["stage"].Value;
                         string status = project.Attributes["status"].Value;
-                        string version = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
+                        string version = "None Yet Released";
+
+                        XmlElement p = (XmlElement)project;
+                        XmlElement sprints = (XmlElement)p.GetElementsByTagName("Sprints")[0];
+                        if (sprints.ChildNodes.Count > 0)
+                            version = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
+
                         string x = paths.GetProject(projectName);
                         string releasePath = paths.GetProject(projectName) + "\\" + projectName + "_ProgressReport.html";
 

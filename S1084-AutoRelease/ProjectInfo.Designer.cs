@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectInfo));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label1 = new Label();
             DescriptionTextBox = new TextBox();
             SaveAndCloseButton = new Button();
@@ -37,9 +41,6 @@
             label2 = new Label();
             CloseButton = new Button();
             SaveButton = new Button();
-            AddSubProjectButton = new Button();
-            SubProjectsGroupBox = new GroupBox();
-            RemoveSubProjectButton = new Button();
             StageComboBox = new ComboBox();
             label3 = new Label();
             StatusComboBox = new ComboBox();
@@ -51,7 +52,14 @@
             label6 = new Label();
             label12 = new Label();
             label7 = new Label();
-            SubProjectsGroupBox.SuspendLayout();
+            label9 = new Label();
+            TableOfSxxxx = new DataGridView();
+            Product = new DataGridViewTextBoxColumn();
+            Description = new DataGridViewTextBoxColumn();
+            Platform = new DataGridViewTextBoxColumn();
+            AddSxxxxButton = new Button();
+            RemoveSxxxxButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)TableOfSxxxx).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -130,42 +138,6 @@
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = false;
             SaveButton.Click += SaveButton_Click;
-            // 
-            // AddSubProjectButton
-            // 
-            AddSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
-            AddSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            AddSubProjectButton.Image = (Image)resources.GetObject("AddSubProjectButton.Image");
-            AddSubProjectButton.Location = new Point(20, 37);
-            AddSubProjectButton.Name = "AddSubProjectButton";
-            AddSubProjectButton.Size = new Size(75, 75);
-            AddSubProjectButton.TabIndex = 3;
-            AddSubProjectButton.UseVisualStyleBackColor = false;
-            AddSubProjectButton.Click += AddSubProjectButton_Click;
-            // 
-            // SubProjectsGroupBox
-            // 
-            SubProjectsGroupBox.Controls.Add(RemoveSubProjectButton);
-            SubProjectsGroupBox.Controls.Add(AddSubProjectButton);
-            SubProjectsGroupBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SubProjectsGroupBox.Location = new Point(24, 255);
-            SubProjectsGroupBox.Name = "SubProjectsGroupBox";
-            SubProjectsGroupBox.Size = new Size(729, 288);
-            SubProjectsGroupBox.TabIndex = 11;
-            SubProjectsGroupBox.TabStop = false;
-            SubProjectsGroupBox.Text = "Sxxxx Sub-Projects";
-            // 
-            // RemoveSubProjectButton
-            // 
-            RemoveSubProjectButton.BackColor = Color.FromArgb(192, 255, 255);
-            RemoveSubProjectButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            RemoveSubProjectButton.Image = (Image)resources.GetObject("RemoveSubProjectButton.Image");
-            RemoveSubProjectButton.Location = new Point(101, 37);
-            RemoveSubProjectButton.Name = "RemoveSubProjectButton";
-            RemoveSubProjectButton.Size = new Size(75, 75);
-            RemoveSubProjectButton.TabIndex = 4;
-            RemoveSubProjectButton.UseVisualStyleBackColor = false;
-            RemoveSubProjectButton.Click += RemoveSubProjectButton_Click;
             // 
             // StageComboBox
             // 
@@ -267,11 +239,106 @@
             label7.TabIndex = 31;
             label7.Text = "*";
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(24, 247);
+            label9.Name = "label9";
+            label9.Size = new Size(140, 21);
+            label9.TabIndex = 33;
+            label9.Text = "Software Products:";
+            // 
+            // TableOfSxxxx
+            // 
+            TableOfSxxxx.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            TableOfSxxxx.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            TableOfSxxxx.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            TableOfSxxxx.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            TableOfSxxxx.Columns.AddRange(new DataGridViewColumn[] { Product, Description, Platform });
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            TableOfSxxxx.DefaultCellStyle = dataGridViewCellStyle4;
+            TableOfSxxxx.Location = new Point(780, 185);
+            TableOfSxxxx.Name = "TableOfSxxxx";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            TableOfSxxxx.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            TableOfSxxxx.ScrollBars = ScrollBars.None;
+            TableOfSxxxx.Size = new Size(508, 250);
+            TableOfSxxxx.TabIndex = 34;
+            TableOfSxxxx.CellContentDoubleClick += TableOfSxxxx_CellContentDoubleClick;
+            // 
+            // Product
+            // 
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Product.DefaultCellStyle = dataGridViewCellStyle2;
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.Width = 89;
+            // 
+            // Description
+            // 
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Description.DefaultCellStyle = dataGridViewCellStyle3;
+            Description.HeaderText = "Short Description";
+            Description.Name = "Description";
+            Description.Width = 142;
+            // 
+            // Platform
+            // 
+            Platform.HeaderText = "Platform";
+            Platform.Name = "Platform";
+            Platform.Width = 95;
+            // 
+            // AddSxxxxButton
+            // 
+            AddSxxxxButton.Image = Properties.Resources.Add_50x50;
+            AddSxxxxButton.Location = new Point(803, 115);
+            AddSxxxxButton.Name = "AddSxxxxButton";
+            AddSxxxxButton.Size = new Size(50, 50);
+            AddSxxxxButton.TabIndex = 35;
+            AddSxxxxButton.UseVisualStyleBackColor = true;
+            AddSxxxxButton.Click += AddSxxxxButton_Click;
+            // 
+            // RemoveSxxxxButton
+            // 
+            RemoveSxxxxButton.Image = Properties.Resources.Remove_50x50;
+            RemoveSxxxxButton.Location = new Point(859, 116);
+            RemoveSxxxxButton.Name = "RemoveSxxxxButton";
+            RemoveSxxxxButton.Size = new Size(50, 50);
+            RemoveSxxxxButton.TabIndex = 36;
+            RemoveSxxxxButton.UseVisualStyleBackColor = true;
+            RemoveSxxxxButton.Click += RemoveSxxxxButton_Click;
+            // 
             // ProjectInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 552);
+            AutoScroll = true;
+            AutoSize = true;
+            ClientSize = new Size(1406, 552);
+            Controls.Add(RemoveSxxxxButton);
+            Controls.Add(AddSxxxxButton);
+            Controls.Add(TableOfSxxxx);
+            Controls.Add(label9);
             Controls.Add(label7);
             Controls.Add(label12);
             Controls.Add(RepoPathTextBox);
@@ -282,7 +349,6 @@
             Controls.Add(StatusComboBox);
             Controls.Add(label3);
             Controls.Add(StageComboBox);
-            Controls.Add(SubProjectsGroupBox);
             Controls.Add(SaveButton);
             Controls.Add(CloseButton);
             Controls.Add(ProjectNameTextBox);
@@ -292,7 +358,8 @@
             Controls.Add(label1);
             Name = "ProjectInfo";
             Text = "Project Info";
-            SubProjectsGroupBox.ResumeLayout(false);
+            Load += ProjectInfo_Load;
+            ((System.ComponentModel.ISupportInitialize)TableOfSxxxx).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -306,9 +373,6 @@
         private Label label2;
         private Button CloseButton;
         private Button SaveButton;
-        private Button AddSubProjectButton;
-        private GroupBox SubProjectsGroupBox;
-        private Button RemoveSubProjectButton;
         private ComboBox StageComboBox;
         private Label label3;
         private ComboBox StatusComboBox;
@@ -320,5 +384,12 @@
         private Label label6;
         private Label label12;
         private Label label7;
+        private Label label9;
+        private DataGridView TableOfSxxxx;
+        private Button AddSxxxxButton;
+        private Button RemoveSxxxxButton;
+        private DataGridViewTextBoxColumn Product;
+        private DataGridViewTextBoxColumn Description;
+        private DataGridViewTextBoxColumn Platform;
     }
 }
