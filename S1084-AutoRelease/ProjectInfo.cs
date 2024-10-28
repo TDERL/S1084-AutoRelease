@@ -287,14 +287,19 @@ namespace S1084_AutoRelease
         {
             Button removeButton = (Button)sender;
             Control[] SxxxxButtons = TableLayoutPanel.Controls.Find("subProjectButton", true);
+            Sxxxx sxxxx = new Sxxxx();
 
             for (int rowIndex = 0; rowIndex < TableLayoutPanel.RowCount; rowIndex++)
             {
+                sxxxx = subProjects[rowIndex];  
+
                 if (("Remove" + SxxxxButtons[rowIndex].Text) == removeButton.Name)
                 {
                     TableLayoutPanel.SuspendLayout();
-                    TableLayoutHelper.RemoveArbitraryRow(TableLayoutPanel, rowIndex);
+                    TableLayoutHelper.RemoveArbitraryRow(TableLayoutPanel, rowIndex + 1);
                     TableLayoutPanel.ResumeLayout();
+
+                    subProjects.Remove(sxxxx);
                     break;
                 }
             }
