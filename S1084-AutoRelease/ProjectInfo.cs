@@ -16,6 +16,7 @@ using static S1084_AutoRelease.ProjectInfo;
 using S1084_AutoRelease.Properties;
 
 
+
 namespace S1084_AutoRelease
 {
     public partial class ProjectInfo : Form
@@ -70,7 +71,7 @@ namespace S1084_AutoRelease
                         subProjects.Add(sxxxx);
                     }
 
-                    //subProjectNames.Sort();
+                    subProjects = subProjects.OrderBy(o => o.name).ToList();
 
                     foreach (Sxxxx subProject in subProjects)
                         AddSxxxxProductToTable(subProject);
@@ -266,21 +267,27 @@ namespace S1084_AutoRelease
 
         private void AddSubProjectButton_Click(object sender, EventArgs e)
         {
-            SelectSubProject Sxxxx = new SelectSubProject(db);
-            var result = Sxxxx.ShowDialog();
+            SelectSubProject SxxxxForm = new SelectSubProject(db);
+            var result = SxxxxForm.ShowDialog();
             if (result == DialogResult.OK)
             {
                 foreach (Sxxxx subProject in subProjects)
                 {
-                    if (subProject.name == Sxxxx.selectedSubProject)
+                    if (subProject.name == SxxxxForm.selectedSubProject)
                     {
-                        MessageBox.Show(Sxxxx.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
+                        MessageBox.Show(SxxxxForm.selectedSubProject + " is already included in project " + ProjectNameTextBox.Text);
                         return;
                     }
                 }
 
-            //    subProjectNames.Add(Sxxxx.selectedSubProject);
-            //    ResetTableOfSxxxxProducts();
+                Sxxxx sxxxx = new Sxxxx();
+                sxxxx.name = SxxxxForm.selectedSubProject;
+                sxxxx.included = "no";
+                subProjects.Add(sxxxx);
+                subProjects = subProjects.OrderBy(o => o.name).ToList();
+
+                //    subProjectNames.Add(Sxxxx.selectedSubProject);
+                //    ResetTableOfSxxxxProducts();
             }
         }
         private void RemoveSubProjectButton_Click(object sender, EventArgs e)
