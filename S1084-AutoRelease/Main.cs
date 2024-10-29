@@ -17,30 +17,39 @@ namespace S1084_AutoRelease
             ReleaseButton.Enabled = false;
             EditSubProjectButton.Enabled = false;
 
-            string xmlPath = "C:\\ERL-Software-Products\\ERL_SW_Projects_DB.xml";
-            if (File.Exists(xmlPath) == false)
-            {
-                Directory.CreateDirectory("C:\\ERL-Software-Products\\"); // Just a little belts 'n' braces
-                XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
-                writer.Formatting = Formatting.Indented;
-                writer.WriteStartDocument();
-                String PItext = "type='text/xsl'";
-                writer.WriteProcessingInstruction("xml-stylesheet", PItext);
-                writer.WriteComment("S1084, Projects DB and Auto Release");
-                writer.WriteStartElement("S1084");
-                writer.WriteAttributeString("path", xmlPath);
-                writer.WriteStartElement("Projects");
-                writer.WriteEndElement();   // Projects
-                writer.WriteStartElement("SoftwareProjects");
-                writer.WriteEndElement();   // SoftwareProjects
-                writer.WriteEndElement();   // S1084
-                writer.WriteEndDocument();
-                writer.Close();
-            }
 
-            db.Load(xmlPath);
-            RefreshProjectListComboBox();
-            RefreshSubProjectListComboBox();
+            if (Directory.Exists("Z:") == false)
+            {
+                MessageBox.Show("Server appears to be dissconnected. Please use Sophos to connect, then try again", "ERROR. Server not connected");
+                Environment.Exit(0);
+            }
+            else
+            {
+                string xmlPath = "Z:\\ERL-Software-Products\\ERL_Software_Database.xml";
+                if (File.Exists(xmlPath) == false)
+                {
+                    Directory.CreateDirectory("Z:\\ERL-Software-Products\\"); // Just a little belts 'n' braces
+                    XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
+                    writer.Formatting = Formatting.Indented;
+                    writer.WriteStartDocument();
+                    String PItext = "type='text/xsl'";
+                    writer.WriteProcessingInstruction("xml-stylesheet", PItext);
+                    writer.WriteComment("S1084, Projects DB and Auto Release");
+                    writer.WriteStartElement("S1084");
+                    writer.WriteAttributeString("path", xmlPath);
+                    writer.WriteStartElement("Projects");
+                    writer.WriteEndElement();   // Projects
+                    writer.WriteStartElement("SoftwareProjects");
+                    writer.WriteEndElement();   // SoftwareProjects
+                    writer.WriteEndElement();   // S1084
+                    writer.WriteEndDocument();
+                    writer.Close();
+                }
+
+                db.Load(xmlPath);
+                RefreshProjectListComboBox();
+                RefreshSubProjectListComboBox();
+            }
         }
 
         //*********************************************************

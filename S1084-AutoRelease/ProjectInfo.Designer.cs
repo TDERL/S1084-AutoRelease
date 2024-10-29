@@ -142,7 +142,7 @@
             // StageComboBox
             // 
             StageComboBox.FormattingEnabled = true;
-            StageComboBox.Items.AddRange(new object[] { "Red", "Blue", "Green", "Black" });
+            StageComboBox.Items.AddRange(new object[] { "White", "Red", "Blue", "Green", "Black" });
             StageComboBox.Location = new Point(201, 163);
             StageComboBox.Name = "StageComboBox";
             StageComboBox.Size = new Size(121, 23);
