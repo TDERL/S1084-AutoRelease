@@ -259,7 +259,8 @@ namespace S1084_AutoRelease
                         XmlElement p = (XmlElement)project;
                         XmlElement sprints = (XmlElement)p.GetElementsByTagName("Sprints")[0];
                         if (sprints.ChildNodes.Count > 0)
-                            version = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
+                            if (sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name != "NA")
+                                version = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
 
                         string x = paths.GetProject(projectName);
                         string releasePath = paths.GetProject(projectName) + "\\" + projectName + "_ProgressReport.html";
