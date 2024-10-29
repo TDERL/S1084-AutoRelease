@@ -272,7 +272,7 @@ namespace S1084_AutoRelease
                     }
                 }
 
-                TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"));
+                TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"), false);
                 UpdateTableOfSxxxxSize();
             }
         }
