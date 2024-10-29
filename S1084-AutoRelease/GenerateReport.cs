@@ -147,10 +147,10 @@ namespace S1084_AutoRelease
                     w.WriteLine("</table>");
                     w.WriteLine("<i style=\"color: darkgray\"><sup>*</sup>Scope and Completed measured in points. For simplicity, 1 point is usually 1 hour</i>");
 
-                    w.WriteLine("<h3 style=\"color:purple \">Software Products</h3>");
+                    w.WriteLine("<h3 style=\"color:purple \">Software Components</h3>");
 
                     w.WriteLine("<h4 style=\"color:purple \">Included</h4>");
-                    w.WriteLine("Software products actively included in formal releases for overall build of " + projectName);
+                    w.WriteLine("Software components actively included in formal releases for overall build of " + projectName);
                     w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
 
@@ -174,7 +174,7 @@ namespace S1084_AutoRelease
 
 
                     w.WriteLine("<h4 style=\"color:purple \">Not Included</h4>");
-                    w.WriteLine("Software products associated with " + projectName + " but not included in formal releases for overall build");
+                    w.WriteLine("Software components associated with " + projectName + " but not included in formal releases for overall build");
                     w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
 
@@ -276,7 +276,7 @@ namespace S1084_AutoRelease
                     w.WriteLine("</table>");
 
 
-                    w.WriteLine("<h3 style=\"color:purple \">ERL Software Products (Individual Software Projects)</h3>");
+                    w.WriteLine("<h3 style=\"color:purple \">ERL Software Components (Individual Software Projects)</h3>");
                     w.WriteLine("<table>");
                     w.WriteLine("<tr>" +
                         "<th style=\"padding:8px\">Number</th>" +
