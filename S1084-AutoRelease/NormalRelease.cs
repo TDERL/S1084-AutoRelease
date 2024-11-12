@@ -236,7 +236,8 @@ namespace S1084_AutoRelease
 
                                     // If ext or output path are TBD then don't try to release it
                                     //if ((fileExtension != "TBD") && (outputPath != "TBD")) // TODO: Replace this with a active status attribute
-                                    if (softwareProject.Attributes["active"].Value == "active")
+                                    //if (softwareProject.Attributes["active"].Value == "active")
+                                    if (Sxxxx.Attributes["included"].Value == "yes")
                                     {
                                         string desc = db.GetElementsByTagName(projectName)[0].Attributes["desName"].Value;
                                         Paths paths = new Paths(db);
