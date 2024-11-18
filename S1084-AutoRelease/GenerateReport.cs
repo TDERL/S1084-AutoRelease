@@ -220,7 +220,7 @@ namespace S1084_AutoRelease
             Paths paths = new Paths(db);
             string path = paths.GetBase();
 
-            using (FileStream fs = new FileStream(path + "ERL_SW_Projects.html", FileMode.Create))
+            using (FileStream fs = new FileStream(path + "ERL_Software_Projects.html", FileMode.Create))
             {
                 using (StreamWriter w = new StreamWriter(fs))
                 {

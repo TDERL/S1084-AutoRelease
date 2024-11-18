@@ -18,38 +18,45 @@ namespace S1084_AutoRelease
             EditSubProjectButton.Enabled = false;
 
 
-            if (Directory.Exists("Z:") == false)
+            string drive = "\\\\ENERGYFP\\General";
+            if (Directory.Exists(drive) == false)
             {
-                MessageBox.Show("Server appears to be dissconnected. Please use Sophos to connect, then try again", "ERROR. Server not connected");
-                Environment.Exit(0);
-            }
-            else
-            {
-                string xmlPath = "Z:\\ERL-Software-Products\\ERL_Software_Database.xml";
-                if (File.Exists(xmlPath) == false)
+                drive = "Z:";
+                if (Directory.Exists(drive) == false)
                 {
-                    Directory.CreateDirectory("Z:\\ERL-Software-Products\\"); // Just a little belts 'n' braces
-                    XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
-                    writer.Formatting = Formatting.Indented;
-                    writer.WriteStartDocument();
-                    String PItext = "type='text/xsl'";
-                    writer.WriteProcessingInstruction("xml-stylesheet", PItext);
-                    writer.WriteComment("S1084, Projects DB and Auto Release");
-                    writer.WriteStartElement("S1084");
-                    writer.WriteAttributeString("path", xmlPath);
-                    writer.WriteStartElement("Projects");
-                    writer.WriteEndElement();   // Projects
-                    writer.WriteStartElement("SoftwareProjects");
-                    writer.WriteEndElement();   // SoftwareProjects
-                    writer.WriteEndElement();   // S1084
-                    writer.WriteEndDocument();
-                    writer.Close();
+                    drive = "G:";
+                    if (Directory.Exists(drive) == false)
+                    {
+                        MessageBox.Show("Server appears to be dissconnected. Please use Sophos to connect, then try again", "ERROR. Server not connected");
+                        Environment.Exit(0);
+                    }
                 }
-
-                db.Load(xmlPath);
-                RefreshProjectListComboBox();
-                RefreshSubProjectListComboBox();
             }
+
+            string xmlPath = drive + "\\ERL-Software-Products\\DB\\ERL_Software_Database.xml";
+            if (File.Exists(xmlPath) == false)
+            {
+                Directory.CreateDirectory(drive + "\\ERL-Software-Products\\DB\\"); // Just a little belts 'n' braces
+                XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
+                writer.Formatting = Formatting.Indented;
+                writer.WriteStartDocument();
+                String PItext = "type='text/xsl'";
+                writer.WriteProcessingInstruction("xml-stylesheet", PItext);
+                writer.WriteComment("S1084, Projects DB and Auto Release");
+                writer.WriteStartElement("S1084");
+                writer.WriteAttributeString("path", xmlPath);
+                writer.WriteStartElement("Projects");
+                writer.WriteEndElement();   // Projects
+                writer.WriteStartElement("SoftwareProjects");
+                writer.WriteEndElement();   // SoftwareProjects
+                writer.WriteEndElement();   // S1084
+                writer.WriteEndDocument();
+                writer.Close();
+            }
+
+            db.Load(xmlPath);
+            RefreshProjectListComboBox();
+            RefreshSubProjectListComboBox();
         }
 
         //*********************************************************
