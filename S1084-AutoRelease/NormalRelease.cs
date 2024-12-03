@@ -42,6 +42,11 @@ namespace S1084_AutoRelease
 
             switch (stage)
             {
+                case "White":
+                case "white":
+                    stage = "W";
+                    break;
+
                 case "Red":
                 case "red":
                     stage = "R";
