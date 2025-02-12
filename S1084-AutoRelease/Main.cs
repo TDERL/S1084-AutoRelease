@@ -33,10 +33,10 @@ namespace S1084_AutoRelease
                 }
             }
 
-            string xmlPath = drive + "\\ERL-Software-Products\\DB\\ERL_Software_Database.xml";
+            string xmlPath = drive + "\\ERL-Software-Products\\ERL_Software_Database.xml";
             if (File.Exists(xmlPath) == false)
             {
-                Directory.CreateDirectory(drive + "\\ERL-Software-Products\\DB\\"); // Just a little belts 'n' braces
+                Directory.CreateDirectory(drive + "\\ERL-Software-Products\\"); // Just a little belts 'n' braces
                 XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
                 writer.Formatting = Formatting.Indented;
                 writer.WriteStartDocument();
