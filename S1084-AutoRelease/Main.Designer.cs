@@ -37,10 +37,10 @@
             ReleaseButton = new Button();
             label1 = new Label();
             groupBox2 = new GroupBox();
-            GenerateReportButton = new Button();
             label2 = new Label();
             EditSubProjectButton = new Button();
             SubProjectListComboBox = new ComboBox();
+            GenerateReportButton = new Button();
             MainToolTip = new ToolTip(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -114,7 +114,7 @@
             ReleaseButton.Name = "ReleaseButton";
             ReleaseButton.Size = new Size(119, 66);
             ReleaseButton.TabIndex = 4;
-            ReleaseButton.Text = "Release";
+            ReleaseButton.Text = "End Sprint";
             ReleaseButton.UseVisualStyleBackColor = false;
             ReleaseButton.Click += ReleaseButton_Click;
             // 
@@ -139,19 +139,6 @@
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Sub-Projects (Sxxxx)";
-            // 
-            // GenerateReportButton
-            // 
-            GenerateReportButton.BackColor = Color.FromArgb(192, 255, 192);
-            GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GenerateReportButton.Location = new Point(258, 319);
-            GenerateReportButton.Name = "GenerateReportButton";
-            GenerateReportButton.Size = new Size(119, 66);
-            GenerateReportButton.TabIndex = 7;
-            GenerateReportButton.Text = "Generate Reports";
-            MainToolTip.SetToolTip(GenerateReportButton, "Click to generate an updated HTML report of all Sub-Projects");
-            GenerateReportButton.UseVisualStyleBackColor = false;
-            GenerateReportButton.Click += GenerateReportButton_Click;
             // 
             // label2
             // 
@@ -183,6 +170,19 @@
             SubProjectListComboBox.Size = new Size(119, 29);
             SubProjectListComboBox.TabIndex = 4;
             SubProjectListComboBox.SelectedIndexChanged += SubProjectListComboBox_SelectedIndexChanged;
+            // 
+            // GenerateReportButton
+            // 
+            GenerateReportButton.BackColor = Color.FromArgb(192, 255, 192);
+            GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GenerateReportButton.Location = new Point(258, 319);
+            GenerateReportButton.Name = "GenerateReportButton";
+            GenerateReportButton.Size = new Size(119, 66);
+            GenerateReportButton.TabIndex = 7;
+            GenerateReportButton.Text = "Generate Reports";
+            MainToolTip.SetToolTip(GenerateReportButton, "Click to generate an updated HTML report of all Sub-Projects");
+            GenerateReportButton.UseVisualStyleBackColor = false;
+            GenerateReportButton.Click += GenerateReportButton_Click;
             // 
             // Main
             // 

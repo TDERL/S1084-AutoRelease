@@ -101,21 +101,21 @@ namespace S1084_AutoRelease
 
         private void ReleaseButton_Click(object sender, EventArgs e)
         {
-            ReleaseType releaseType = new ReleaseType();
+            //ReleaseType releaseType = new ReleaseType();
 
-            var result = releaseType.ShowDialog();
-            if (result == DialogResult.Yes)
-            {
+            //var result = releaseType.ShowDialog();
+            //if (result == DialogResult.Yes)
+            //{
                 NormalRelease normalRelease = new NormalRelease(db, ProjectListComboBox.Text);
 
                 if (normalRelease.Required())
                     normalRelease.Show();
-            }
-            else if (result == DialogResult.Ignore)
-            {
+            //}
+            //else if (result == DialogResult.Ignore)
+            //{
                 // Mid release
-                result = 0;
-            }
+            //    result = 0;
+            //}
         }
 
         //*********************************************************
