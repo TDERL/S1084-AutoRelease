@@ -111,11 +111,6 @@ namespace S1084_AutoRelease
                         percentCompletedPerSprint[i] = 0;
                     }
 
-                 //   int[] donePerComponent = new int[0];
-
-  //                  if (sprints.ChildNodes[0] != null)
-//                        donePerComponent = new int[sprints.ChildNodes[0].ChildNodes.Count];
-
                     
                     int noOfComponents = 0;
                     if (software != null)
@@ -127,10 +122,7 @@ namespace S1084_AutoRelease
                     int[] donePerComponent = new int[noOfComponents];
 
                     for (int i = 0; i < noOfComponents; i++)
-                    {
                         donePerComponent[i] = 0;
-                   //     percentOfScopePerComponent[i] = 0;
-                    }
 
                     total = 0;
                     completed = 0;
@@ -169,60 +161,12 @@ namespace S1084_AutoRelease
                         w.WriteLine("<td style=\"min-width: 200px\">" + totalPerSprint[i] + "</td>");
                         w.WriteLine("<td style=\"min-width: 200px\">" + completedPerSprint[i] + " (" + percentCompletedPerSprint[i] + "%)</td>");
                         w.WriteLine("<td style=\"min-width: 200px\">" + sprints.ChildNodes[i].Attributes["unplanned"].Value + "</td></tr>");
-
-                        //*********************
-                        //
-                        // Add in the metrics for the individual components
-                        //if (noOfComponents > 0)
-                        //{
-                        //    XmlElement components = (XmlElement)sprints.ChildNodes[i];
-                        //    for (int c = 0; c < components.ChildNodes.Count; c++)
-                        //    {
-                        //        int t = int.Parse(components.ChildNodes[c].Attributes["todo"].Value);
-                        //        t += int.Parse(components.ChildNodes[c].Attributes["inProgress"].Value);
-                        //        t += donePerComponent[c];
-
-                        //        double percentOfScope = (((float)t / (float)totalPerSprint[i]) * 100);
-                        //        percentOfScope = Math.Round(percentOfScope, 1);
-
-                        //        string shortName = "";
-
-                        //        foreach (XmlNode Sxxxx in SoftwareProjects.ChildNodes)
-                        //        {
-                        //            if (components.ChildNodes[c].Name == Sxxxx.Name)
-                        //                shortName = Sxxxx.Attributes["shortName"].Value;
-                        //        }
-
-                        //        w.WriteLine("<tr><td style=\"min-width: 200px\"></td>");
-                        //        w.WriteLine("<td style=\"min-width: 200px\"></td>");
-                        //        w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" + components.ChildNodes[c].Name + 
-                        //            ", " + shortName + ": "+ percentOfScope + "%</i></td>");
-
-                        //        double percentOfDone = (((float)donePerComponent[c] / (float)t) * 100);
-                        //        percentOfDone = Math.Round(percentOfDone, 1);
-
-                        //        w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" +
-                        //            percentOfDone + "%</i></td>");
-
-                        //        w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" +
-                        //            components.ChildNodes[c].Attributes["unplanned"].Value + "</i></td></tr>");
-                        //    }
-                        //}
-
-                        //for (int c = 0; c < noOfComponents; c++)
-                        //    donePerComponent[c] -= int.Parse(sprints.ChildNodes[i].ChildNodes[c].Attributes["done"].Value);
-
-                       // total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
-                       // total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
                     }
                     w.WriteLine("</table>");
                     w.WriteLine("<i style=\"color: darkgray\"><sup>*</sup>Scope and Completed measured in points. For simplicity, 1 point is usually 1 hour</i>");
 
-                    w.WriteLine("<h3 style=\"color:purple \">Components</h3>");
+                    w.WriteLine("<h3 style=\"color:purple \">Project Comprises of Following Components:</h3>");
 
-                   // w.WriteLine("<h4 style=\"color:purple \">Included</h4>");
-                   // w.WriteLine("Software components actively included in formal releases for overall build of " + projectName);
-                   // w.WriteLine("<br><br>");
                     w.WriteLine("<table>");
 
                     w.WriteLine("<tr>" +
@@ -244,7 +188,6 @@ namespace S1084_AutoRelease
                             double percentOfScope = 0;
                             double percentageOfDone = 0;
 
-//                            if (components.ChildNodes[c] != null)
                             if (components != null)
                             {
                                 int t = int.Parse(components.ChildNodes[c].Attributes["todo"].Value);
@@ -296,75 +239,8 @@ namespace S1084_AutoRelease
                         }
                     }
 
-                    //string description = "No Description Found";
-                    //string platform = "Unspecified Platform";
-
-                    //foreach (XmlNode Sxxxx in software.ChildNodes)
-                    //{
-                    //    foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
-                    //    {
-                    //        if (softwareProject.Name == Sxxxx.Name) //&& (Sxxxx.Attributes["included"].Value == "yes"))
-                    //        {
-                    //            description = softwareProject.InnerText;
-                    //            platform = softwareProject.Attributes["platform"].Value;
-                    //            w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + "</th>" +
-                    //                "<td style=\"min-width: 200px\", \"padding:8px\">" + softwareProject.Attributes["shortName"].Value + "</td>" +
-                    //                "<td style=\"padding:8px\">" + platform + "</td>" +
-                    //                "<td style=\"padding:8px\">%</td>" +
-                    //                "<td style=\"padding:8px\">%</td>" +
-                    //                "<td style=\"padding:8px\">" + description + "</td></tr>");
-                    //            break;
-                    //        }
-                    //    }
-                    //}
-
-                    //if (hardware != null)
-                    //{
-                    //    foreach (XmlNode EDAxxx in hardware.ChildNodes)
-                    //    {
-                    //        foreach (XmlNode hardwareProjects in HardwareProjects.ChildNodes)
-                    //        {
-                    //            if (hardwareProjects.Name == EDAxxx.Name)
-                    //            {
-                    //                description = hardwareProjects.InnerText;
-                    //                w.WriteLine("<tr><th style=\"padding:8px\">" + EDAxxx.Name + "</th>" +
-                    //                    "<td style=\"min-width: 200px\", \"padding:8px\">" + hardwareProjects.Attributes["shortName"].Value + "</td>" +
-                    //                    "<td style=\"padding:8px\">" + "NA</td>" +
-                    //                    "<td style=\"padding:8px\">%</td>" +
-                    //                    "<td style=\"padding:8px\">%</td>" +
-                    //                    "<td style=\"padding:8px\">" + description + "</td></tr>");
-                    //                break;
-                    //            }
-                    //        }
-                    //    }
-                    //}
 
                     w.WriteLine("</table>");
-
-
-                    //w.WriteLine("<h4 style=\"color:purple \">Not Included</h4>");
-                    //w.WriteLine("Software components associated with " + projectName + " but not included in formal releases for overall build");
-                    //w.WriteLine("<br><br>");
-                    //w.WriteLine("<table>");
-
-                    //foreach (XmlNode Sxxxx in software.ChildNodes)
-                    //{
-                    //    string description = "No Description Found";
-                    //    string platform = "Unspecified Platform";
-
-                    //    foreach (XmlNode softwareProject in SoftwareProjects.ChildNodes)
-                    //    {
-                    //        if ((softwareProject.Name == Sxxxx.Name) && (Sxxxx.Attributes["included"].Value == "no"))
-                    //        {
-                    //            description = softwareProject.InnerText;
-                    //            platform = softwareProject.Attributes["platform"].Value;
-                    //            w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + "</th><td style=\"min-width: 200px\", \"padding:8px\">" + platform + "</td><td style=\"padding:8px\">" + description + "</td></tr>");
-                    //            break;
-                    //        }
-                    //    }
-                    //}
-                    //w.WriteLine("</table>");
-
 
                     w.WriteLine("");
                     w.WriteLine("</body>");
