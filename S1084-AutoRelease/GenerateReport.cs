@@ -176,21 +176,38 @@ namespace S1084_AutoRelease
                                 t += int.Parse(components.ChildNodes[c].Attributes["inProgress"].Value);
                                 t += donePerComponent[c];
 
-                                percentOfScopePerComponent[c] = (((float)t / (float)totalPerSprint[i]) * 100);
-                                percentOfScopePerComponent[c] = Math.Round(percentOfScopePerComponent[c], 1);
+                                double percentOfScope = (((float)t / (float)totalPerSprint[i]) * 100);
+                                percentOfScope = Math.Round(percentOfScope, 1);
+
+                                string shortName = "";
+
+                                foreach (XmlNode Sxxxx in SoftwareProjects.ChildNodes)
+                                {
+                                    if (components.ChildNodes[c].Name == Sxxxx.Name)
+                                        shortName = Sxxxx.Attributes["shortName"].Value;
+                                }
 
                                 w.WriteLine("<tr><td style=\"min-width: 200px\"></td>");
                                 w.WriteLine("<td style=\"min-width: 200px\"></td>");
-                                w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" + components.ChildNodes[c].Name + ": " +
-                                    percentOfScopePerComponent[c] + "%</i></td></tr>");
+                                w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" + components.ChildNodes[c].Name + 
+                                    ", " + shortName + ": "+ percentOfScope + "%</i></td>");
+
+                                double percentOfDone = (((float)donePerComponent[c] / (float)t) * 100);
+                                percentOfDone = Math.Round(percentOfDone, 1);
+
+                                w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" +
+                                    percentOfDone + "%</i></td>");
+
+                                w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" +
+                                    components.ChildNodes[c].Attributes["unplanned"].Value + "</i></td></tr>");
                             }
                         }
 
                         for (int c = 0; c < noOfComponents; c++)
                             donePerComponent[c] -= int.Parse(sprints.ChildNodes[i].ChildNodes[c].Attributes["done"].Value);
 
-                        total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
-                        total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
+                       // total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
+                       // total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
                     }
                     w.WriteLine("</table>");
                     w.WriteLine("<i style=\"color: darkgray\"><sup>*</sup>Scope and Completed measured in points. For simplicity, 1 point is usually 1 hour</i>");
@@ -213,7 +230,10 @@ namespace S1084_AutoRelease
                             {
                                 description = softwareProject.InnerText;
                                 platform = softwareProject.Attributes["platform"].Value;
-                                w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + "</th><td style=\"min-width: 200px\", \"padding:8px\">" + platform + "</td><td style=\"padding:8px\">" + description + "</td></tr>");
+                                w.WriteLine("<tr><th style=\"padding:8px\">" + Sxxxx.Name + 
+                                    "</th><td style=\"min-width: 200px\", \"padding:8px\">" +
+                                     softwareProject.Attributes["shortName"].Value + "</td><td style=\"padding:8px\">" +
+                                    platform + "</td><td style=\"padding:8px\">" + description + "</td></tr>");
                                 break;
                             }
                         }
