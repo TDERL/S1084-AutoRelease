@@ -283,7 +283,7 @@ namespace S1084_AutoRelease
             DataGridView d = (DataGridView)sender;
             
             int rowIndex = d.SelectedCells[0].RowIndex;
-            EditSubProject edit = new EditSubProject(db, TableOfSxxxx.Rows[rowIndex].Cells[0].Value.ToString());
+            EditSoftwareComponent edit = new EditSoftwareComponent(db, TableOfSxxxx.Rows[rowIndex].Cells[0].Value.ToString());
         }
     }
 }

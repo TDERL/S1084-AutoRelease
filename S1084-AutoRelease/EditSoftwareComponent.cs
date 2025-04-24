@@ -7,18 +7,17 @@ using System.Xml;
 
 namespace S1084_AutoRelease
 {
-    internal class EditSubProject
+    internal class EditSoftwareComponent
     {
-        public EditSubProject(XmlDocument db, string projectName)
+        public EditSoftwareComponent(XmlDocument db, string projectName)
         {
             XmlElement SoftwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
-            AddSoftwareComponent Sxxxx = new AddSoftwareComponent(projectName);
+//            AddSoftwareComponent Sxxxx = new AddSoftwareComponent(projectName);
+            AddSoftwareComponent Sxxxx = new AddSoftwareComponent();
             XmlNode node = SoftwareProjects.GetElementsByTagName(projectName)[0];
             Sxxxx.number = node.Name;
             Sxxxx.shortName = node.Attributes["shortName"].Value;
             Sxxxx.platform = node.Attributes["platform"].Value;
-            Sxxxx.outputType = node.Attributes["outputType"].Value;
-            Sxxxx.outputPath = node.Attributes["outputPath"].Value;
             Sxxxx.active = node.Attributes["active"].Value;
             Sxxxx.description = node.InnerText;
             Sxxxx.Refresh();
@@ -28,8 +27,6 @@ namespace S1084_AutoRelease
             {
                 node.Attributes["shortName"].Value = Sxxxx.shortName;
                 node.Attributes["platform"].Value = Sxxxx.platform;
-                node.Attributes["outputType"].Value = Sxxxx.outputType;
-                node.Attributes["outputPath"].Value = Sxxxx.outputPath;
                 node.Attributes["active"].Value = Sxxxx.active;
                 node.InnerText = Sxxxx.description;
                 db.Save(db.DocumentElement.GetAttribute("path"));

@@ -106,14 +106,14 @@ namespace S1084_AutoRelease
             //var result = releaseType.ShowDialog();
             //if (result == DialogResult.Yes)
             //{
-                NormalRelease normalRelease = new NormalRelease(db, ProjectListComboBox.Text);
+            NormalRelease normalRelease = new NormalRelease(db, ProjectListComboBox.Text);
 
-                if (normalRelease.Required())
-                    normalRelease.Show();
+            if (normalRelease.Required())
+                normalRelease.Show();
             //}
             //else if (result == DialogResult.Ignore)
             //{
-                // Mid release
+            // Mid release
             //    result = 0;
             //}
         }
@@ -135,7 +135,7 @@ namespace S1084_AutoRelease
 
             if (SoftwareProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
             {
-                EditSubProject edit = new EditSubProject(db, SubProjectListComboBox.Text);
+                EditSoftwareComponent edit = new EditSoftwareComponent(db, SubProjectListComboBox.Text);
             }
         }
 
@@ -178,6 +178,24 @@ namespace S1084_AutoRelease
             {
                 generate.ProjectProgress(db, project);
             }
+        }
+
+        private void AddHWComponentButton_Click(object sender, EventArgs e)
+        {
+            AddHardwareComponent Sxxxx = new AddHardwareComponent();
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                XmlElement xmlHardwareComponent = db.CreateElement(Sxxxx.number);
+                xmlHardwareComponent.SetAttribute("shortName", Sxxxx.shortName);
+                xmlHardwareComponent.SetAttribute("active", Sxxxx.active);
+                xmlHardwareComponent.InnerText = Sxxxx.description;
+                db.GetElementsByTagName("HardwareProjects")[0].AppendChild(xmlHardwareComponent);
+                db.Save(db.DocumentElement.GetAttribute("path"));
+
+                RefreshSubProjectListComboBox();
+            }
+
         }
     }
 }

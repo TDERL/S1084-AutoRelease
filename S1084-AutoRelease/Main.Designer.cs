@@ -242,6 +242,7 @@
             AddHWComponentButton.TabIndex = 3;
             AddHWComponentButton.Text = "Add New HW Component";
             AddHWComponentButton.UseVisualStyleBackColor = false;
+            AddHWComponentButton.Click += AddHWComponentButton_Click;
             // 
             // Main
             // 
