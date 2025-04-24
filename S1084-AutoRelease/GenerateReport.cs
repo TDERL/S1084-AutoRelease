@@ -21,6 +21,7 @@ namespace S1084_AutoRelease
         {
             XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
             XmlElement software = (XmlElement)project.GetElementsByTagName("Software")[0];
+            XmlElement hardware = (XmlElement)project.GetElementsByTagName("Hardware")[0];
             XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
             XmlElement SoftwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
 
@@ -109,10 +110,26 @@ namespace S1084_AutoRelease
                         percentCompletedPerSprint[i] = 0;
                     }
 
+                    int noOfComponents = 0;
+                    int[] donePerComponent = new int[0];
+                    double[] percentOfScopePerComponent = new double[0];
+
+                    if (sprints.ChildNodes[0] != null)
+                    {
+                        donePerComponent = new int[sprints.ChildNodes[0].ChildNodes.Count];
+                        percentOfScopePerComponent = new double[sprints.ChildNodes[0].ChildNodes.Count];
+                        noOfComponents = sprints.ChildNodes[0].ChildNodes.Count;
+                    }
+
+                    for (int i = 0; i < noOfComponents; i++)
+                    {
+                        donePerComponent[i] = 0;
+                        percentOfScopePerComponent[i] = 0;
+                    }
+
                     total = 0;
                     completed = 0;
 
-                    //foreach (XmlNode sprint in sprints.ChildNodes)
                     for (int i = 0; i < sprints.ChildNodes.Count; i++)
                     {
                         total += int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
@@ -126,6 +143,12 @@ namespace S1084_AutoRelease
 
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
+
+                        //*****************
+                        //
+                        // Calculate running total of done points for each component
+                        for (int c = 0; c < noOfComponents; c++)
+                            donePerComponent[c] += int.Parse(sprints.ChildNodes[i].ChildNodes[c].Attributes["done"].Value);
                     }
 
                     for (int i = (sprints.ChildNodes.Count - 1); i >= 0; i--)
@@ -140,6 +163,31 @@ namespace S1084_AutoRelease
                         w.WriteLine("<td style=\"min-width: 200px\">" + totalPerSprint[i] + "</td>");
                         w.WriteLine("<td style=\"min-width: 200px\">" + completedPerSprint[i] + " (" + percentCompletedPerSprint[i] + "%)</td>");
                         w.WriteLine("<td style=\"min-width: 200px\">" + sprints.ChildNodes[i].Attributes["unplanned"].Value + "</td></tr>");
+
+                        //*********************
+                        //
+                        // Add in the metrics for the individual components
+                        if (noOfComponents > 0)
+                        {
+                            XmlElement components = (XmlElement)sprints.ChildNodes[i];
+                            for (int c = 0; c < components.ChildNodes.Count; c++)
+                            {
+                                int t = int.Parse(components.ChildNodes[c].Attributes["todo"].Value);
+                                t += int.Parse(components.ChildNodes[c].Attributes["inProgress"].Value);
+                                t += donePerComponent[c];
+
+                                percentOfScopePerComponent[c] = (((float)t / (float)totalPerSprint[i]) * 100);
+                                percentOfScopePerComponent[c] = Math.Round(percentOfScopePerComponent[c], 1);
+
+                                w.WriteLine("<tr><td style=\"min-width: 200px\"></td>");
+                                w.WriteLine("<td style=\"min-width: 200px\"></td>");
+                                w.WriteLine("<td style=\"min-width: 200px; color: darkgray\"><i>" + components.ChildNodes[c].Name + ": " +
+                                    percentOfScopePerComponent[c] + "%</i></td></tr>");
+                            }
+                        }
+
+                        for (int c = 0; c < noOfComponents; c++)
+                            donePerComponent[c] -= int.Parse(sprints.ChildNodes[i].ChildNodes[c].Attributes["done"].Value);
 
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
@@ -206,15 +254,10 @@ namespace S1084_AutoRelease
             }
         }
 
-        public void SoftwareComponents(XmlDocument db)
-        {
-
-        }
-
+ 
         public void ReportHomePage(XmlDocument db)
         {
             XmlElement projects = (XmlElement)db.GetElementsByTagName("Projects")[0];
-            //XmlElement sprints = (XmlElement)projects.GetElementsByTagName("Sprints")[0];
             XmlElement SoftwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
 
             Paths paths = new Paths(db);
@@ -224,7 +267,6 @@ namespace S1084_AutoRelease
             {
                 using (StreamWriter w = new StreamWriter(fs))
                 {
-                    //XmlNode node = db.SelectSingleNode("Project");
                     w.WriteLine("<!DOCTYPE html>");
                     w.WriteLine("<html>");
                     w.WriteLine("<style>");
