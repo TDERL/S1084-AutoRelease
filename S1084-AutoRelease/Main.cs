@@ -16,6 +16,7 @@ namespace S1084_AutoRelease
             EditProjectButton.Enabled = false;
             ReleaseButton.Enabled = false;
             EditSubProjectButton.Enabled = false;
+            EditHWComponentButton.Enabled = false;
 
 
             string drive = "\\\\ENERGYFP\\General";
@@ -127,6 +128,12 @@ namespace S1084_AutoRelease
 
             foreach (XmlNode node in db.GetElementsByTagName("SoftwareProjects")[0])
                 SubProjectListComboBox.Items.Add(node.Name);
+
+
+            HardwareComponentsComboBox.Items.Clear();
+
+            foreach (XmlNode node in db.GetElementsByTagName("HardwareProjects")[0])
+                HardwareComponentsComboBox.Items.Add(node.Name);
         }
 
         private void EditSubProjectButton_Click(object sender, EventArgs e)
@@ -196,6 +203,24 @@ namespace S1084_AutoRelease
                 RefreshSubProjectListComboBox();
             }
 
+        }
+
+        private void EditHWComponentButton_Click(object sender, EventArgs e)
+        {
+            XmlElement HardwareProjects = (XmlElement)db.GetElementsByTagName("HardwareProjects")[0];
+
+            if (HardwareProjects.GetElementsByTagName(HardwareComponentsComboBox.Text)[0] != null)
+            {
+                EditHardwareComponent edit = new EditHardwareComponent(db, HardwareComponentsComboBox.Text);
+            }
+        }
+
+        private void HardwareComponentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (HardwareComponentsComboBox.Text != "")
+            {
+                EditHWComponentButton.Enabled = true;
+            }
         }
     }
 }

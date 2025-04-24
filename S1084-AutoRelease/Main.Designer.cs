@@ -45,7 +45,7 @@
             groupBox3 = new GroupBox();
             label3 = new Label();
             EditHWComponentButton = new Button();
-            comboBox1 = new ComboBox();
+            HardwareComponentsComboBox = new ComboBox();
             AddHWComponentButton = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -194,7 +194,7 @@
             // 
             groupBox3.Controls.Add(label3);
             groupBox3.Controls.Add(EditHWComponentButton);
-            groupBox3.Controls.Add(comboBox1);
+            groupBox3.Controls.Add(HardwareComponentsComboBox);
             groupBox3.Controls.Add(AddHWComponentButton);
             groupBox3.Location = new Point(439, 26);
             groupBox3.Name = "groupBox3";
@@ -222,15 +222,17 @@
             EditHWComponentButton.TabIndex = 5;
             EditHWComponentButton.Text = "Edit HW Component";
             EditHWComponentButton.UseVisualStyleBackColor = false;
+            EditHWComponentButton.Click += EditHWComponentButton_Click;
             // 
-            // comboBox1
+            // HardwareComponentsComboBox
             // 
-            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(26, 148);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(119, 29);
-            comboBox1.TabIndex = 4;
+            HardwareComponentsComboBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            HardwareComponentsComboBox.FormattingEnabled = true;
+            HardwareComponentsComboBox.Location = new Point(26, 148);
+            HardwareComponentsComboBox.Name = "HardwareComponentsComboBox";
+            HardwareComponentsComboBox.Size = new Size(119, 29);
+            HardwareComponentsComboBox.TabIndex = 4;
+            HardwareComponentsComboBox.SelectedIndexChanged += HardwareComponentsComboBox_SelectedIndexChanged;
             // 
             // AddHWComponentButton
             // 
@@ -282,7 +284,7 @@
         private GroupBox groupBox3;
         private Label label3;
         private Button EditHWComponentButton;
-        private ComboBox comboBox1;
+        private ComboBox HardwareComponentsComboBox;
         private Button AddHWComponentButton;
     }
 }
