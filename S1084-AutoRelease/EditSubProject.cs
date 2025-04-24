@@ -12,7 +12,7 @@ namespace S1084_AutoRelease
         public EditSubProject(XmlDocument db, string projectName)
         {
             XmlElement SoftwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
-            AddSubProject Sxxxx = new AddSubProject(projectName);
+            AddSoftwareComponent Sxxxx = new AddSoftwareComponent(projectName);
             XmlNode node = SoftwareProjects.GetElementsByTagName(projectName)[0];
             Sxxxx.number = node.Name;
             Sxxxx.shortName = node.Attributes["shortName"].Value;

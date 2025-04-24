@@ -147,35 +147,22 @@ namespace S1084_AutoRelease
             }
         }
 
-        private string CalculateNewSubProjectNumber()
-        {
-            var noOfSubProjects = SubProjectListComboBox.Items.Count;
 
-            if (noOfSubProjects == 0)
-                return "S1049";
-
-            string last = SubProjectListComboBox.Items[noOfSubProjects - 1].ToString();
-            last = last.Substring(1); // Remove 1st char (IE remove the 'S')
-            int x = Int32.Parse(last);
-            x += 1;
-            last = "S" + x.ToString();
-            return last;
-        }
-
+        // Name is now a little miss-leading. It no longer auto generates the next number, but simply
+        // askes user to enter the number, which they get from Excel Catalogue at:
+        // C:\Users\<user name>\ENERGY RESEARCH LAB LTD\ENERGY RESEARCH LAB LTD. - Documents\Catalogues
         private void CreateSubProjectButton_Click(object sender, EventArgs e)
         {
-            AddSubProject Sxxxx = new AddSubProject(CalculateNewSubProjectNumber());
+            AddSoftwareComponent Sxxxx = new AddSoftwareComponent();
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)
             {
-                XmlElement xmlSubProject = db.CreateElement(Sxxxx.number);
-                xmlSubProject.SetAttribute("shortName", Sxxxx.shortName);
-                xmlSubProject.SetAttribute("platform", Sxxxx.platform);
-                xmlSubProject.SetAttribute("outputType", Sxxxx.outputType);
-                xmlSubProject.SetAttribute("outputPath", Sxxxx.outputPath);
-                xmlSubProject.SetAttribute("active", Sxxxx.active);
-                xmlSubProject.InnerText = Sxxxx.description;
-                db.GetElementsByTagName("SoftwareProjects")[0].AppendChild(xmlSubProject);
+                XmlElement xmlSoftwareComponent = db.CreateElement(Sxxxx.number);
+                xmlSoftwareComponent.SetAttribute("shortName", Sxxxx.shortName);
+                xmlSoftwareComponent.SetAttribute("platform", Sxxxx.platform);
+                xmlSoftwareComponent.SetAttribute("active", Sxxxx.active);
+                xmlSoftwareComponent.InnerText = Sxxxx.description;
+                db.GetElementsByTagName("SoftwareProjects")[0].AppendChild(xmlSoftwareComponent);
                 db.Save(db.DocumentElement.GetAttribute("path"));
 
                 RefreshSubProjectListComboBox();

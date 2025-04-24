@@ -42,8 +42,14 @@
             SubProjectListComboBox = new ComboBox();
             GenerateReportButton = new Button();
             MainToolTip = new ToolTip(components);
+            groupBox3 = new GroupBox();
+            label3 = new Label();
+            EditHWComponentButton = new Button();
+            comboBox1 = new ComboBox();
+            AddHWComponentButton = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // CreateProjectButton
@@ -88,7 +94,7 @@
             CreateSubProjectButton.Name = "CreateSubProjectButton";
             CreateSubProjectButton.Size = new Size(119, 66);
             CreateSubProjectButton.TabIndex = 3;
-            CreateSubProjectButton.Text = "Add New Sub-Project";
+            CreateSubProjectButton.Text = "Add New SW Component";
             CreateSubProjectButton.UseVisualStyleBackColor = false;
             CreateSubProjectButton.Click += CreateSubProjectButton_Click;
             // 
@@ -138,7 +144,7 @@
             groupBox2.Size = new Size(174, 287);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Sub-Projects (Sxxxx)";
+            groupBox2.Text = "Software Components (Sxxxx)";
             // 
             // label2
             // 
@@ -157,7 +163,7 @@
             EditSubProjectButton.Name = "EditSubProjectButton";
             EditSubProjectButton.Size = new Size(119, 66);
             EditSubProjectButton.TabIndex = 5;
-            EditSubProjectButton.Text = "Edit Sub-Project";
+            EditSubProjectButton.Text = "Edit SW Component";
             EditSubProjectButton.UseVisualStyleBackColor = false;
             EditSubProjectButton.Click += EditSubProjectButton_Click;
             // 
@@ -173,7 +179,7 @@
             // 
             // GenerateReportButton
             // 
-            GenerateReportButton.BackColor = Color.FromArgb(192, 255, 192);
+            GenerateReportButton.BackColor = Color.FromArgb(255, 192, 192);
             GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             GenerateReportButton.Location = new Point(258, 319);
             GenerateReportButton.Name = "GenerateReportButton";
@@ -184,11 +190,65 @@
             GenerateReportButton.UseVisualStyleBackColor = false;
             GenerateReportButton.Click += GenerateReportButton_Click;
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(label3);
+            groupBox3.Controls.Add(EditHWComponentButton);
+            groupBox3.Controls.Add(comboBox1);
+            groupBox3.Controls.Add(AddHWComponentButton);
+            groupBox3.Location = new Point(439, 26);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(174, 287);
+            groupBox3.TabIndex = 8;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Hardware Components (EDAxxxx)";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(26, 130);
+            label3.Name = "label3";
+            label3.Size = new Size(103, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Or select from list:";
+            // 
+            // EditHWComponentButton
+            // 
+            EditHWComponentButton.BackColor = Color.FromArgb(255, 224, 192);
+            EditHWComponentButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            EditHWComponentButton.Location = new Point(26, 201);
+            EditHWComponentButton.Name = "EditHWComponentButton";
+            EditHWComponentButton.Size = new Size(119, 66);
+            EditHWComponentButton.TabIndex = 5;
+            EditHWComponentButton.Text = "Edit HW Component";
+            EditHWComponentButton.UseVisualStyleBackColor = false;
+            // 
+            // comboBox1
+            // 
+            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(26, 148);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(119, 29);
+            comboBox1.TabIndex = 4;
+            // 
+            // AddHWComponentButton
+            // 
+            AddHWComponentButton.BackColor = Color.FromArgb(255, 255, 192);
+            AddHWComponentButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            AddHWComponentButton.Location = new Point(26, 44);
+            AddHWComponentButton.Name = "AddHWComponentButton";
+            AddHWComponentButton.Size = new Size(119, 66);
+            AddHWComponentButton.TabIndex = 3;
+            AddHWComponentButton.Text = "Add New HW Component";
+            AddHWComponentButton.UseVisualStyleBackColor = false;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(440, 455);
+            ClientSize = new Size(687, 455);
+            Controls.Add(groupBox3);
             Controls.Add(GenerateReportButton);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -198,6 +258,8 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -216,5 +278,10 @@
         private Button ReleaseButton;
         private Button GenerateReportButton;
         private ToolTip MainToolTip;
+        private GroupBox groupBox3;
+        private Label label3;
+        private Button EditHWComponentButton;
+        private ComboBox comboBox1;
+        private Button AddHWComponentButton;
     }
 }
