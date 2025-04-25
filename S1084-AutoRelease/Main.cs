@@ -209,5 +209,14 @@ namespace S1084_AutoRelease
                 EditHWComponentButton.Enabled = true;
             }
         }
+
+        private void GenerateSingleReportButton_Click(object sender, EventArgs e)
+        {
+            GenerateReport generate = new GenerateReport();
+            generate.ReportHomePage(db);
+
+            if (ProjectListComboBox.Text != "")
+                generate.ProjectProgress(db, ProjectListComboBox.Text);
+        }
     }
 }

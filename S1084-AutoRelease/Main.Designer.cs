@@ -47,6 +47,7 @@
             EditHWComponentButton = new Button();
             HardwareComponentsComboBox = new ComboBox();
             AddHWComponentButton = new Button();
+            GenerateSingleReportButton = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -100,6 +101,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(GenerateSingleReportButton);
             groupBox1.Controls.Add(ReleaseButton);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(CreateProjectButton);
@@ -107,7 +109,7 @@
             groupBox1.Controls.Add(ProjectListComboBox);
             groupBox1.Location = new Point(24, 26);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(174, 379);
+            groupBox1.Size = new Size(174, 472);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Projects";
@@ -181,11 +183,11 @@
             // 
             GenerateReportButton.BackColor = Color.FromArgb(255, 192, 192);
             GenerateReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GenerateReportButton.Location = new Point(258, 319);
+            GenerateReportButton.Location = new Point(258, 362);
             GenerateReportButton.Name = "GenerateReportButton";
             GenerateReportButton.Size = new Size(119, 66);
             GenerateReportButton.TabIndex = 7;
-            GenerateReportButton.Text = "Generate Reports";
+            GenerateReportButton.Text = "Generate All Reports";
             MainToolTip.SetToolTip(GenerateReportButton, "Click to generate an updated HTML report of all Sub-Projects");
             GenerateReportButton.UseVisualStyleBackColor = false;
             GenerateReportButton.Click += GenerateReportButton_Click;
@@ -246,11 +248,24 @@
             AddHWComponentButton.UseVisualStyleBackColor = false;
             AddHWComponentButton.Click += AddHWComponentButton_Click;
             // 
+            // GenerateSingleReportButton
+            // 
+            GenerateSingleReportButton.BackColor = Color.FromArgb(255, 192, 192);
+            GenerateSingleReportButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GenerateSingleReportButton.Location = new Point(24, 383);
+            GenerateSingleReportButton.Name = "GenerateSingleReportButton";
+            GenerateSingleReportButton.Size = new Size(119, 66);
+            GenerateSingleReportButton.TabIndex = 9;
+            GenerateSingleReportButton.Text = "Generate Report";
+            MainToolTip.SetToolTip(GenerateSingleReportButton, "Click to generate an updated HTML report of all Sub-Projects");
+            GenerateSingleReportButton.UseVisualStyleBackColor = false;
+            GenerateSingleReportButton.Click += GenerateSingleReportButton_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(687, 455);
+            ClientSize = new Size(687, 510);
             Controls.Add(groupBox3);
             Controls.Add(GenerateReportButton);
             Controls.Add(groupBox2);
@@ -286,5 +301,6 @@
         private Button EditHWComponentButton;
         private ComboBox HardwareComponentsComboBox;
         private Button AddHWComponentButton;
+        private Button GenerateSingleReportButton;
     }
 }
