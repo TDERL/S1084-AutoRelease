@@ -130,157 +130,50 @@ namespace S1084_AutoRelease
 
         private void OkayButton_Click(object sender, EventArgs e)
         {
-            if ((BacklogTextBox.Text == "") ||
-                (ToDoTextBox.Text == "") ||
-                (InProgressTextBox.Text == "") ||
-                (DoneTextBox.Text == ""))
-            {
-                MessageBox.Show("Numerical value must be entered in all four fields", "ERROR");
-                return;
-            }
+            int Row = 0;
+            int Name = 0;
+            int Backlog = 1;
+            int ToDo = 2;
+            int InProgress = 3;
+            int Done = 4;
+
+            string name = (string)ComponentsTable.Rows[Row].Cells[Name].Value.ToString();
+            string backlog = (string)ComponentsTable.Rows[Row].Cells[Backlog].Value.ToString();
+            string toDo = (string)ComponentsTable.Rows[Row].Cells[ToDo].Value.ToString();
+            string inProgress = (string)ComponentsTable.Rows[Row].Cells[InProgress].Value.ToString();
+            string done = (string)ComponentsTable.Rows[Row].Cells[Done].Value.ToString();
 
             this.DialogResult = DialogResult.Abort;
 
             XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
             XmlNode software = project.GetElementsByTagName("Software")[0];
 
-            //if (software == null)
-            //{
-            //    MessageBox.Show("Release process aborted: There is no software included in " + projectName);
-            //    this.Close();
-            //}
-
-            //MessageBox.Show("Please be patient, this may take a few seconds");
-
-            //// STEP 1 - Check out Develop Branch and make sure it is up to date
-            //string repoPath = db.GetElementsByTagName(projectName)[0].Attributes["repoPath"].Value;
-
-            //using (PowerShell powershell = PowerShell.Create())
-            //{
-            //    powershell.AddScript($"cd {repoPath}");
-            //    powershell.AddScript(@"git fetch");
-            //    powershell.AddScript(@"git checkout Develop");
-
-            //    Collection<PSObject> results = powershell.Invoke();
-
-            //    string[] response = results[0].BaseObject.ToString().Split("'");
-
-            //    if (response[0] == "Your branch is behind ")
-            //    {
-            //        powershell.AddScript(@"git pull");
-            //        powershell.Invoke();
-            //        this.DialogResult = DialogResult.OK;
-            //    }
-            //    else if (response[0] == "Your branch is up to date with ")
-            //    {
-            //        this.DialogResult = DialogResult.OK;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Release process aborted:\n\n" + response[0]);
-            //    }
-
-
-            //    // STEP 2 - Tag Develop Branch with latest release version
-            //    // Only continue if fetching and updating Develop branch was successful
-            //    if (this.DialogResult == DialogResult.OK)
-            //    {
-            //        powershell.AddScript($"git tag {version}");
-            //        powershell.AddScript(@"git push origin --tags");
-            //        results = powershell.Invoke();
-
-            //        // STEP 3 - Tell user to build: Would be much nicer if we could auto build.
-            //        string message = "WARNING: ONLY Click OK AFTER building ALL software!\n\nPlease Build/Compile:\n\n";
-
-            //        XmlElement softwareProjects = (XmlElement)db.GetElementsByTagName("SoftwareProjects")[0];
-
-            //        foreach (XmlNode Sxxxx in software)
-            //        {
-            //            bool ok = false;
-
-            //            foreach (XmlNode softwareProject in softwareProjects)
-            //            {
-            //                if (Sxxxx.Name == softwareProject.Name)
-            //                {
-            //                    ok = true;
-
-            //                    if (softwareProject.Attributes["outputType"].Value != "TBD")
-            //                    {
-            //                        message += Sxxxx.Name;
-            //                        message += "\n";
-            //                    }
-
-            //                    break;
-            //                }
-
-            //            }
-
-            //            if (ok == false)
-            //            {
-            //                MessageBox.Show("Release process aborted: Unknown software " + Sxxxx.Name);
-            //                this.Close();
-            //            }
-            //        }
-
-            //        if (MessageBox.Show(message, "Build", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
-            //        {
-            //            MessageBox.Show("Release process aborted: User chose not to build software");
-            //        }
-            //        else
-            //        {
-            //            // Here we have to assume user has built all software as requested
-            //            // STEP 4 - Archive current releases and save a copy of new output files to the releases folders
-            //            foreach (XmlNode Sxxxx in software)
-            //            {
-            //                foreach (XmlNode softwareProject in softwareProjects)
-            //                {
-            //                    if (Sxxxx.Name == softwareProject.Name)
-            //                    {
-            //                        // Found the right Software Project, so can now get all the paths needed to release
-
-            //                        string fileExtension = softwareProject.Attributes["outputType"].Value;
-            //                        string outputPath = softwareProject.Attributes["outputPath"].Value;
-            //                        //string archivePath = releasesPath + "\\Archive";
-
-            //                        // If ext or output path are TBD then don't try to release it
-            //                        //if ((fileExtension != "TBD") && (outputPath != "TBD")) // TODO: Replace this with a active status attribute
-            //                        //if (softwareProject.Attributes["active"].Value == "active")
-            //                        if (Sxxxx.Attributes["included"].Value == "yes")
-            //                        {
-            //                            string desc = db.GetElementsByTagName(projectName)[0].Attributes["desName"].Value;
-            //                            Paths paths = new Paths(db);
-            //                            string releasesPath = paths.GetReleases(projectName) + version + "\\" + Sxxxx.Name + " - " + softwareProject.Attributes["shortName"].Value;
-            //                            Directory.CreateDirectory(releasesPath); // Just a little belts 'n' braces
-
-            //                            // STEP 4a - Archive
-            //                            //string[] files = Directory.GetFiles(releasesPath, "*" + fileExtension);
-
-            //                            //foreach (var file in files)
-            //                            //    File.Move(file, Path.Combine(archivePath, Path.GetFileName(file)));
-
-            //                            // STEP 4 - Release
-            //                            string[] files = Directory.GetFiles(outputPath, "*" + fileExtension);
-
-            //                            foreach (var file in files)
-            //                            {
-            //                                string newFileName = Path.GetFileName(file).Split('.')[0] + "__" + Sxxxx.Name + "-" + version + fileExtension;
-            //                                File.Copy(Path.Combine(outputPath, Path.GetFileName(file)), Path.Combine(releasesPath, newFileName));
-            //                            }
-            //                        }
-            //                     }
-
-            //                }
-            //            }
-            //            
-
-            // Final STEP - Add release to XML DB and generate a new progress/releases report
             XmlElement newRelease = db.CreateElement(version);
             newRelease.SetAttribute("date", DateOnly.FromDateTime(DateTime.Now).ToString());
-            newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
-            newRelease.SetAttribute("todo", ToDoTextBox.Text);
-            newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
-            newRelease.SetAttribute("done", DoneTextBox.Text);
+            newRelease.SetAttribute("unplanned", backlog);
+            newRelease.SetAttribute("todo", toDo);
+            newRelease.SetAttribute("inProgress", inProgress);
+            newRelease.SetAttribute("done", done);
+
+            // Now add all the individual components
+            for (Row = 1; Row < (ComponentsTable.Rows.Count - 1); Row++)
+            {
+                name = (string)ComponentsTable.Rows[Row].Cells[Name].Value.ToString();
+                backlog = (string)ComponentsTable.Rows[Row].Cells[Backlog].Value.ToString();
+                toDo = (string)ComponentsTable.Rows[Row].Cells[ToDo].Value.ToString();
+                inProgress = (string)ComponentsTable.Rows[Row].Cells[InProgress].Value.ToString();
+                done = (string)ComponentsTable.Rows[Row].Cells[Done].Value.ToString();
+
+                XmlElement comp = db.CreateElement(name);
+                comp.SetAttribute("unplanned", backlog);
+                comp.SetAttribute("todo", toDo);
+                comp.SetAttribute("inProgress", inProgress);
+                comp.SetAttribute("done", done);
+                newRelease.AppendChild(comp);
+            }
+
             project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
+
             db.Save(db.DocumentElement.GetAttribute("path"));
 
             GenerateReport generate = new GenerateReport();
