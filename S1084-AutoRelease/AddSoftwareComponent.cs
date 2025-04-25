@@ -13,30 +13,25 @@ using System.Xml;
 
 namespace S1084_AutoRelease
 {
-    public partial class AddSubProject : Form
+    public partial class AddSoftwareComponent : Form
     {
-        public string number = "";
+        public string number = "S";
         public string shortName = "";
         public string platform = "";
         public string description = "";
-        public string outputType = "Please enter a .extension";
-        public string outputPath = "Please enter path";
         public string active = "inactive";
 
-        public AddSubProject(string number)
+        public AddSoftwareComponent()
         {
             InitializeComponent();
-            SoftwareNumberLabel.Text = number;
-            this.number = number;
         }
+
         public void Refresh()
         {
-            SoftwareNumberLabel.Text = number;
+            SoftwareNumberTextBox.Text = number;
             SoftwareNameTextBox.Text = shortName;
             PlaftormTextBox.Text = platform;
             DescriptionTextBox.Text = description;
-            OutputTypeTextBox.Text = outputType;
-            OutputPathTextBox.Text = outputPath;
 
             if (active == "inactive")
                 ActiveCheckBox.Checked = false;
@@ -52,34 +47,19 @@ namespace S1084_AutoRelease
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            number = SoftwareNumberLabel.Text;
+            number = SoftwareNumberTextBox.Text;
             shortName = SoftwareNameTextBox.Text;
             platform = PlaftormTextBox.Text;
             description = DescriptionTextBox.Text;
-            outputType = OutputTypeTextBox.Text;
-            outputPath = OutputPathTextBox.Text;
 
             if (ActiveCheckBox.Checked == false)
                 active = "inactive";
             else
                 active = "active";
 
-            if (number == "Please enter number")
+            if (number == "S")
             {
                 MessageBox.Show("Please enter the Sxxxx number for the sub-project (and ONLY the Sxxxx number)");
-                return;
-            }
-
-            //Please enter a.extension
-            if (outputType == "")
-            {
-                MessageBox.Show("Please enter a valid file extension, including the dot [EG .bin]");
-                return;
-            }
-
-            if (outputPath == "")
-            {
-                MessageBox.Show("Please enter a valid directory path [C:\\...]");
                 return;
             }
 

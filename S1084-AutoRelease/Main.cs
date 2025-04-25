@@ -16,6 +16,7 @@ namespace S1084_AutoRelease
             EditProjectButton.Enabled = false;
             ReleaseButton.Enabled = false;
             EditSubProjectButton.Enabled = false;
+            EditHWComponentButton.Enabled = false;
 
 
             string drive = "\\\\ENERGYFP\\General";
@@ -33,10 +34,10 @@ namespace S1084_AutoRelease
                 }
             }
 
-            string xmlPath = drive + "\\ERL-Software-Products\\DB\\ERL_Software_Database.xml";
+            string xmlPath = drive + "\\ERL-Software-Products\\ERL_Software_Database.xml";
             if (File.Exists(xmlPath) == false)
             {
-                Directory.CreateDirectory(drive + "\\ERL-Software-Products\\DB\\"); // Just a little belts 'n' braces
+                Directory.CreateDirectory(drive + "\\ERL-Software-Products\\"); // Just a little belts 'n' braces
                 XmlTextWriter writer = new XmlTextWriter(xmlPath, null);
                 writer.Formatting = Formatting.Indented;
                 writer.WriteStartDocument();
@@ -101,21 +102,8 @@ namespace S1084_AutoRelease
 
         private void ReleaseButton_Click(object sender, EventArgs e)
         {
-            ReleaseType releaseType = new ReleaseType();
-
-            var result = releaseType.ShowDialog();
-            if (result == DialogResult.Yes)
-            {
-                NormalRelease normalRelease = new NormalRelease(db, ProjectListComboBox.Text);
-
-                if (normalRelease.Required())
-                    normalRelease.Show();
-            }
-            else if (result == DialogResult.Ignore)
-            {
-                // Mid release
-                result = 0;
-            }
+            EndOfSprintReport normalRelease = new EndOfSprintReport(db, ProjectListComboBox.Text);
+            normalRelease.Show();
         }
 
         //*********************************************************
@@ -127,6 +115,12 @@ namespace S1084_AutoRelease
 
             foreach (XmlNode node in db.GetElementsByTagName("SoftwareProjects")[0])
                 SubProjectListComboBox.Items.Add(node.Name);
+
+
+            HardwareComponentsComboBox.Items.Clear();
+
+            foreach (XmlNode node in db.GetElementsByTagName("HardwareProjects")[0])
+                HardwareComponentsComboBox.Items.Add(node.Name);
         }
 
         private void EditSubProjectButton_Click(object sender, EventArgs e)
@@ -135,7 +129,7 @@ namespace S1084_AutoRelease
 
             if (SoftwareProjects.GetElementsByTagName(SubProjectListComboBox.Text)[0] != null)
             {
-                EditSubProject edit = new EditSubProject(db, SubProjectListComboBox.Text);
+                EditSoftwareComponent edit = new EditSoftwareComponent(db, SubProjectListComboBox.Text);
             }
         }
 
@@ -147,35 +141,22 @@ namespace S1084_AutoRelease
             }
         }
 
-        private string CalculateNewSubProjectNumber()
-        {
-            var noOfSubProjects = SubProjectListComboBox.Items.Count;
 
-            if (noOfSubProjects == 0)
-                return "S1049";
-
-            string last = SubProjectListComboBox.Items[noOfSubProjects - 1].ToString();
-            last = last.Substring(1); // Remove 1st char (IE remove the 'S')
-            int x = Int32.Parse(last);
-            x += 1;
-            last = "S" + x.ToString();
-            return last;
-        }
-
+        // Name is now a little miss-leading. It no longer auto generates the next number, but simply
+        // askes user to enter the number, which they get from Excel Catalogue at:
+        // C:\Users\<user name>\ENERGY RESEARCH LAB LTD\ENERGY RESEARCH LAB LTD. - Documents\Catalogues
         private void CreateSubProjectButton_Click(object sender, EventArgs e)
         {
-            AddSubProject Sxxxx = new AddSubProject(CalculateNewSubProjectNumber());
+            AddSoftwareComponent Sxxxx = new AddSoftwareComponent();
             var result = Sxxxx.ShowDialog();
             if (result == DialogResult.OK)
             {
-                XmlElement xmlSubProject = db.CreateElement(Sxxxx.number);
-                xmlSubProject.SetAttribute("shortName", Sxxxx.shortName);
-                xmlSubProject.SetAttribute("platform", Sxxxx.platform);
-                xmlSubProject.SetAttribute("outputType", Sxxxx.outputType);
-                xmlSubProject.SetAttribute("outputPath", Sxxxx.outputPath);
-                xmlSubProject.SetAttribute("active", Sxxxx.active);
-                xmlSubProject.InnerText = Sxxxx.description;
-                db.GetElementsByTagName("SoftwareProjects")[0].AppendChild(xmlSubProject);
+                XmlElement xmlSoftwareComponent = db.CreateElement(Sxxxx.number);
+                xmlSoftwareComponent.SetAttribute("shortName", Sxxxx.shortName);
+                xmlSoftwareComponent.SetAttribute("platform", Sxxxx.platform);
+                xmlSoftwareComponent.SetAttribute("active", Sxxxx.active);
+                xmlSoftwareComponent.InnerText = Sxxxx.description;
+                db.GetElementsByTagName("SoftwareProjects")[0].AppendChild(xmlSoftwareComponent);
                 db.Save(db.DocumentElement.GetAttribute("path"));
 
                 RefreshSubProjectListComboBox();
@@ -191,6 +172,51 @@ namespace S1084_AutoRelease
             {
                 generate.ProjectProgress(db, project);
             }
+        }
+
+        private void AddHWComponentButton_Click(object sender, EventArgs e)
+        {
+            AddHardwareComponent Sxxxx = new AddHardwareComponent();
+            var result = Sxxxx.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                XmlElement xmlHardwareComponent = db.CreateElement(Sxxxx.number);
+                xmlHardwareComponent.SetAttribute("shortName", Sxxxx.shortName);
+                xmlHardwareComponent.SetAttribute("active", Sxxxx.active);
+                xmlHardwareComponent.InnerText = Sxxxx.description;
+                db.GetElementsByTagName("HardwareProjects")[0].AppendChild(xmlHardwareComponent);
+                db.Save(db.DocumentElement.GetAttribute("path"));
+
+                RefreshSubProjectListComboBox();
+            }
+
+        }
+
+        private void EditHWComponentButton_Click(object sender, EventArgs e)
+        {
+            XmlElement HardwareProjects = (XmlElement)db.GetElementsByTagName("HardwareProjects")[0];
+
+            if (HardwareProjects.GetElementsByTagName(HardwareComponentsComboBox.Text)[0] != null)
+            {
+                EditHardwareComponent edit = new EditHardwareComponent(db, HardwareComponentsComboBox.Text);
+            }
+        }
+
+        private void HardwareComponentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (HardwareComponentsComboBox.Text != "")
+            {
+                EditHWComponentButton.Enabled = true;
+            }
+        }
+
+        private void GenerateSingleReportButton_Click(object sender, EventArgs e)
+        {
+            GenerateReport generate = new GenerateReport();
+            generate.ReportHomePage(db);
+
+            if (ProjectListComboBox.Text != "")
+                generate.ProjectProgress(db, ProjectListComboBox.Text);
         }
     }
 }

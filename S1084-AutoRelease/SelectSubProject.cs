@@ -23,6 +23,9 @@ namespace S1084_AutoRelease
 
             foreach (XmlNode node in db.GetElementsByTagName("SoftwareProjects")[0])
                 SubProjectsComboBox.Items.Add(node.Name);
+
+            foreach (XmlNode node in db.GetElementsByTagName("HardwareProjects")[0])
+                SubProjectsComboBox.Items.Add(node.Name);
         }
 
         private void SubProjectsComboBox_SelectedIndexChanged(object sender, EventArgs e)

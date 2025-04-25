@@ -80,6 +80,18 @@ namespace S1084_AutoRelease
                     }
                 }
 
+                XmlElement Hardware = (XmlElement)project.GetElementsByTagName("Hardware")[0];
+                if (Hardware != null)
+                {
+                    foreach (XmlNode node in Hardware)
+                    {
+                        if (node.Attributes["included"].Value == "yes")
+                            TableOfSxxxx.Rows.Add(node.Name, GetEDAxxxxAttributeFromName(node.Name, "shortName"), "NA", true);
+                        else
+                            TableOfSxxxx.Rows.Add(node.Name, GetEDAxxxxAttributeFromName(node.Name, "shortName"), "NA", false);
+                    }
+                }
+
                 XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
 
                 if (sprints != null)
@@ -145,6 +157,24 @@ namespace S1084_AutoRelease
             return retVal;
         }
 
+        private string GetEDAxxxxAttributeFromName(string EDAxxxx, string attribute)
+        {
+            string retVal = "";
+            foreach (XmlNode hardwareProject in db.GetElementsByTagName("HardwareProjects")[0].ChildNodes)
+            {
+                if (EDAxxxx == hardwareProject.Name)
+                {
+                    if (hardwareProject.Attributes[attribute] != null)
+                    {
+                        retVal = hardwareProject.Attributes[attribute].Value;
+                        break;
+                    }
+                }
+            }
+
+            return retVal;
+        }
+
 
         private bool SaveProject()
         {
@@ -181,17 +211,40 @@ namespace S1084_AutoRelease
             {
                 if (row.Cells[0].Value != null)
                 {
-                    XmlElement sub = db.CreateElement(row.Cells[0].Value.ToString());
+                    if (row.Cells[0].Value.ToString()[0] == 'S')
+                    {
+                        XmlElement sub = db.CreateElement(row.Cells[0].Value.ToString());
 
-                    string inc = "no";
-                    if ((bool)row.Cells[3].Value)
-                        inc = "yes";
+                        string inc = "no";
+                        if ((bool)row.Cells[3].Value)
+                            inc = "yes";
 
-                    sub.SetAttribute("included", inc);
-                    software.AppendChild(sub);
+                        sub.SetAttribute("included", inc);
+                        software.AppendChild(sub);
+                    }
                 }
             }
             project.AppendChild(software);
+
+            XmlElement hardware = db.CreateElement("Hardware");
+            foreach (DataGridViewRow row in TableOfSxxxx.Rows)
+            {
+                if (row.Cells[0].Value != null)
+                {
+                    if (row.Cells[0].Value.ToString()[0] == 'E')
+                    {
+                        XmlElement sub = db.CreateElement(row.Cells[0].Value.ToString());
+
+                        string inc = "no";
+                        if ((bool)row.Cells[3].Value)
+                            inc = "yes";
+
+                        sub.SetAttribute("included", inc);
+                        hardware.AppendChild(sub);
+                    }
+                }
+            }
+            project.AppendChild(hardware);
 
 
             XmlElement sprints = db.CreateElement("Sprints");
@@ -272,7 +325,12 @@ namespace S1084_AutoRelease
                     }
                 }
 
-                TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"), false);
+
+                if (name[0] == 'S')
+                    TableOfSxxxx.Rows.Add(name, GetSxxxxAttributeFromName(name, "shortName"), GetSxxxxAttributeFromName(name, "platform"), false);
+                else
+                    TableOfSxxxx.Rows.Add(name, GetEDAxxxxAttributeFromName(name, "shortName"), "NA", false);
+
                 UpdateTableOfSxxxxSize();
             }
         }
@@ -283,7 +341,7 @@ namespace S1084_AutoRelease
             DataGridView d = (DataGridView)sender;
             
             int rowIndex = d.SelectedCells[0].RowIndex;
-            EditSubProject edit = new EditSubProject(db, TableOfSxxxx.Rows[rowIndex].Cells[0].Value.ToString());
+            EditSoftwareComponent edit = new EditSoftwareComponent(db, TableOfSxxxx.Rows[rowIndex].Cells[0].Value.ToString());
         }
     }
 }
