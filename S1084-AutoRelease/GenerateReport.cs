@@ -114,19 +114,19 @@ namespace S1084_AutoRelease
                     
                     int noOfComponents = 0;
                     if (software != null)
-                        noOfComponents += software.ChildNodes.Count;
+                        noOfComponents = software.ChildNodes.Count;
 
                     if (hardware != null)
                         noOfComponents += hardware.ChildNodes.Count;
 
                     int[] donePerComponent = new int[noOfComponents];
-
                     for (int i = 0; i < noOfComponents; i++)
                         donePerComponent[i] = 0;
 
                     total = 0;
                     completed = 0;
 
+                    // Calculate total points and completed points per component per sprint
                     for (int i = 0; i < sprints.ChildNodes.Count; i++)
                     {
                         total += int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
@@ -141,14 +141,12 @@ namespace S1084_AutoRelease
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["todo"].Value);
                         total -= int.Parse(sprints.ChildNodes[i].Attributes["inProgress"].Value);
 
-                        //*****************
-                        //
-                        // Calculate running total of done points for each component
                         for (int c = 0; c < noOfComponents; c++)
                             if (sprints.ChildNodes[i].ChildNodes[c] != null)
                                 donePerComponent[c] += int.Parse(sprints.ChildNodes[i].ChildNodes[c].Attributes["done"].Value);
                     }
 
+                    // Write the totals to HTML table
                     for (int i = (sprints.ChildNodes.Count - 1); i >= 0; i--)
                     {
                         string releasePath = paths.GetReleases(projectName) + sprints.ChildNodes[i].Name + "\\ReleasedReport-" + sprints.ChildNodes[i].Name + ".html";
@@ -188,7 +186,7 @@ namespace S1084_AutoRelease
                             double percentOfScope = 0;
                             double percentageOfDone = 0;
 
-                            if (components != null)
+                            if (components.ChildNodes[c] != null)
                             {
                                 int t = int.Parse(components.ChildNodes[c].Attributes["todo"].Value);
                                 t += int.Parse(components.ChildNodes[c].Attributes["inProgress"].Value);
@@ -205,27 +203,36 @@ namespace S1084_AutoRelease
                             string shortName = "";
                             string description = "";
                             string platform = "NA";
+                            bool match = false;
 
-                            foreach (XmlNode Sxxxx in SoftwareProjects.ChildNodes)
+                            if (c < software.ChildNodes.Count)
                             {
-                                if (components.ChildNodes[c].Name == Sxxxx.Name)
+                                foreach (XmlNode Sxxxx in SoftwareProjects.ChildNodes)
                                 {
-                                    name = Sxxxx.Name;
-                                    shortName = Sxxxx.Attributes["shortName"].Value;
-                                    description = Sxxxx.InnerText;
-                                    platform = Sxxxx.Attributes["platform"].Value;
+                                    if (software.ChildNodes[c].Name == Sxxxx.Name)
+                                    {
+                                        name = Sxxxx.Name;
+                                        shortName = Sxxxx.Attributes["shortName"].Value;
+                                        description = Sxxxx.InnerText;
+                                        platform = Sxxxx.Attributes["platform"].Value;
+                                        match = true;
+                                        break;
+                                    }
                                 }
                             }
-
-                            if ((shortName == "") && (hardware != null))
+                            else // Must be a hardware component
                             {
+                                int h = c - software.ChildNodes.Count;
+
                                 foreach (XmlNode EDAxxxx in HardwareProjects.ChildNodes)
                                 {
-                                    if (components.ChildNodes[c].Name == EDAxxxx.Name)
+                                    if (hardware.ChildNodes[h].Name == EDAxxxx.Name)
                                     {
                                         name = EDAxxxx.Name;
                                         shortName = EDAxxxx.Attributes["shortName"].Value;
                                         description = EDAxxxx.InnerText;
+                                        match = true;
+                                        break;
                                     }
                                 }
                             }
