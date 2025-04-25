@@ -306,11 +306,7 @@ namespace S1084_AutoRelease
                 if (!int.TryParse(Convert.ToString(e.FormattedValue), out i))
                 {
                     e.Cancel = true;
-                    //   label1.Text = "please enter numeric";
-                }
-                else
-                {
-                    // the input is numeric 
+                    MessageBox.Show("Please enter numeric value only");
                 }
             }
         }
