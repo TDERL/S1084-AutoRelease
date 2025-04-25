@@ -87,7 +87,7 @@ namespace S1084_AutoRelease
             version = stage + revision.ToString();
 
             InitInfoLabel.Text = "You are about to complete " + version + ". Before closing Sprint " + version + ":\n" +
-                "1. Enter number of stories and points for project and all components in table below:\n" +
+                "1. Enter number of stories and points for project and all components in table below\n" +
                 "2. Ensure GIT Develop is up to date and then tagged with " + version + "\n";
 
             XmlElement softwareComponents = (XmlElement)project.GetElementsByTagName("Software")[0];
@@ -107,7 +107,7 @@ namespace S1084_AutoRelease
                     ComponentsTable.Rows.Add(hardwareComponents.ChildNodes[i].Name, 0, 0, 0, 0);
             }
 
-            var height = 40;
+            var height = 50;
             foreach (DataGridViewRow dr in ComponentsTable.Rows)
             {
                 height += dr.Height;
@@ -179,13 +179,6 @@ namespace S1084_AutoRelease
             GenerateReport generate = new GenerateReport();
             generate.ReportHomePage(db);
             generate.ProjectProgress(db, projectName);
-            //     }
-
-            //  }
-            // }
-
-
-
 
             this.Close();
         }
