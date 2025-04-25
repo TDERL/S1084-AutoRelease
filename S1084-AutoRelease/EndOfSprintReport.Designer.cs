@@ -1,6 +1,6 @@
 ﻿namespace S1084_AutoRelease
 {
-    partial class NormalRelease
+    partial class EndOfSprintReport
     {
         /// <summary>
         /// Required designer variable.
@@ -39,6 +39,13 @@
             DoneTextBox = new TextBox();
             OkayButton = new Button();
             CancelButton = new Button();
+            ComponentsTable = new DataGridView();
+            Component = new DataGridViewTextBoxColumn();
+            Backlog = new DataGridViewTextBoxColumn();
+            ToDo = new DataGridViewTextBoxColumn();
+            InProgress = new DataGridViewTextBoxColumn();
+            Done = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)ComponentsTable).BeginInit();
             SuspendLayout();
             // 
             // InitInfoLabel
@@ -153,11 +160,48 @@
             CancelButton.UseVisualStyleBackColor = true;
             CancelButton.Click += CancelButton_Click;
             // 
-            // NormalRelease
+            // ComponentsTable
+            // 
+            ComponentsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ComponentsTable.Columns.AddRange(new DataGridViewColumn[] { Component, Backlog, ToDo, InProgress, Done });
+            ComponentsTable.Location = new Point(310, 83);
+            ComponentsTable.Name = "ComponentsTable";
+            ComponentsTable.Size = new Size(724, 192);
+            ComponentsTable.TabIndex = 11;
+            ComponentsTable.CellValidating += ComponentsTable_CellValidating;
+            // 
+            // Component
+            // 
+            Component.HeaderText = "Component";
+            Component.Name = "Component";
+            Component.ReadOnly = true;
+            // 
+            // Backlog
+            // 
+            Backlog.HeaderText = "# of Stories in Backlog";
+            Backlog.Name = "Backlog";
+            // 
+            // ToDo
+            // 
+            ToDo.HeaderText = "# of Points in TO DO";
+            ToDo.Name = "ToDo";
+            // 
+            // InProgress
+            // 
+            InProgress.HeaderText = "# of Points in IN PROGRESS";
+            InProgress.Name = "InProgress";
+            // 
+            // Done
+            // 
+            Done.HeaderText = "# of Points in DONE";
+            Done.Name = "Done";
+            // 
+            // EndOfSprintReport
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(264, 341);
+            ClientSize = new Size(1117, 625);
+            Controls.Add(ComponentsTable);
             Controls.Add(OkayButton);
             Controls.Add(CancelButton);
             Controls.Add(DoneTextBox);
@@ -169,8 +213,9 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(InitInfoLabel);
-            Name = "NormalRelease";
-            Text = "Normal, end of Sprint, Release";
+            Name = "EndOfSprintReport";
+            Text = "End of Sprint Report";
+            ((System.ComponentModel.ISupportInitialize)ComponentsTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -188,5 +233,11 @@
         private TextBox DoneTextBox;
         private Button OkayButton;
         private Button CancelButton;
+        private DataGridView ComponentsTable;
+        private DataGridViewTextBoxColumn Component;
+        private DataGridViewTextBoxColumn Backlog;
+        private DataGridViewTextBoxColumn ToDo;
+        private DataGridViewTextBoxColumn InProgress;
+        private DataGridViewTextBoxColumn Done;
     }
 }

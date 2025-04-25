@@ -15,21 +15,22 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Security.Policy;
 using System.Xml.Linq;
+using System.Reflection.Emit;
 
 
 namespace S1084_AutoRelease
 {
-    public partial class NormalRelease : Form
+    public partial class EndOfSprintReport : Form
     {
         XmlDocument db;
         private string projectName = "";
         private string stage = "";
         private string version = "";
         private int revision = 0;
-       // XmlElement project;
-       // XmlElement sprints;
+        // XmlElement project;
+        // XmlElement sprints;
 
-        public NormalRelease(XmlDocument db, string name)
+        public EndOfSprintReport(XmlDocument db, string name)
         {
             InitializeComponent();
 
@@ -85,35 +86,37 @@ namespace S1084_AutoRelease
 
             version = stage + revision.ToString();
 
-            InitInfoLabel.Text = "You are about to complete " + version + "\nBefore closing Sprint " + version + "\nenter number of stories in:";
-        }
+            InitInfoLabel.Text = "You are about to complete " + version + ". Before closing Sprint " + version + ":\n" +
+                "1. Enter number of stories and points for project and all components in table below:\n" +
+                "2. Ensure GIT Develop is up to date and then tagged with " + version + "\n";
 
-        public bool Required()
-        {
-            bool returnValue = false;
-            XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
-            XmlElement sprints = (XmlElement)project.GetElementsByTagName("Sprints")[0];
-            string currentVersion = sprints.ChildNodes[sprints.ChildNodes.Count - 1].Name;
-            string repoPath = db.GetElementsByTagName(projectName)[0].Attributes["repoPath"].Value;
-            string[] response;
+            XmlElement softwareComponents = (XmlElement)project.GetElementsByTagName("Software")[0];
+            XmlElement hardwareComponents = (XmlElement)project.GetElementsByTagName("Hardware")[0];
 
-            using (PowerShell powershell = PowerShell.Create())
+            ComponentsTable.Rows.Add("Whole Project", 0, 0, 0, 0);
+
+            if (softwareComponents != null)
             {
-                powershell.AddScript($"cd {repoPath}");
-                powershell.AddScript(@"git describe --tags");
-                Collection<PSObject> results = powershell.Invoke();
-                response = results[0].BaseObject.ToString().Split("-");
+                for (int i = 0; i < softwareComponents.ChildNodes.Count; i++)
+                    ComponentsTable.Rows.Add(softwareComponents.ChildNodes[i].Name, 0, 0, 0, 0);
             }
 
-            if (response[0] != currentVersion)
-                MessageBox.Show("Cannot run release process as something has gone wrong which needs manual fixing\nCurrent version is " + currentVersion + "\nLatest GIT tag is " + response[0], "ERROR; Cannot run release process");
-            else if (response.Length == 1)
-                MessageBox.Show("No need to run through the Release Process as no code has been added since last release", "Current Release Still Latest");
-            else
-                returnValue = true;
+            if (hardwareComponents != null)
+            {
+                for (int i = 0; i < hardwareComponents.ChildNodes.Count; i++)
+                    ComponentsTable.Rows.Add(hardwareComponents.ChildNodes[i].Name, 0, 0, 0, 0);
+            }
 
-            return returnValue;
+            var height = 40;
+            foreach (DataGridViewRow dr in ComponentsTable.Rows)
+            {
+                height += dr.Height;
+            }
+
+            ComponentsTable.Height = height;
         }
+
+
 
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -140,7 +143,7 @@ namespace S1084_AutoRelease
 
             XmlElement project = (XmlElement)db.GetElementsByTagName(projectName)[0];
             XmlNode software = project.GetElementsByTagName("Software")[0];
- 
+
             //if (software == null)
             //{
             //    MessageBox.Show("Release process aborted: There is no software included in " + projectName);
@@ -177,7 +180,7 @@ namespace S1084_AutoRelease
             //        MessageBox.Show("Release process aborted:\n\n" + response[0]);
             //    }
 
- 
+
             //    // STEP 2 - Tag Develop Branch with latest release version
             //    // Only continue if fetching and updating Develop branch was successful
             //    if (this.DialogResult == DialogResult.OK)
@@ -234,7 +237,7 @@ namespace S1084_AutoRelease
             //                    if (Sxxxx.Name == softwareProject.Name)
             //                    {
             //                        // Found the right Software Project, so can now get all the paths needed to release
- 
+
             //                        string fileExtension = softwareProject.Attributes["outputType"].Value;
             //                        string outputPath = softwareProject.Attributes["outputPath"].Value;
             //                        //string archivePath = releasesPath + "\\Archive";
@@ -270,28 +273,46 @@ namespace S1084_AutoRelease
             //            }
             //            
 
-                        // Final STEP - Add release to XML DB and generate a new progress/releases report
-                        XmlElement newRelease = db.CreateElement(version);
-                        newRelease.SetAttribute("date", DateOnly.FromDateTime(DateTime.Now).ToString());
-                        newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
-                        newRelease.SetAttribute("todo", ToDoTextBox.Text);
-                        newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
-                        newRelease.SetAttribute("done", DoneTextBox.Text);
-                        project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
-                        db.Save(db.DocumentElement.GetAttribute("path"));
+            // Final STEP - Add release to XML DB and generate a new progress/releases report
+            XmlElement newRelease = db.CreateElement(version);
+            newRelease.SetAttribute("date", DateOnly.FromDateTime(DateTime.Now).ToString());
+            newRelease.SetAttribute("unplanned", BacklogTextBox.Text);
+            newRelease.SetAttribute("todo", ToDoTextBox.Text);
+            newRelease.SetAttribute("inProgress", InProgressTextBox.Text);
+            newRelease.SetAttribute("done", DoneTextBox.Text);
+            project.GetElementsByTagName("Sprints")[0].AppendChild(newRelease);
+            db.Save(db.DocumentElement.GetAttribute("path"));
 
-                        GenerateReport generate = new GenerateReport();
-                        generate.ReportHomePage(db);
-                        generate.ProjectProgress(db, projectName);
-               //     }
+            GenerateReport generate = new GenerateReport();
+            generate.ReportHomePage(db);
+            generate.ProjectProgress(db, projectName);
+            //     }
 
-              //  }
-           // }
+            //  }
+            // }
 
-            
+
 
 
             this.Close();
+        }
+
+        private void ComponentsTable_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex != 0)
+            {
+                int i;
+
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i))
+                {
+                    e.Cancel = true;
+                    //   label1.Text = "please enter numeric";
+                }
+                else
+                {
+                    // the input is numeric 
+                }
+            }
         }
     }
 }
